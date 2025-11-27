@@ -13,24 +13,32 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Create or update admin user
-        $user = User::updateOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
-                'name' => 'admin',
+                'name' => 'Admin User',
                 'password' => bcrypt('12345678'), // You should change this password
+                'role' => 'admin',
+                'date_of_birth' => '1990-01-15',
+                'gender' => 'male',
+                'state' => 'Active',
+                'email_verified_at' => now(),
             ]
         );
-        $user = User::updateOrCreate(
+
+        // Create or update student user
+        $student = User::updateOrCreate(
             ['email' => 'student@gmail.com'],
             [
-                'name' => 'student',
+                'name' => 'Student User',
                 'password' => bcrypt('12345678'), // You should change this password
+                'role' => 'student',
+                'date_of_birth' => '2005-06-20',
+                'gender' => 'female',
+                'state' => 'Active',
+                'email_verified_at' => now(),
             ]
         );
-        
-        // Set email as verified
-        $user->email_verified_at = now();
-        $user->save();
     }
 
     /**

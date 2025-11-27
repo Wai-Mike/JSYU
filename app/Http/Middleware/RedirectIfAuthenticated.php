@@ -25,8 +25,6 @@ class RedirectIfAuthenticated
                 // Redirect based on user role
                 $redirectRoute = match($user->role ?? null) {
                     'admin' => 'admin.dashboard',
-                    'expert' => 'expert.dashboard',
-                    'user', 'student' => 'student.dashboard',
                     default => 'student.dashboard'
                 };
 

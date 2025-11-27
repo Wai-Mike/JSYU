@@ -28,7 +28,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'google_id',
         'avatar',
-        'expo_token',
+        'date_of_birth',
+        'gender',
+        'state',
     ];
 
     /**
@@ -51,95 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'date_of_birth' => 'date',
         ];
     }
 
-     // Relationship: An event belongs to an organizer (user)
-     public function organizer()
-     {
-        return $this->belongsTo(Event::class, 'user_id');
-     }
- 
- 
-     // Relationship: An event can have many bookings
-     public function bookings()
-     {
-        return $this->hasMany(Booking::class);
-     }
-
-     // Relationship: A user can have one doctor profile
-     public function doctorProfile(): HasOne
-     {
-        return $this->hasOne(Doctor::class);
-     }
-
-     // Relationship: A user can have one profile
-     public function profile(): HasOne
-     {
-        return $this->hasOne(Profile::class);
-     }
-
-     // Check if user is a doctor
-     public function isDoctor(): bool
-     {
-        try {
-            return $this->doctor !== null;
-        } catch (\Exception $e) {
-            return false;
-        }
-     }
-
-    // Check if user is a verified doctor
-    public function isVerifiedDoctor(): bool
-    {
-        try {
-            return $this->doctor && $this->doctor->is_verified;
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    // Post relationships
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function reactions(): MorphMany
-    {
-        return $this->morphMany(Reaction::class, 'user');
-    }
-
-    // Topic moderation relationships
-    public function approvedTopics(): HasMany
-    {
-        return $this->hasMany(Topic::class, 'approved_by');
-    }
-
-    public function moderatedComments(): HasMany
-    {
-        return $this->hasMany(Comment::class, 'moderated_by');
-    }
-
-    // User enrollments relationship (learning progress consolidated)
-    public function moduleEnrollments(): HasMany
-    {
-        return $this->hasMany(ModuleEnrollment::class);
-    }
-
-    // Question relationships
-    public function questions(): HasMany
-    {
-        return $this->hasMany(Question::class);
-    }
-
-    public function answers(): HasMany
-    {
-        return $this->hasMany(Answer::class);
-    }
 }
