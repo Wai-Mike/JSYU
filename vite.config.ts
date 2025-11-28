@@ -39,7 +39,7 @@ export default defineConfig({
             credentials: true,
         },
         hmr: {
-            host: '10.123.136.43',
+            host: '10.103.233.43',
         },
     },
 });

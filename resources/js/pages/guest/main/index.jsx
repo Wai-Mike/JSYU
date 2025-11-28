@@ -1,13 +1,19 @@
 import GuestLayout from '../../../layouts/GuestLayout';
+import CTASection from './CTASection.jsx';
+import StudentDigiFriendSection from './DigiFriendSection.jsx';
+import StudentHeroSection from './HeroSection.jsx';
+import LearningJourneySection from './LearningJourneySection.jsx';
+import StudentProcessSection from './ProcessSection.jsx';
 
 export default function index() {
     return (
         <GuestLayout>
             <div className="mx-auto max-w-7xl">
-                <div className="py-16 text-center">
-                    <h1 className="mb-4 text-4xl font-bold text-gray-900">Welcome to DigiPhabet</h1>
-                    <p className="text-xl text-gray-600">Your learning platform</p>
-                </div>
+                <StudentHeroSection />
+                <StudentProcessSection />
+                <StudentDigiFriendSection />
+                <LearningJourneySection />
+                <CTASection />
             </div>
         </GuestLayout>
     );
