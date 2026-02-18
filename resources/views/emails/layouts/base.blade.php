@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', config('app.name', 'DigiPhabet'))</title>
+    <title>@yield('title', config('app.name', 'Jonglei State Youth Union'))</title>
     <style>
         * {
             margin: 0;
@@ -272,9 +272,9 @@
         <div class="email-header">
             <div class="logo-container">
                 <img src="{{ config('app.url') }}/images/dark-background-logo.png.png"
-                    alt="{{ config('app.name', 'DigiPhabet') }}" class="logo"
+                    alt="{{ config('app.name', 'Jonglei State Youth Union') }}" class="logo"
                     style="display: block; max-width: 120px; height: auto;">
-                <h1 class="logo-text">{{ config('app.name', 'DigiPhabet') }}</h1>
+                <h1 class="logo-text">{{ config('app.name', 'Jonglei State Youth Union') }}</h1>
                 <p class="logo-subtitle">
                     @if (isset($user) && $user->account_type === 'user')
                         Your Event Management Platform
@@ -291,7 +291,7 @@
 
         <div class="email-footer">
             <p class="footer-text">
-                Thank you for using {{ config('app.name', 'DigiPhabet') }}!<br>
+                Thank you for using {{ config('app.name', 'Jonglei State Youth Union') }}!<br>
                 If you have any questions, please don't hesitate to contact our support team.
             </p>
 
@@ -304,7 +304,7 @@
             <div class="divider"></div>
 
             <p class="footer-text">
-                © {{ date('Y') }} {{ config('app.name', 'DigiPhabet') }}. All rights reserved.<br>
+                © {{ date('Y') }} {{ config('app.name', 'Jonglei State Youth Union') }}. All rights reserved.<br>
                 This email was sent to you because you have an account with us.
             </p>
         </div>

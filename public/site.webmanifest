@@ -1,17 +1,16 @@
 {
-  "name": "Family Planning",
-  "short_name": "FP",
-  "description": "Family Planning: Your Health Journey",
+  "name": "Jonglei State Youth Union",
+  "short_name": "JSYI",
+  "description": "Jonglei State Youth Union - Representation, Peacebuilding & Youth Empowerment",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#10b981",
+  "theme_color": "#0c7c7a",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/x-icon"
+      "type": "image/svg+xml"
     }
   ]
 }
-

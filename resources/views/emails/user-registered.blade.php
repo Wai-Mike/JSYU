@@ -232,8 +232,8 @@
     <div class="email-container">
         <div class="email-header">
             <div class="logo-container">
-                <h1 class="logo-text">🌸 {{ $appName }}</h1>
-                <p class="logo-subtitle">Future of Family Planning Initiative</p>
+                <h1 class="logo-text">{{ $appName }}</h1>
+                <p class="logo-subtitle">Representation, Peacebuilding & Youth Empowerment</p>
             </div>
         </div>
 
@@ -243,11 +243,11 @@
             </div>
 
             <div class="content-body">
-                <p>We're absolutely thrilled to have you join our family planning community! You've taken an important
-                    step towards taking control of your reproductive health journey.</p>
+                <p>We're thrilled to have you join Jonglei State Youth Union! You've taken an important step towards
+                    representing youth, building peace, and empowering communities in Jonglei State.</p>
 
-                <p>Our platform is designed to support you every step of the way, whether you're planning for a family,
-                    tracking your health, or simply want to understand your body better.</p>
+                <p>Our platform is designed to support you every step of the way—whether you want to get involved in
+                    youth representation, peacebuilding dialogues, or access education and economic opportunities.</p>
             </div>
 
             <div style="text-align: center;">
@@ -259,15 +259,12 @@
             <div class="features">
                 <h3>✨ What you can do with your account:</h3>
                 <ul>
-                    <li><strong>Cycle Tracking:</strong> Monitor your menstrual cycle and fertility indicators</li>
-                    <li><strong>Expert Consultations:</strong> Connect with healthcare professionals and fertility
-                        experts</li>
-                    <li><strong>Health Monitoring:</strong> Track your reproductive health and wellness metrics</li>
-                    <li><strong>Community Support:</strong> Join discussions and connect with others on similar journeys
-                    </li>
-                    <li><strong>Appointment Scheduling:</strong> Book consultations with trusted healthcare providers
-                    </li>
-                    <li><strong>Educational Resources:</strong> Access comprehensive guides and expert advice</li>
+                    <li><strong>Youth Representation:</strong> Participate in youth voice initiatives across Jonglei State</li>
+                    <li><strong>Peacebuilding:</strong> Join dialogues and programs for community peace</li>
+                    <li><strong>Programs:</strong> Explore education, vocational training, and economic opportunities</li>
+                    <li><strong>Community:</strong> Connect with young people from across Jonglei</li>
+                    <li><strong>Get Involved:</strong> Access programs and events that matter to youth</li>
+                    <li><strong>Resources:</strong> Stay informed on youth representation and development</li>
                 </ul>
             </div>
 
@@ -281,18 +278,17 @@
             </div>
 
             <div class="content-body">
-                <p>We're here to support you with reliable information, expert guidance, and a caring community. If you
-                    have any questions or need assistance, our support team is always ready to help.</p>
+                <p>We're here to support you with youth representation, peacebuilding, and empowerment. If you have any
+                    questions or need assistance, our team is always ready to help.</p>
 
-                <p>Thank you for trusting us with your family planning needs. We're excited to be part of your health
-                    journey!</p>
+                <p>Thank you for joining Jonglei State Youth Union. Together we can represent youth, build peace, and empower communities!</p>
             </div>
         </div>
 
         <div class="email-footer">
             <p class="footer-text">
                 Best regards,<br>
-                The {{ $appName }} Team 💕
+                The {{ $appName }} Team
             </p>
 
             <div class="social-links">

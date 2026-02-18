@@ -181,7 +181,7 @@
         <div class="email-header">
             <div class="logo-container">
                 <h1 class="logo-text">🌸 {{ $appName }}</h1>
-                <p class="logo-subtitle">Future of Family Planning Initiative</p>
+                <p class="logo-subtitle">Representation, Peacebuilding & Youth Empowerment</p>
             </div>
         </div>
 
@@ -216,7 +216,7 @@
         <div class="email-footer">
             <div class="footer-text">
                 <p><strong>{{ $appName }}</strong></p>
-                <p>Supporting your family planning journey</p>
+                <p>Supporting youth representation, peacebuilding, and empowerment</p>
             </div>
             <div class="footer-links">
                 <a href="{{ config('app.url') }}">Visit Website</a>

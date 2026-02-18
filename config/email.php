@@ -13,12 +13,12 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'noreply@familyplanning.com'),
-        'name' => env('MAIL_FROM_NAME', 'Family Planning Platform'),
+        'name' => env('MAIL_FROM_NAME', 'Jonglei State Youth Union'),
     ],
 
     'reply_to' => [
         'address' => env('MAIL_REPLY_TO_ADDRESS', 'support@familyplanning.com'),
-        'name' => env('MAIL_REPLY_TO_NAME', 'Family Planning Support Team'),
+        'name' => env('MAIL_REPLY_TO_NAME', 'Jonglei State Youth Union Support'),
     ],
 
     'templates' => [

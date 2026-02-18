@@ -23,7 +23,7 @@ html {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, rgb(210, 166, 73), rgb(246, 203, 110));
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width;
 }
@@ -65,12 +65,12 @@ a,
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(210, 166, 73);
+    background: #38bdf8;
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(246, 203, 110);
+    background: #0ea5e9;
 }
 
 /* Prevent body overflow when mobile menu is open */
@@ -84,9 +84,10 @@ body.mobile-menu-open {
     overflow-x: hidden;
 }
 
-/* Prevent horizontal overflow on all elements */
-* {
-    max-width: 100%;
+/* Box sizing */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 

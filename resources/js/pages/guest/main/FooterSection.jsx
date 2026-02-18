@@ -6,22 +6,20 @@ export default function FooterSection() {
 
     const footerLinks = {
         company: [
-            { name: 'About Us', href: '#' },
-            { name: 'Our Mission', href: '#' },
-            { name: 'Team', href: '#' },
-            { name: 'Careers', href: '#' },
+            { name: 'About Us', href: '/#about' },
+            { name: 'Our Mission', href: '/#about' },
+            { name: 'Programs', href: '/programs' },
+            { name: 'Contact', href: 'mailto:info@jongleiyouthunion.org' },
         ],
         resources: [
-            { name: 'Learning Paths', href: '#' },
-            { name: 'Activities', href: '#' },
-            { name: 'Parent Guide', href: '#' },
-            { name: 'FAQ', href: '#' },
+            { name: 'Youth Representation', href: '/programs' },
+            { name: 'Peacebuilding', href: '/programs' },
+            { name: 'Education & Training', href: '/programs' },
+            { name: 'Get Involved', href: 'mailto:info@jongleiyouthunion.org' },
         ],
         legal: [
             { name: 'Privacy Policy', href: '#' },
             { name: 'Terms of Service', href: '#' },
-            { name: 'Cookie Policy', href: '#' },
-            { name: 'Accessibility', href: '#' },
         ],
     };
 
@@ -43,29 +41,23 @@ export default function FooterSection() {
                                 <Sparkles className="h-8 w-8 text-yellow-500" />
                                 <div className="absolute inset-0 animate-ping rounded-full bg-yellow-500 opacity-30 blur-md"></div>
                             </div>
-                            <span className="text-2xl font-bold text-gray-900">DigiPhabet</span>
+                            <span className="text-2xl font-bold text-gray-900">Jonglei State Youth Union</span>
                         </Link>
                         <p className="mb-6 max-w-sm text-sm leading-relaxed text-gray-600">
-                            Empowering young minds to explore the digital world with confidence, creativity, and curiosity. Building foundational
-                            digital literacy through playful, safe, and engaging adventures.
+                            The primary representative body for young people in Jonglei State, South Sudan. Advocating
+                            for youth representation, peacebuilding, education, and economic opportunities.
                         </p>
                         {/* Contact Info */}
                         <div className="space-y-3 text-sm text-gray-600">
                             <div className="flex items-center gap-2">
                                 <Mail className="h-4 w-4 text-yellow-500" />
-                                <a href="mailto:info@digiphabet.com" className="transition-colors hover:text-yellow-500">
-                                    info@digiphabet.com
-                                </a>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Phone className="h-4 w-4 text-yellow-500" />
-                                <a href="tel:+1234567890" className="transition-colors hover:text-yellow-500">
-                                    +1 (234) 567-890
+                                <a href="mailto:info@jongleiyouthunion.org" className="transition-colors hover:text-yellow-500">
+                                    info@jongleiyouthunion.org
                                 </a>
                             </div>
                             <div className="flex items-start gap-2">
                                 <MapPin className="mt-0.5 h-4 w-4 text-yellow-500" />
-                                <span>123 Digital Street, Tech City, TC 12345</span>
+                                <span>Bor, Jonglei State, South Sudan</span>
                             </div>
                         </div>
                     </div>
@@ -138,7 +130,7 @@ export default function FooterSection() {
 
                         {/* Copyright */}
                         <div className="text-center text-sm text-gray-600 md:text-left">
-                            <p>&copy; {currentYear} DigiPhabet. All rights reserved.</p>
+                            <p>&copy; {currentYear} Jonglei State Youth Union. All rights reserved.</p>
                         </div>
                     </div>
                 </div>

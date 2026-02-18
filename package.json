@@ -1,11 +1,13 @@
 {
+    "name": "jonglei-youth-union",
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
+        "build": "vite build && node scripts/copy-manifest.cjs",
         "build:production": "vite build --mode production",
         "build:ssr": "vite build && vite build --ssr",
         "deploy": "node deploy.js",
+        "deploy:prepare": "npm run build && node scripts/prepare-hostinger.cjs",
         "dev": "vite",
         "start": "vite",
         "format": "prettier --write resources/",

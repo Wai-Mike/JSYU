@@ -3,16 +3,16 @@ export default function StudentHeroSection() {
         <section className="relative w-screen overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-center text-white shadow-2xl">
             <div className="relative z-10">
                 <h1 className="mb-6 text-5xl leading-tight font-bold md:text-6xl lg:text-7xl">
-                    DigiPhabet: Your Child's First Guide to the Digital World
+                    Welcome to Jonglei State Youth Union
                 </h1>
-                <p className="mb-8 text-xl font-light md:text-2xl">The playful, safe way for kids ages 6–8 to build foundational digital literacy.</p>
+                <p className="mb-8 text-xl font-light md:text-2xl">Representation. Peacebuilding. Empowerment. Your voice matters in shaping the future of Jonglei.</p>
                 <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-                    <button className="rounded-full bg-white px-8 py-4 text-lg font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-xl">
-                        Start Your Adventure
-                    </button>
-                    <button className="rounded-full border-2 border-white bg-transparent px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-white hover:text-blue-600">
-                        Explore Demo
-                    </button>
+                    <a href="/programs" className="rounded-full bg-white px-8 py-4 text-lg font-semibold text-blue-600 transition-all hover:scale-105 hover:shadow-xl">
+                        Explore Programs
+                    </a>
+                    <a href="/#about" className="rounded-full border-2 border-white bg-transparent px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-white hover:text-blue-600">
+                        Learn About Us
+                    </a>
                 </div>
             </div>
             {/* Decorative background elements */}

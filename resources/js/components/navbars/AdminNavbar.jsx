@@ -45,7 +45,7 @@ export default function AdminNavbar() {
                     <div className="flex items-center">
                         <Link href={route('admin.dashboard')} className="flex items-center">
                             <Shield className="mr-2 h-6 w-6 text-red-500" />
-                            <span className="text-2xl font-bold text-white">DigiPhabet Admin</span>
+                            <span className="text-2xl font-bold text-white">Jonglei State Youth Union Admin</span>
                         </Link>
                     </div>
 

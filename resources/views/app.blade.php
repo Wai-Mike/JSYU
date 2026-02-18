@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="overflow-x-hidden {{ ($appearance ?? 'system') == 'dark' ? 'dark' : '' }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- SEO Meta Tags --}}
-    <title>@yield('title', 'DigiPhabet - Interactive Learning Platform for Children Ages 6-8')</title>
-    <meta name="description" content="@yield('description', 'DigiPhabet serves as both a marketing platform for parents and an interactive learning portal for children ages 6-8. A fun and engaging learning platform designed to help young children develop essential skills.')">
-    <meta name="keywords" content="@yield('keywords', 'DigiPhabet, children learning, kids education, interactive learning, early childhood education, learning platform, educational games, children ages 6-8, parent resources, kids activities')">
-    <meta name="author" content="DigiPhabet">
+    <title>@yield('title', 'Jonglei State Youth Union - Representation, Peacebuilding & Youth Empowerment')</title>
+    <meta name="description" content="@yield('description', 'The Jonglei State Youth Union (JSYI) is the primary representative body for young people in Jonglei State, South Sudan. We advocate for youth representation, peacebuilding, education, and economic opportunities.')">
+    <meta name="keywords" content="@yield('keywords', 'Jonglei State Youth Union, JSYI, Jonglei State, South Sudan youth, youth representation, peacebuilding, youth empowerment, Bor, SSNYU')">
+    <meta name="author" content="Jonglei State Youth Union">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
     {{-- Canonical URL --}}
@@ -17,35 +17,32 @@
 
     {{-- Open Graph Meta Tags --}}
     <meta property="og:type" content="website">
-    <meta property="og:title" content="@yield('og_title', 'DigiPhabet - Interactive Learning Platform for Children Ages 6-8')">
-    <meta property="og:description" content="@yield('og_description', 'DigiPhabet serves as both a marketing platform for parents and an interactive learning portal for children ages 6-8. A fun and engaging learning platform designed to help young children develop essential skills.')">
+    <meta property="og:title" content="@yield('og_title', 'Jonglei State Youth Union - Representation, Peacebuilding & Youth Empowerment')">
+    <meta property="og:description" content="@yield('og_description', 'The Jonglei State Youth Union is the primary representative body for young people in Jonglei State, South Sudan. Advocating for youth representation, peacebuilding, and empowerment.')">
     <meta property="og:url" content="@yield('og_url', request()->url())">
-    <meta property="og:site_name" content="DigiPhabet">
-    <meta property="og:image" content="@yield('og_image', asset('images/digiphabet-og-image.jpg'))">
+    <meta property="og:site_name" content="Jonglei State Youth Union">
+    <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
 
     {{-- Twitter Card Meta Tags --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('twitter_title', 'DigiPhabet - Interactive Learning Platform for Children Ages 6-8')">
-    <meta name="twitter:description" content="@yield('twitter_description', 'DigiPhabet serves as both a marketing platform for parents and an interactive learning portal for children ages 6-8. A fun and engaging learning platform.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('images/digiphabet-twitter-image.jpg'))">
-    <meta name="twitter:site" content="@DigiPhabet">
-    <meta name="twitter:creator" content="@DigiPhabet">
+    <meta name="twitter:title" content="@yield('twitter_title', 'Jonglei State Youth Union - Representation, Peacebuilding & Youth Empowerment')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'The Jonglei State Youth Union is the primary representative body for young people in Jonglei State, South Sudan.')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/logo.png'))">
+    <meta name="twitter:site" content="@JongleiYouth">
+    <meta name="twitter:creator" content="@JongleiYouth">
 
     {{-- Additional SEO Meta Tags --}}
     <meta name="theme-color" content="#166534">
     <meta name="msapplication-TileColor" content="#166534">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="DigiPhabet">
+    <meta name="apple-mobile-web-app-title" content="Jonglei State Youth Union">
 
     {{-- Favicon and App Icons --}}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
     {{-- Preconnect for Performance --}}
@@ -93,7 +90,7 @@
     @inertiaHead
 </head>
 
-<body class="font-sans antialiased">
+<body class="min-h-screen overflow-x-hidden font-sans antialiased">
     @inertia
 
     {{-- Google Analytics --}}

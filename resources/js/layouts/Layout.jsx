@@ -58,7 +58,7 @@ export default function Layout({ children }) {
                     <div className="flex h-0 flex-1 flex-col border-r border-gray-200 bg-white">
                         <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
                             <div className="flex flex-shrink-0 items-center px-4">
-                                <h1 className="text-xl font-bold text-gray-900">Family Planning</h1>
+                                <h1 className="text-xl font-bold text-gray-900">Jonglei State Youth Union</h1>
                             </div>
                             <nav className="mt-5 flex-1 space-y-1 px-2">
                                 {navigation.map((item) => (

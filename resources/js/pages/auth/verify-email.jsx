@@ -10,7 +10,7 @@ export default function VerifyEmail({ status }) {
 
     return (
         <div className="flex min-h-screen">
-            <Head title="Verify Email - Family Planning" />
+            <Head title="Verify Email - Jonglei State Youth Union" />
 
             {/* Left Section - Image with Gradient */}
             <div className="relative hidden lg:flex lg:flex-1">
@@ -33,8 +33,8 @@ export default function VerifyEmail({ status }) {
                                     />
                                 </svg>
                             </div>
-                            <h2 className="mb-4 text-3xl font-bold">Verify Your Email</h2>
-                            <p className="text-lg opacity-90">Please verify your email address to continue</p>
+                            <h2 className="mb-4 text-3xl font-bold">Jonglei State Youth Union</h2>
+                            <p className="text-lg opacity-90">Verify your email to access your account and get involved</p>
                         </div>
                     </div>
                 </div>
@@ -45,8 +45,8 @@ export default function VerifyEmail({ status }) {
                 <div className="w-full max-w-md">
                     {/* Header */}
                     <div className="mb-8">
-                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
-                            <svg className="h-8 w-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-100">
+                            <svg className="h-8 w-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -55,11 +55,12 @@ export default function VerifyEmail({ status }) {
                                 />
                             </svg>
                         </div>
+                        <p className="mb-1 text-center text-sm font-medium text-sky-600">Jonglei State Youth Union</p>
                         <h1 className="mb-2 text-center text-3xl font-bold text-gray-900">Verify Your Email</h1>
                         <p className="text-center text-sm text-gray-600">
                             Before continuing, please verify your email address by clicking the link in the email we sent you.
                         </p>
-                        <div className="mx-auto mt-4 h-1 w-12 rounded bg-emerald-600"></div>
+                        <div className="mx-auto mt-4 h-1 w-12 rounded bg-sky-600"></div>
                     </div>
 
                     {/* Status Message */}
@@ -104,7 +105,7 @@ export default function VerifyEmail({ status }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="w-full rounded-lg bg-emerald-600 px-4 py-3 font-medium text-white transition-colors hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="w-full rounded-lg bg-sky-600 px-4 py-3 font-medium text-white transition-colors hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {processing ? (
                                 <>
@@ -133,7 +134,7 @@ export default function VerifyEmail({ status }) {
                     <div className="mt-6 rounded-lg bg-gray-50 p-4">
                         <p className="text-center text-sm text-gray-600">
                             If you continue to have issues, please{' '}
-                            <a href={route('contact')} className="font-medium text-emerald-600 hover:text-emerald-500">
+                            <a href={route('contact')} className="font-medium text-sky-600 hover:text-sky-500">
                                 contact support
                             </a>
                             .
@@ -142,7 +143,7 @@ export default function VerifyEmail({ status }) {
 
                     {/* Back to Home */}
                     <div className="mt-8 text-center">
-                        <a href={route('home')} className="text-sm text-gray-600 transition-colors hover:text-emerald-600">
+                        <a href={route('home')} className="text-sm text-gray-600 transition-colors hover:text-sky-600">
                             ← Back to home
                         </a>
                     </div>

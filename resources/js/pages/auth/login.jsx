@@ -26,7 +26,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <div className="flex h-screen overflow-hidden">
-            <Head title="Login - DigiPhabet" />
+            <Head title="Login - Jonglei State Youth Union" />
 
             {/* Left Section - Image with Gradient */}
             <div className="relative hidden h-full overflow-hidden lg:flex lg:flex-1">
@@ -61,6 +61,7 @@ export default function Login({ status, canResetPassword }) {
 
                     {/* Header */}
                     <div className="mb-6">
+                        <p className="mb-1 text-sm font-medium text-sky-600">Jonglei State Youth Union</p>
                         <h1 className="mb-2 text-2xl font-bold text-gray-700">LOGIN</h1>
                         <div className="h-1 w-12 rounded bg-gradient-to-r from-sky-500 to-red-500"></div>
                     </div>

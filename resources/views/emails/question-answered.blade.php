@@ -241,7 +241,7 @@
         <div class="email-header">
             <div class="logo-container">
                 <h1 class="logo-text">🌸 {{ $appName }}</h1>
-                <p class="logo-subtitle">Future of Family Planning Initiative</p>
+                <p class="logo-subtitle">Representation, Peacebuilding & Youth Empowerment</p>
             </div>
         </div>
 

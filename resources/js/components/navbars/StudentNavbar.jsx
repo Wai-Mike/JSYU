@@ -43,7 +43,7 @@ export default function StudentNavbar() {
                     {/* Logo */}
                     <div className="flex items-center">
                         <Link href={route('student.dashboard')} className="flex items-center">
-                            <span className="text-2xl font-bold text-blue-600">DigiPhabet</span>
+                            <span className="text-2xl font-bold text-blue-600">Jonglei State Youth Union</span>
                         </Link>
                     </div>
 

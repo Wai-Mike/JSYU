@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'DigiPhabet'),
+    'name' => env('APP_NAME', 'Jonglei State Youth Union'),
 
     /*
     |--------------------------------------------------------------------------

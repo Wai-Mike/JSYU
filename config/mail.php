@@ -110,7 +110,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'noreply@familyplanning.com'),
-        'name' => env('MAIL_FROM_NAME', 'Family Planning Platform'),
+        'name' => env('MAIL_FROM_NAME', 'Jonglei State Youth Union'),
     ],
 
 ];

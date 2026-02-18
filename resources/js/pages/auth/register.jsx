@@ -30,7 +30,7 @@ export default function Register() {
 
     return (
         <div className="flex min-h-screen">
-            <Head title="Register - Family Planning" />
+            <Head title="Get Involved - Jonglei State Youth Union" />
 
             {/* Left Section - Image with Gradient */}
             <div className="relative hidden lg:flex lg:w-1/2">
@@ -40,7 +40,7 @@ export default function Register() {
                         backgroundImage: `url('/images/pexels-pixabay-39691.jpg')`,
                     }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/90 via-green-800/85 to-green-700/80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-sky-900/80 via-sky-800/75 to-sky-700/70"></div>
                     <div className="relative z-10 flex h-full items-center justify-center">
                         <div className="p-8 text-center text-white">
                             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
@@ -48,8 +48,8 @@ export default function Register() {
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                 </svg>
                             </div>
-                            <h2 className="mb-4 text-3xl font-bold">Join Our Community</h2>
-                            <p className="text-lg opacity-90">Start your journey towards better reproductive health</p>
+                            <h2 className="mb-4 text-3xl font-bold">Jonglei State Youth Union</h2>
+                            <p className="text-lg opacity-90">Join us in representing youth, building peace, and empowering communities</p>
                         </div>
                     </div>
                 </div>
@@ -60,9 +60,10 @@ export default function Register() {
                 <div className="w-full max-w-md">
                     {/* Header */}
                     <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
-                        <p className="mt-2 text-sm text-gray-600">Join our community to get started</p>
-                        <div className="mt-4 h-1 w-12 rounded bg-emerald-600"></div>
+                        <p className="text-sm font-medium text-sky-600">Jonglei State Youth Union</p>
+                        <h2 className="mt-1 text-3xl font-bold text-gray-900">Create your account</h2>
+                        <p className="mt-2 text-sm text-gray-600">Get involved and join the youth voice in Jonglei State</p>
+                        <div className="mt-4 h-1 w-12 rounded bg-sky-600"></div>
                     </div>
 
                     <form className="space-y-6" onSubmit={submit}>
@@ -77,7 +78,7 @@ export default function Register() {
                                 type="text"
                                 autoComplete="name"
                                 required
-                                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500"
                                 placeholder="Enter your full name"
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
@@ -107,7 +108,7 @@ export default function Register() {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500"
                                 placeholder="Enter your email address"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
@@ -134,15 +135,15 @@ export default function Register() {
                             <select
                                 id="role"
                                 name="role"
-                                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-sky-500 focus:ring-2 focus:ring-sky-500"
                                 value={data.role}
                                 onChange={(e) => setData('role', e.target.value)}
                             >
                                 <option value="user" className="bg-white text-gray-900">
-                                    General User
+                                    Youth Member
                                 </option>
                                 <option value="expert" className="bg-white text-gray-900">
-                                    Health Expert
+                                    Partner Organization
                                 </option>
                             </select>
                             {errors.role && (
@@ -171,7 +172,7 @@ export default function Register() {
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="new-password"
                                     required
-                                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 pr-12 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 pr-12 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500"
                                     placeholder="Create a strong password"
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
@@ -229,7 +230,7 @@ export default function Register() {
                                     type={showConfirmPassword ? 'text' : 'password'}
                                     autoComplete="new-password"
                                     required
-                                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 pr-12 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 pr-12 text-gray-900 transition-colors placeholder:text-gray-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500"
                                     placeholder="Confirm your password"
                                     value={data.password_confirmation}
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
@@ -282,17 +283,17 @@ export default function Register() {
                                 name="terms"
                                 type="checkbox"
                                 required
-                                className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                                className="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
                                 checked={data.terms}
                                 onChange={(e) => setData('terms', e.target.checked)}
                             />
                             <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
                                 I agree to the{' '}
-                                <Link href="#" className="text-emerald-600 hover:text-emerald-500">
+                                <Link href="#" className="text-sky-600 hover:text-sky-500">
                                     Terms of Service
                                 </Link>{' '}
                                 and{' '}
-                                <Link href="#" className="text-emerald-600 hover:text-emerald-500">
+                                <Link href="#" className="text-sky-600 hover:text-sky-500">
                                     Privacy Policy
                                 </Link>
                             </label>
@@ -314,7 +315,7 @@ export default function Register() {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="flex w-full items-center justify-center rounded-lg border border-transparent bg-emerald-600 px-4 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex w-full items-center justify-center rounded-lg border border-transparent bg-sky-600 px-4 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {processing ? (
                                 <>
@@ -354,7 +355,7 @@ export default function Register() {
                                 type="button"
                                 onClick={handleGoogleLogin}
                                 disabled={isGoogleLoading}
-                                className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 {isGoogleLoading ? (
                                     <>
@@ -399,7 +400,7 @@ export default function Register() {
                     <div className="mt-8 text-center">
                         <p className="text-sm text-gray-600">
                             Already have an account?{' '}
-                            <Link href={route('login')} className="font-medium text-emerald-600 transition-colors hover:text-emerald-500">
+                            <Link href={route('login')} className="font-medium text-sky-600 transition-colors hover:text-sky-500">
                                 Sign in here
                             </Link>
                         </p>
@@ -407,7 +408,7 @@ export default function Register() {
 
                     {/* Back to Home */}
                     <div className="mt-4 text-center">
-                        <Link href={route('home')} className="text-sm text-gray-600 transition-colors hover:text-emerald-600">
+                        <Link href={route('home')} className="text-sm text-gray-600 transition-colors hover:text-sky-600">
                             ← Back to home
                         </Link>
                     </div>

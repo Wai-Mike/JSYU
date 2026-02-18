@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Guest\PageController;
+use App\Http\Controllers\Guest\AssociationPageController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 
 // Include auth routes
@@ -21,8 +21,9 @@ require __DIR__.'/admin.php';
 |
 */
 
-// Guest Routes (Public)
-Route::get('/', [PageController::class, 'index'])->name('home');
+// Jonglei State Youth Union public pages
+Route::get('/', [AssociationPageController::class, 'index'])->name('home');
+Route::get('/programs', [AssociationPageController::class, 'programs'])->name('programs');
 
 // Student Routes (Authenticated Students)
 Route::middleware(['auth', 'verified', 'role:student'])->prefix('student')->group(function () {

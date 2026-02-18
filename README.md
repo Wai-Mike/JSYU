@@ -1,84 +1,52 @@
-Here is a clean, **well-organized website dashboard structure** based on everything you listed — formatted exactly like a professional landing-page layout.
+# Jonglei State Youth Union Website
 
----
+The official website for the Jonglei State Youth Union (JSYI), the primary representative body for young people in Jonglei State, South Sudan.
 
-# ✅ **DigiPhabet Website Dashboard Structure**
+## About
 
-## **1. Hero Section**
+The Jonglei State Youth Union is an independent, non-political, and non-profit civil society organization. Its core mandate includes:
 
-**Headline:**
-**DigiPhabet: Your Child's First Guide to the Digital World**
+- **Youth Representation** – Promoting institutionalized representation of youth in state and county-level decision-making
+- **Peacebuilding** – Facilitating dialogues between different ethnic communities to mitigate inter-communal violence
+- **Youth Empowerment** – Advocating for access to quality education, vocational training, and economic opportunities
+- **Humanitarian Advocacy** – Advocating for humanitarian access and support for displaced youth
 
-**Sub-headline:**
-_The playful, safe way for kids ages 6–8 to build foundational digital literacy._
+## Tech Stack
 
-**Visual Component (Rotating Gallery / Carousel):**
+- **Backend:** Laravel (PHP)
+- **Frontend:** React, Inertia.js, Tailwind CSS, Vite
+- **Database:** SQLite (default) / MySQL
 
-- Physical textbook with stickers
-- Website interface featuring characters
-- Child using the DigiPhabet product
+## Getting Started
 
-**CTAs:**
+### Prerequisites
 
-- **Start Your Adventure**
-- **Explore Demo**
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- npm or yarn
 
----
+### Installation
 
-## **2. How It Works Section**
+1. Clone the repository and navigate to the project directory.
+2. Run `composer install` to install PHP dependencies.
+3. Run `npm install` to install Node dependencies.
+4. Copy `.env.example` to `.env` and configure.
+5. Run `php artisan key:generate`.
+6. Run `php artisan migrate`.
+7. Run `npm run build` to build frontend assets.
+8. Run `php artisan serve` to start the development server.
 
-**Three-Column Layout:**
+### Development
 
-### 📖 **Get the Book**
+- **Backend:** `php artisan serve` (serves at http://localhost:8000)
+- **Frontend (hot reload):** `npm run dev` (Vite dev server)
+- **Production build:** `npm run build`
 
-_The tactile, screen-free adventure with stickers and stories._
+## Structure
 
-### 💻 **Play Online**
-
-_The interactive digital playground that brings characters to life._
-
-### 🧠 **Learn & Grow**
-
-_Watch confidence soar as they master the digital world._
-
----
-
-## **3. Meet the DigiFriends**
-
-**Featured Characters (Large Illustrations):**
-
-- **Kibo** – _Curious Explorer_
-- **Nuru** – _Friendly Explainer_
-- **Piki** – _Helpful Robot Friend_
-
-**Tagline:**
-**"Your child's guides on this learning adventure!"**
-
----
-
-## **4. Learning Journey**
-
-**Five Worlds (Visual Icon Grid):**
-
-- 🌳 **Magical Tech Tree**
-- 🔤 **Digital ABCs**
-- 💻 **Inside Computers**
-- ⭐ **Digital Superstars**
-- 🤖 **Mini Makers**
-
----
-
-## **5. Final CTA Section**
-
-- **Explore Free Activities** _(takes users to the kids’ area)_
-- **Buy the Book & Get Digital Access\***
-
----
-
-If you want, I can also:
-
-✅ Turn this into **Tailwind-powered HTML**
-✅ Convert it into a **React/Next.js page**
-✅ Create a **dashboard wireframe design**
-✅ Produce a **Figma-style structure**
-Just tell me which one you want.
+- Public home page with hero, about, programs, and CTA sections
+- Programs page describing Youth Representation, Peacebuilding, Education, and Humanitarian Advocacy
+- Student dashboard (authenticated members)
+- Admin dashboard (administrators)
+- Authentication (login, register, password reset)
