@@ -129,14 +129,33 @@ Upload the **entire project** except:
 
 ---
 
-## Step 2b: Hostinger VPS (Laravel template / CloudPanel)
+## Step 2b: Hostinger VPS via SSH
 
-Hostinger’s [Laravel VPS](https://www.hostinger.com/laravel-hosting) template comes with PHP, Composer, and often Node. Use it if you have SSH.
+Hostinger’s [Laravel VPS](https://www.hostinger.com/laravel-hosting) or any VPS with PHP + Node. Use it if you have SSH.
 
-### 2b.1 Push code to the server
+### 2b.1 Push code to the server via Git
 
-- **Git**: Clone your repo on the VPS and pull, or push to GitHub/GitLab and clone from the server.
-- Or **upload** the project (without `node_modules/`) via SFTP, then run Composer and build on the server.
+```bash
+# On your Hostinger server (SSH)
+cd /path/to/your/site
+git clone https://github.com/Wai-Mike/JSYU.git .
+```
+
+The repo already includes `public/build/` (pre-built assets). You do **not** need `node_modules` on the server for production—only `public/build/` is required.
+
+### 2b.1b Alternative: Upload node_modules.zip
+
+If you prefer to upload dependencies instead of running `npm install` on the server:
+
+1. **Locally**: Create `node_modules.zip` in the project root (or use the one you generated).
+2. **Upload** the zip to the server (e.g. via SFTP or File Manager).
+3. **On the server** (SSH):
+   ```bash
+   cd /path/to/your/project
+   unzip node_modules.zip
+   rm node_modules.zip  # optional, to save space
+   ```
+4. Then run `npm run build` if you need to rebuild assets (the repo already has built assets).
 
 ### 2b.2 On the server (SSH)
 
