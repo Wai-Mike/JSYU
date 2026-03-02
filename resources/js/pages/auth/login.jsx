@@ -215,6 +215,13 @@ export default function Login({ status, canResetPassword }) {
                         </button>
                     </div>
 
+                    {/* Admin hint */}
+                    <div className="mt-4 text-center">
+                        <p className="text-xs text-gray-500">
+                            Admins: use this form to sign in; you’ll be redirected to the admin dashboard.
+                        </p>
+                    </div>
+
                     {/* Back to Home */}
                     <div className="mt-4 text-center">
                         <Link href={route('home')} className="text-xs text-gray-500 transition-colors hover:text-sky-500">

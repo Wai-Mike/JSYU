@@ -12,12 +12,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create or update admin user
+        // Create or update primary admin user
         $admin = User::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
+            ['email' => 'waimichael35@gmail.com'],
             [
-                'name' => 'Admin User',
-                'password' => bcrypt('12345678'), // You should change this password
+                'name' => 'Wai Michael',
+                'password' => bcrypt('12345'), // TODO: change this password in production
                 'role' => 'admin',
                 'date_of_birth' => '1990-01-15',
                 'gender' => 'male',

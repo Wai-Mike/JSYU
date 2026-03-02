@@ -46,7 +46,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
+            'role' => 'required|string|max:255|not_in:admin',
             'email' => 'required|string|lowercase|email|max:255|unique:users,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -67,23 +67,13 @@ class RegisterController extends Controller
         // Auto-login the user after registration
         Auth::login($user);
 
-        // Check if user has a profile, if not redirect to profile setup
-        try {
-            $user->load('profile');
-        } catch (\Exception $e) {
-            // Profile table might not exist yet, continue without it
-        }
-        if (!isset($user->profile) || !$user->profile) {
-            return redirect()->route('user.profile.setup')->with('info', 'Please complete your profile to get started.');
-        }
-
-        // Redirect based on user role
+        // Admins → admin dashboard; normal users → main site (home)
         $redirectRoute = match($user->role) {
             'admin' => 'admin.dashboard',
-            'expert' => 'expert.dashboard',
-            'user' => 'student.dashboard',
-            'student' => 'student.dashboard',
-            default => 'student.dashboard'
+            'expert' => 'home',
+            'user' => 'home',
+            'student' => 'home',
+            default => 'home',
         };
 
         return redirect()->intended(route($redirectRoute))->with('success', 'Registration successful! Welcome to our platform.');
@@ -99,35 +89,74 @@ class RegisterController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-        
-        // Try to load profile if table exists, otherwise skip
-        try {
-            $user->load('profile');
-        } catch (\Exception $e) {
-            // Profile table might not exist yet, continue without it
-        }
-        
+
         // If email is not verified, redirect to verification page
         if (!$user->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 
-        // If user doesn't have a profile, redirect to profile setup
-        if (!isset($user->profile) || !$user->profile) {
-            return redirect()->route('user.profile.setup')->with('info', 'Please complete your profile to continue.');
-        }
-
-        // Redirect based on user role
+        // Admins go to admin dashboard; normal users stay on main site (home/blog)
         $redirectRoute = match($user->role) {
             'admin' => 'admin.dashboard',
-            'expert' => 'expert.dashboard',
-            'user' => 'student.dashboard',
-            'student' => 'student.dashboard',
-            default => 'student.dashboard'
+            'expert' => 'home',
+            'user' => 'home',
+            'student' => 'home',
+            default => 'home',
         };
 
-        // Use intended() to respect any previous redirect attempts, otherwise go to role-based dashboard
         return redirect()->intended(route($redirectRoute));
+    }
+
+    /**
+     * Display the admin login view.
+     */
+    public function showAdminLoginForm(Request $request): Response
+    {
+        return Inertia::render('auth/admin-login', [
+            'canResetPassword' => Route::has('auth.password.request'),
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+
+    /**
+     * Handle an admin-only login request.
+     */
+    public function adminLogin(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+            'password' => ['required'],
+        ]);
+
+        if (! Auth::attempt(
+            ['email' => $credentials['email'], 'password' => $credentials['password']],
+            $request->boolean('remember'),
+        )) {
+            return back()->withErrors([
+                'email' => 'These credentials do not match our records.',
+            ])->onlyInput('email');
+        }
+
+        $request->session()->regenerate();
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if ($user->role !== 'admin') {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return back()->withErrors([
+                'email' => 'You are not authorized to access the admin area.',
+            ])->onlyInput('email');
+        }
+
+        if (! $user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        return redirect()->intended(route('admin.dashboard'));
     }
 
     /**

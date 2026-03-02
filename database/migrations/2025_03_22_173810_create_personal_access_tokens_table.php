@@ -23,9 +23,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Ensure the id column is explicitly set to AUTO_INCREMENT
-        // This fixes the error: "Field 'id' doesn't have a default value"
-        DB::statement('ALTER TABLE `personal_access_tokens` MODIFY COLUMN `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT');
+        // On some MySQL setups, the id column may need to be explicitly set as AUTO_INCREMENT.
+        // This adjustment is not supported (or needed) on SQLite, so only run it for non-SQLite drivers.
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE `personal_access_tokens` MODIFY COLUMN `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT');
+        }
     }
 
     /**

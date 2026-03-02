@@ -1,5 +1,5 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { BarChart3, Home, LogOut, Menu, Settings, Shield, User, Users, X } from 'lucide-react';
+import { BarChart3, FileText, Home, LogOut, Menu, Settings, Shield, User, Users, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function AdminNavbar() {
@@ -27,7 +27,8 @@ export default function AdminNavbar() {
 
     const navigation = [
         { name: 'Dashboard', href: route('admin.dashboard'), icon: Home },
-        { name: 'Users', href: '#', icon: Users },
+        { name: 'Blog & Posts', href: route('admin.posts.index'), icon: FileText },
+        { name: 'Users', href: route('admin.users.index'), icon: Users },
         { name: 'Analytics', href: '#', icon: BarChart3 },
         { name: 'Settings', href: '#', icon: Settings },
     ];
@@ -38,14 +39,14 @@ export default function AdminNavbar() {
     };
 
     return (
-        <nav className="border-b border-gray-800 bg-gray-900 shadow-lg">
+        <nav className="border-b border-sky-200 bg-sky-50 shadow-sm">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
                     <div className="flex items-center">
                         <Link href={route('admin.dashboard')} className="flex items-center">
-                            <Shield className="mr-2 h-6 w-6 text-red-500" />
-                            <span className="text-2xl font-bold text-white">Jonglei State Youth Union Admin</span>
+                            <Shield className="mr-2 h-6 w-6 text-sky-600" />
+                            <span className="text-2xl font-bold text-slate-900">Jonglei State Youth Union Admin</span>
                         </Link>
                     </div>
 
@@ -57,7 +58,7 @@ export default function AdminNavbar() {
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-white"
+                                    className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-sky-100 hover:text-sky-700"
                                 >
                                     <Icon className="h-4 w-4" />
                                     {item.name}
@@ -71,18 +72,18 @@ export default function AdminNavbar() {
                         <div className="relative" ref={userMenuRef}>
                             <button
                                 type="button"
-                                className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none"
+                                className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-sky-700 focus:outline-none"
                                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                             >
                                 {auth?.user?.avatar ? (
                                     <img className="h-8 w-8 rounded-full" src={auth.user.avatar} alt={auth.user.name} />
                                 ) : (
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-white">
+                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-600 text-white">
                                         <span className="text-sm font-medium">{auth?.user?.name?.charAt(0).toUpperCase()}</span>
                                     </div>
                                 )}
                                 <span className="hidden lg:block">{auth?.user?.name}</span>
-                                <span className="hidden text-xs text-gray-400 lg:block">(Admin)</span>
+                                <span className="hidden text-xs text-slate-400 lg:block">(Admin)</span>
                             </button>
 
                             {userMenuOpen && (

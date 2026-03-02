@@ -1,6 +1,6 @@
 # Jonglei State Youth Union Website
 
-The official website for the Jonglei State Youth Union (JSYI), the primary representative body for young people in Jonglei State, South Sudan.
+The official website for the Jonglei State Youth Union (JSYU), the primary representative body for young people in Jonglei State, South Sudan.
 
 ## About
 

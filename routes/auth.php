@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'showRegistrationForm'])
         ->name('register');
@@ -37,6 +36,14 @@ Route::middleware('guest')->group(function () {
     // Google OAuth (guest)
     Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])
         ->name('auth.google');
+
+    // Admin-only login (separate page)
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('login', [RegisterController::class, 'showAdminLoginForm'])
+            ->name('login');
+
+        Route::post('login', [RegisterController::class, 'adminLogin']);
+    });
 });
 
 // Google OAuth callback (no middleware - handles authentication internally)

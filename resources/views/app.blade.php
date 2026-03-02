@@ -7,8 +7,8 @@
 
     {{-- SEO Meta Tags --}}
     <title>@yield('title', 'Jonglei State Youth Union - Representation, Peacebuilding & Youth Empowerment')</title>
-    <meta name="description" content="@yield('description', 'The Jonglei State Youth Union (JSYI) is the primary representative body for young people in Jonglei State, South Sudan. We advocate for youth representation, peacebuilding, education, and economic opportunities.')">
-    <meta name="keywords" content="@yield('keywords', 'Jonglei State Youth Union, JSYI, Jonglei State, South Sudan youth, youth representation, peacebuilding, youth empowerment, Bor, SSNYU')">
+    <meta name="description" content="@yield('description', 'The Jonglei State Youth Union (JSYU) is the primary representative body for young people in Jonglei State, South Sudan. We advocate for youth representation, peacebuilding, education, and economic opportunities.')">
+    <meta name="keywords" content="@yield('keywords', 'Jonglei State Youth Union, JSYU, Jonglei State, South Sudan youth, youth representation, peacebuilding, youth empowerment, Bor, SSNYU')">
     <meta name="author" content="Jonglei State Youth Union">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
