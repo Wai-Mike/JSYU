@@ -46,14 +46,14 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255|not_in:admin',
+            // We always assign normal users the student role; admins are seeded/managed separately.
             'email' => 'required|string|lowercase|email|max:255|unique:users,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'role' => $request->role,
+            'role' => 'student', // DB enum is ['student','admin'], so use student for public signups
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -68,7 +68,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Admins → admin dashboard; normal users → main site (home)
-        $redirectRoute = match($user->role) {
+        $redirectRoute = match ($user->role) {
             'admin' => 'admin.dashboard',
             'expert' => 'home',
             'user' => 'home',
@@ -76,7 +76,8 @@ class RegisterController extends Controller
             default => 'home',
         };
 
-        return redirect()->intended(route($redirectRoute))->with('success', 'Registration successful! Welcome to our platform.');
+        return redirect()->intended(route($redirectRoute))
+            ->with('success', 'Registration successful! Welcome to our platform.');
     }
 
     /**
@@ -91,12 +92,12 @@ class RegisterController extends Controller
         $user = Auth::user();
 
         // If email is not verified, redirect to verification page
-        if (!$user->hasVerifiedEmail()) {
+        if (! $user->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 
         // Admins go to admin dashboard; normal users stay on main site (home/blog)
-        $redirectRoute = match($user->role) {
+        $redirectRoute = match ($user->role) {
             'admin' => 'admin.dashboard',
             'expert' => 'home',
             'user' => 'home',
