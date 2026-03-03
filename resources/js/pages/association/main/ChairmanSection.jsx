@@ -49,7 +49,7 @@ export default function ChairmanSection() {
                             <div className="relative overflow-hidden rounded-3xl bg-slate-900/95 shadow-2xl ring-1 ring-slate-900/80">
                                 <div className="relative">
                                     <img
-                                        src="/images/chairman.jpeg"
+                                        src="/images/chairman-new.jpeg"
                                         alt="Jonglei State Youth Union Chairman"
                                         className="h-[360px] w-full object-cover object-top sm:h-[420px] lg:h-[460px]"
                                     />
