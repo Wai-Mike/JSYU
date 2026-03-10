@@ -23,6 +23,7 @@ require __DIR__.'/admin.php';
 // Jonglei State Youth Union public pages
 Route::get('/', [AssociationPageController::class, 'index'])->name('home');
 Route::get('/programs', [AssociationPageController::class, 'programs'])->name('programs');
+Route::get('/work-plan', [AssociationPageController::class, 'workPlan'])->name('work-plan');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 

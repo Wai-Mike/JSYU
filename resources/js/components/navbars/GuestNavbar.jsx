@@ -34,6 +34,7 @@ export default function GuestNavbar() {
         { name: 'Home', href: route('home') },
         { name: 'About', href: '/#about' },
         { name: 'Programs', href: route('programs') },
+        { name: 'Work Plan', href: route('work-plan') },
         { name: 'Blog', href: route('blog.index') },
         { name: 'Contact', href: '/#contact' },
     ];

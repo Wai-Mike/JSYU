@@ -11,16 +11,17 @@ export default function AboutSection() {
                             The voice of youth in Jonglei State
                         </h2>
                         <p className="mt-6 text-lg leading-relaxed text-slate-300">
-                            The Jonglei State Youth Union (JSYU) is an independent, non-political, and non-profit civil society
-                            organization serving as the primary representative body for young people in Jonglei State,
-                            South Sudan. We comprise members from all counties of Jonglei, including Lou Nuer, Dinka,
-                            and Murle communities.
+                            The Jonglei State Youth Union (JSYU) is an independent, non-political, and non-profit civil
+                            society organisation serving as the primary representative body for young people in Jonglei
+                            State, South Sudan. We comprise members from all 9 counties of Jonglei, across Lou Nuer,
+                            Dinka, Murle and other communities.
                         </p>
                         <p className="mt-6 text-lg leading-relaxed text-slate-300">
                             Under the framework of the South Sudan National Youth Union (SSNYU) and National Youth
-                            Development Policy, we work to institutionalize youth representation, facilitate peacebuilding
-                            dialogues, and advocate for education, vocational training, and economic opportunities for
-                            young people across the state.
+                            Development Policy, we work to institutionalise youth representation, facilitate
+                            peacebuilding dialogues, and advocate for education, vocational training, and economic
+                            opportunities for young people across the state&mdash;with youth with disabilities
+                            represented in the youth structure, including the Speaker.
                         </p>
                     </div>
                 </div>

@@ -28,6 +28,16 @@ class AssociationPageController extends Controller
             'user' => $request->user(),
         ]);
     }
+
+    /**
+     * Display the annual work plan page.
+     */
+    public function workPlan(Request $request): Response
+    {
+        return Inertia::render('association/work-plan/index', [
+            'user' => $request->user(),
+        ]);
+    }
 }
 
 

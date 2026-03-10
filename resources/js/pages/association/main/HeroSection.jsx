@@ -1,17 +1,14 @@
 export default function HeroSection() {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-            {/* Soft background orbs inspired by Titan */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-32 -right-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
-                <div className="absolute -bottom-40 -left-10 h-80 w-80 rounded-full bg-red-500/15 blur-3xl" />
-            </div>
+        <section className="relative overflow-hidden bg-slate-950">
+            {/* Subtle background tint */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-950 to-slate-950" />
 
-            <div className="relative mx-auto flex min-h-[90vh] max-w-7xl flex-col items-center gap-12 px-4 py-20 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-28">
+            <div className="relative mx-auto flex min-h-[80vh] max-w-7xl flex-col items-center gap-12 px-4 py-20 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-24">
                 {/* Left content */}
                 <div className="max-w-xl space-y-6 text-center lg:text-left">
                     <p className="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">
-                        Jonglei State Youth Union
+                        Jonglei State Youth Union • 9 counties
                     </p>
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[2.9rem]">
                         Youth leadership{' '}
@@ -21,8 +18,9 @@ export default function HeroSection() {
                         .
                     </h1>
                     <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
-                        A unified platform for young people across Jonglei State to organize, advocate, and build
-                        peaceful, prosperous communities&mdash;from Bor to every county and payam.
+                        A unified platform for young people across Jonglei State to organise, advocate, and build
+                        peaceful, prosperous communities&mdash;from Bor to every county and payam&mdash;including youth
+                        with disabilities who are represented in our leadership.
                     </p>
                     <div className="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
                         <a
@@ -40,7 +38,7 @@ export default function HeroSection() {
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-xs text-slate-400 lg:justify-start">
                         <div>
-                            <p className="font-semibold text-slate-200">12+ counties</p>
+                            <p className="font-semibold text-slate-200">9 counties</p>
                             <p>represented across Jonglei State</p>
                         </div>
                         <div>
@@ -68,18 +66,18 @@ export default function HeroSection() {
                         <div className="grid grid-cols-3 gap-3 rounded-2xl bg-slate-900/60 p-4">
                             <div>
                                 <p className="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">Programs</p>
-                                <p className="mt-1 text-xl font-semibold text-white">4</p>
-                                <p className="text-[0.7rem] text-emerald-300">running</p>
+                                <p className="mt-1 text-xl font-semibold text-white">7+1</p>
+                                <p className="text-[0.7rem] text-emerald-300">core &amp; cross-cutting</p>
                             </div>
                             <div>
                                 <p className="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">Counties</p>
-                                <p className="mt-1 text-xl font-semibold text-white">12</p>
+                                <p className="mt-1 text-xl font-semibold text-white">9</p>
                                 <p className="text-[0.7rem] text-sky-300">represented</p>
                             </div>
                             <div>
                                 <p className="text-[0.7rem] uppercase tracking-[0.18em] text-slate-400">Youth</p>
                                 <p className="mt-1 text-xl font-semibold text-white">1.2k+</p>
-                                <p className="text-[0.7rem] text-red-300">engaged</p>
+                                <p className="text-[0.7rem] text-red-300">engaged &amp; organising</p>
                             </div>
                         </div>
 
@@ -99,10 +97,6 @@ export default function HeroSection() {
                             </div>
                         </div>
 
-                        <p className="mt-4 text-[0.7rem] text-slate-500">
-                            Data is illustrative for this prototype and will connect to real program metrics in
-                            production.
-                        </p>
                     </div>
                 </div>
             </div>
