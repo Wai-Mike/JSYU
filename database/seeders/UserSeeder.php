@@ -26,6 +26,20 @@ class UserSeeder extends Seeder
             ]
         );
 
+        // Create or update secondary admin user
+        User::updateOrCreate(
+            ['email' => 'madukagoth@gmail.com'],
+            [
+                'name' => 'Maduk Agoth',
+                'password' => bcrypt('12345'), // TODO: change this password in production
+                'role' => 'admin',
+                'date_of_birth' => '1992-01-15',
+                'gender' => 'male',
+                'state' => 'Active',
+                'email_verified_at' => now(),
+            ]
+        );
+
         // Create or update student user
         $student = User::updateOrCreate(
             ['email' => 'student@gmail.com'],
@@ -47,7 +61,10 @@ class UserSeeder extends Seeder
      */
     public function down(): void
     {
-        // Delete the admin user
-        User::where('email', 'admin@gmail.com')->delete();
+        User::whereIn('email', [
+            'waimichael35@gmail.com',
+            'madukagoth@gmail.com',
+            'student@gmail.com',
+        ])->delete();
     }
 }

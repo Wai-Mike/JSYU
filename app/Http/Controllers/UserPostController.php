@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,9 +26,16 @@ class UserPostController extends Controller
             'excerpt' => ['nullable', 'string', 'max:500'],
             'content' => ['required', 'string'],
             'type' => ['required', 'string', 'in:article,program,announcement,resource'],
+            'featured_image_upload' => ['nullable', 'image', 'max:4096'],
         ]);
 
         $slug = $this->uniqueSlug(Str::slug($validated['title']));
+
+        $featuredImageUrl = null;
+        if ($request->hasFile('featured_image_upload')) {
+            $path = $request->file('featured_image_upload')->store('posts', 'public');
+            $featuredImageUrl = Storage::url($path);
+        }
 
         Post::create([
             'user_id' => $request->user()->id,
@@ -38,6 +46,7 @@ class UserPostController extends Controller
             'type' => $validated['type'],
             'status' => Post::STATUS_DRAFT,
             'published_at' => null,
+            'featured_image' => $featuredImageUrl,
         ]);
 
         return redirect()->route('blog.index')->with('success', 'Your post has been submitted and is pending approval.');

@@ -7,11 +7,12 @@ export default function BlogCreate({ types }) {
         excerpt: '',
         content: '',
         type: 'article',
+        featured_image_upload: null,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('blog.store'));
+        post(route('blog.store'), { forceFormData: true });
     };
 
     return (
@@ -82,6 +83,25 @@ export default function BlogCreate({ types }) {
                             placeholder="Write your post..."
                         />
                         {errors.content && <p className="mt-1 text-sm text-red-600">{errors.content}</p>}
+                    </div>
+
+                    <div>
+                        <label htmlFor="featured_image_upload" className="mb-1 block text-sm font-medium text-slate-700">
+                            Featured image (optional)
+                        </label>
+                        <input
+                            id="featured_image_upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setData('featured_image_upload', e.target.files?.[0] ?? null)}
+                            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-sky-500 focus:ring-sky-500"
+                        />
+                        {errors.featured_image_upload && (
+                            <p className="mt-1 text-sm text-red-600">{errors.featured_image_upload}</p>
+                        )}
+                        <p className="mt-1 text-xs text-slate-500">
+                            Add a photo for your article/program (max 4MB).
+                        </p>
                     </div>
 
                     <div className="flex gap-3">

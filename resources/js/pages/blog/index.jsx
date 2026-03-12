@@ -140,17 +140,21 @@ export default function BlogIndex({ posts, filters }) {
                                         <h2 className="text-base font-semibold text-slate-900">
                                             {post.title}
                                         </h2>
-                                        {post.excerpt && (
-                                            <p className="mt-1 text-sm text-slate-700">
-                                                {post.excerpt}
-                                            </p>
-                                        )}
+                                        {post.excerpt && <p className="mt-1 text-sm text-slate-700">{post.excerpt}</p>}
                                         {post.featured_image && (
-                                            <img
-                                                src={post.featured_image}
-                                                alt=""
-                                                className="mt-3 max-h-72 w-full rounded-xl object-cover"
-                                            />
+                                            <div className="mt-3 overflow-hidden rounded-xl bg-slate-100">
+                                                <img
+                                                    src={post.featured_image}
+                                                    alt=""
+                                                    className="h-56 w-full object-cover sm:h-72"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        )}
+                                        {post.content && (
+                                            <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-slate-700">
+                                                {post.content}
+                                            </div>
                                         )}
 
                                         {/* Footer actions */} 

@@ -11,11 +11,12 @@ export default function Create({ types, statuses }) {
         status: 'draft',
         published_at: '',
         featured_image: '',
+        featured_image_upload: null,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('admin.posts.store'));
+        post(route('admin.posts.store'), { forceFormData: true });
     };
 
     return (
@@ -139,6 +140,22 @@ export default function Create({ types, statuses }) {
                             placeholder="https://..."
                         />
                         {errors.featured_image && <p className="mt-1 text-sm text-red-600">{errors.featured_image}</p>}
+                    </div>
+
+                    <div>
+                        <label htmlFor="featured_image_upload" className="mb-1 block text-sm font-medium text-gray-700">
+                            Or upload an image
+                        </label>
+                        <input
+                            id="featured_image_upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setData('featured_image_upload', e.target.files?.[0] ?? null)}
+                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-red-500 focus:ring-red-500"
+                        />
+                        {errors.featured_image_upload && (
+                            <p className="mt-1 text-sm text-red-600">{errors.featured_image_upload}</p>
+                        )}
                     </div>
 
                     <div className="flex gap-3">

@@ -7,12 +7,25 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class PostController extends Controller
 {
+    private function deletePublicStorageUrl(?string $url): void
+    {
+        if (! $url) {
+            return;
+        }
+        // We store uploaded images as Storage::url($path) => /storage/...
+        if (str_starts_with($url, '/storage/')) {
+            $relative = ltrim(str_replace('/storage/', '', $url), '/');
+            Storage::disk('public')->delete($relative);
+        }
+    }
+
     public function index(Request $request): Response
     {
         $posts = Post::with('user:id,name')
@@ -43,6 +56,12 @@ class PostController extends Controller
         $slug = Str::slug($request->input('slug', $request->input('title')));
         $slug = $this->ensureUniqueSlug($slug);
 
+        $featuredImageUrl = $request->input('featured_image');
+        if ($request->hasFile('featured_image_upload')) {
+            $path = $request->file('featured_image_upload')->store('posts', 'public');
+            $featuredImageUrl = Storage::url($path);
+        }
+
         $post = Post::create([
             'user_id' => $request->user()->id,
             'title' => $request->input('title'),
@@ -54,7 +73,7 @@ class PostController extends Controller
             'published_at' => $request->input('status') === Post::STATUS_PUBLISHED
                 ? ($request->input('published_at') ?? now())
                 : null,
-            'featured_image' => $request->input('featured_image'),
+            'featured_image' => $featuredImageUrl,
         ]);
 
         return redirect()->route('admin.posts.index')
@@ -75,6 +94,13 @@ class PostController extends Controller
         $slug = Str::slug($request->input('slug', $request->input('title')));
         $slug = $this->ensureUniqueSlug($slug, $post->id);
 
+        $featuredImageUrl = $request->input('featured_image');
+        if ($request->hasFile('featured_image_upload')) {
+            $this->deletePublicStorageUrl($post->featured_image);
+            $path = $request->file('featured_image_upload')->store('posts', 'public');
+            $featuredImageUrl = Storage::url($path);
+        }
+
         $post->update([
             'title' => $request->input('title'),
             'slug' => $slug,
@@ -85,7 +111,7 @@ class PostController extends Controller
             'published_at' => $request->input('status') === Post::STATUS_PUBLISHED
                 ? ($request->input('published_at') ?? $post->published_at ?? now())
                 : null,
-            'featured_image' => $request->input('featured_image'),
+            'featured_image' => $featuredImageUrl,
         ]);
 
         return redirect()->route('admin.posts.index')

@@ -28,7 +28,9 @@ class StorePostRequest extends FormRequest
             'type' => ['required', 'string', 'in:article,program,announcement,resource'],
             'status' => ['required', 'string', 'in:draft,published,archived'],
             'published_at' => ['nullable', 'date'],
+            // Either upload an image, or provide an external URL.
             'featured_image' => ['nullable', 'string', 'max:500'],
+            'featured_image_upload' => ['nullable', 'image', 'max:4096'],
         ];
     }
 }

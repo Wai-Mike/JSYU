@@ -11,11 +11,12 @@ export default function Edit({ post, types, statuses }) {
         status: post.status,
         published_at: post.published_at ? new Date(post.published_at).toISOString().slice(0, 16) : '',
         featured_image: post.featured_image ?? '',
+        featured_image_upload: null,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        put(route('admin.posts.update', post.id));
+        put(route('admin.posts.update', post.id), { forceFormData: true });
     };
 
     return (
@@ -139,6 +140,27 @@ export default function Edit({ post, types, statuses }) {
                             placeholder="https://..."
                         />
                         {errors.featured_image && <p className="mt-1 text-sm text-red-600">{errors.featured_image}</p>}
+                    </div>
+
+                    <div>
+                        <label htmlFor="featured_image_upload" className="mb-1 block text-sm font-medium text-gray-700">
+                            Or upload a new image
+                        </label>
+                        <input
+                            id="featured_image_upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setData('featured_image_upload', e.target.files?.[0] ?? null)}
+                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-red-500 focus:ring-red-500"
+                        />
+                        {errors.featured_image_upload && (
+                            <p className="mt-1 text-sm text-red-600">{errors.featured_image_upload}</p>
+                        )}
+                        {post.featured_image && (
+                            <p className="mt-2 text-xs text-gray-500">
+                                Current: <span className="break-all">{post.featured_image}</span>
+                            </p>
+                        )}
                     </div>
 
                     <div className="flex gap-3">
