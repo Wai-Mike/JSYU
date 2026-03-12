@@ -1,6 +1,6 @@
 import { Head, Link, useForm, usePage, router } from '@inertiajs/react';
 import AssociationLayout from '../../layouts/AssociationLayout';
-import { Calendar, FileText, Heart, MessageCircle, PenSquare, ThumbsUp } from 'lucide-react';
+import { Calendar, FileText, Heart, Image as ImageIcon, MessageCircle, Smile, ThumbsUp, Video } from 'lucide-react';
 import { useState } from 'react';
 
 export default function BlogIndex({ posts, filters }) {
@@ -57,24 +57,53 @@ export default function BlogIndex({ posts, filters }) {
                             </p>
                         </header>
 
-                        {/* Composer, like Facebook */} 
+                        {/* Composer (Facebook/Instagram-style) */}
                         {auth?.user && (
                             <div className="mb-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-600 text-sm font-semibold text-white">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-semibold text-white">
                                         {auth.user.name?.charAt(0).toUpperCase()}
                                     </div>
                                     <button
                                         type="button"
                                         onClick={() => (window.location.href = route('blog.create'))}
-                                        className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-left text-sm text-slate-500 hover:bg-slate-100"
+                                        className="flex-1 rounded-full bg-slate-100 px-4 py-2.5 text-left text-sm text-slate-600 transition hover:bg-slate-200"
                                     >
-                                        Share an update with Jonglei youth…
+                                        What&apos;s on your mind, {auth.user.name?.split(' ')?.[0] ?? 'friend'}?
                                     </button>
                                 </div>
-                                <p className="mt-2 text-[0.7rem] text-slate-400">
-                                    Posts are reviewed by admins before appearing in the feed.
-                                </p>
+
+                                <div className="mt-3 border-t border-slate-100 pt-3">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => (window.location.href = route('blog.create'))}
+                                            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
+                                        >
+                                            <ImageIcon className="h-4 w-4 text-emerald-500" />
+                                            Photo
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => (window.location.href = route('blog.create'))}
+                                            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
+                                        >
+                                            <Video className="h-4 w-4 text-rose-500" />
+                                            Video
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => (window.location.href = route('blog.create'))}
+                                            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
+                                        >
+                                            <Smile className="h-4 w-4 text-amber-500" />
+                                            Feeling
+                                        </button>
+                                    </div>
+                                    <p className="mt-2 text-[0.7rem] text-slate-400">
+                                        Posts are reviewed by admins before appearing in the feed.
+                                    </p>
+                                </div>
                             </div>
                         )}
 
