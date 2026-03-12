@@ -48,7 +48,8 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             // We always assign normal users the student role; admins are seeded/managed separately.
             'email' => 'required|string|lowercase|email|max:255|unique:users,email',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // Keep password rules simple for this project (admins are managed separately).
+            'password' => ['required', 'confirmed', 'min:5'],
         ]);
 
         $user = User::create([
