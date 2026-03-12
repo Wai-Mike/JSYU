@@ -40,7 +40,10 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            // Hostinger often disables exec(), which breaks `php artisan storage:link`.
+            // To keep uploaded files publicly accessible without symlinks, we store them
+            // directly under public/storage.
+            'root' => public_path('storage'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,

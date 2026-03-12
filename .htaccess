@@ -1,16 +1,8 @@
-# Basic SPA routing for React/Vue/Angular apps
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# Handle client-side routing
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
-
-# Optional: Enable gzip compression (comment out if causing issues)
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE text/javascript
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/json
+    # Hostinger serves from public_html; Laravel's front controller is in /public.
+    # Keep root clean and forward everything into /public.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
 </IfModule>
