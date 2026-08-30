@@ -1,18 +1,29 @@
+import { sectionImages } from '../../../constants/sectionImages';
+
 const placeholderTestimonials = [
     {
         id: 'placeholder-1',
-        role: 'Youth member placeholder',
+        name: 'Youth member',
+        role: 'JSYU member placeholder',
         text: 'This is a generic placeholder testimonial. Replace with a real story from a JSYU youth member when available.',
+        image: sectionImages.testimonials[0],
+        alt: 'Portrait of a young South Sudanese woman',
     },
     {
         id: 'placeholder-2',
-        role: 'Community participant placeholder',
+        name: 'Community participant',
+        role: 'Program participant placeholder',
         text: 'This is a generic placeholder testimonial. Replace with an authentic account of program impact or leadership experience.',
+        image: sectionImages.testimonials[1],
+        alt: 'Portrait of a young South Sudanese man',
     },
     {
         id: 'placeholder-3',
+        name: 'Youth volunteer',
         role: 'Volunteer placeholder',
         text: 'This is a generic placeholder testimonial. Replace with a verified quote from a youth volunteer or program beneficiary.',
+        image: sectionImages.testimonials[2],
+        alt: 'Portrait of a young South Sudanese volunteer',
     },
 ];
 
@@ -40,11 +51,13 @@ export default function TestimonialsSection() {
                             className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex items-center gap-4">
-                                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-jsyu-accent/40 bg-jsyu-green/25 text-sm font-bold text-white/75">
-                                    JS
-                                </div>
+                                <img
+                                    src={item.image}
+                                    alt={item.alt}
+                                    className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-jsyu-accent/40"
+                                />
                                 <div>
-                                    <div className="text-sm font-bold text-white/90">Placeholder</div>
+                                    <div className="text-sm font-bold text-white/90">{item.name}</div>
                                     <div className="text-xs font-medium text-white/50">{item.role}</div>
                                 </div>
                             </div>

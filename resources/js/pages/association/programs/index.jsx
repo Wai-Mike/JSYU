@@ -18,7 +18,6 @@ const programs = [
             'Reduced idleness and dependency',
             'Stronger local economies in counties and payams',
         ],
-        tags: ['Income generation', 'All 9 counties', 'Youth with disabilities included'],
         highlight: 'Includes targeted livelihood support and training for youth with disabilities.',
     },
     {
@@ -37,7 +36,6 @@ const programs = [
             'Reduced participation of youth in cycles of violence',
             'Improved inter-communal relationships across Jonglei',
         ],
-        tags: ['Peace & reconciliation', 'All 9 counties'],
     },
     {
         id: 'education-capacity',
@@ -56,7 +54,6 @@ const programs = [
             'More skilled and employable young people',
             'Better representation of youth in governance spaces',
         ],
-        tags: ['Leadership', 'Skills', 'Youth with disabilities included'],
     },
     {
         id: 'climate-environment',
@@ -74,7 +71,6 @@ const programs = [
             'Greater youth participation in climate action',
             'Improved preparedness for floods and climate shocks',
         ],
-        tags: ['Climate action', 'Environment', 'All 9 counties'],
     },
     {
         id: 'health-social',
@@ -92,7 +88,6 @@ const programs = [
             'Reduced risky behaviours and substance abuse',
             'Greater openness to discuss mental health and wellbeing',
         ],
-        tags: ['Health', 'Wellbeing'],
     },
     {
         id: 'sports-talent',
@@ -110,7 +105,6 @@ const programs = [
             'Social cohesion across communities and counties',
             'Discovery and promotion of promising young talents',
         ],
-        tags: ['Sports', 'Culture', 'Youth with disabilities included'],
     },
     {
         id: 'volunteerism-service',
@@ -128,7 +122,6 @@ const programs = [
             'Visible youth-led solutions in communities',
             'Positive image of youth as partners in development',
         ],
-        tags: ['Community service', 'Inclusion'],
     },
     {
         id: 'disability-inclusion',
@@ -147,7 +140,6 @@ const programs = [
             'All 9 counties recognising youth with disabilities in youth structures',
             'Disability inclusion mainstreamed across every JSYU program area',
         ],
-        tags: ['Disability inclusion', 'All 9 counties', 'Cross-cutting'],
         highlight: 'This program cuts across every other area and ensures no young person is left behind.',
     },
 ];
@@ -161,11 +153,11 @@ export default function ProgramsIndex() {
                         Our Strategic Programs
                     </span>
                     <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-jsyu-green-deep sm:text-4xl lg:text-5xl">
-                        Fiscal Year 2026/2027 programs for Jonglei youth
+                        Fiscal Year 2026/2030 programs for Jonglei youth
                     </h1>
                     <p className="mt-6 text-lg font-medium text-jsyu-text-muted">
                         These program areas come from the Jonglei State Youth Union Fiscal Year Plan and Annual Work Plan
-                        2026/2027. They respond to unemployment, conflict, climate shocks, health risks, and leadership
+                        2026/2030. They respond to unemployment, conflict, climate shocks, health risks, and leadership
                         gaps affecting young people across all 9 counties&mdash;with a deliberate focus on youth with
                         disabilities.
                     </p>
@@ -177,18 +169,11 @@ export default function ProgramsIndex() {
                             key={program.id}
                             className="group flex h-full flex-col rounded-2xl border border-jsyu-green-deep/30 bg-jsyu-green-deep p-7 shadow-sm ring-1 ring-jsyu-green-deep/50 transition-all hover:-translate-y-1 hover:shadow-2xl hover:ring-jsyu-green/70"
                         >
-                            <div className="flex items-start justify-between gap-3">
-                                <div>
-                                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-jsyu-accent">
-                                        {program.number}
-                                    </p>
-                                    <h2 className="mt-2 text-xl font-semibold text-white">{program.name}</h2>
-                                </div>
-                                {program.highlight && (
-                                    <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200 ring-1 ring-emerald-500/40">
-                                        Inclusive
-                                    </span>
-                                )}
+                            <div>
+                                <p className="text-xs font-bold uppercase tracking-[0.18em] text-jsyu-accent">
+                                    {program.number}
+                                </p>
+                                <h2 className="mt-2 text-xl font-semibold text-white">{program.name}</h2>
                             </div>
 
                             <p className="mt-4 text-sm font-bold text-jsyu-accent/90">Objective</p>
@@ -217,19 +202,8 @@ export default function ProgramsIndex() {
                                 </div>
                             </div>
 
-                            <div className="mt-4 flex flex-wrap gap-2">
-                                {program.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="inline-flex items-center rounded-full bg-slate-900/70 px-3 py-1 text-xs font-medium text-slate-100 ring-1 ring-slate-700"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-
                             {program.highlight && (
-                                <p className="mt-3 text-xs text-emerald-200/90">{program.highlight}</p>
+                                <p className="mt-4 text-xs text-emerald-200/90">{program.highlight}</p>
                             )}
                         </article>
                     ))}

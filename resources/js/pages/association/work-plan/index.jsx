@@ -23,14 +23,14 @@ export default function WorkPlanIndex() {
             <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8 sm:py-32">
                 <header className="mx-auto max-w-3xl text-center">
                     <span className="text-sm font-bold uppercase tracking-[0.18em] text-jsyu-green">
-                        Annual Work Plan 2026/2027
+                        Annual Work Plan 2026/2030
                     </span>
                     <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-jsyu-green-deep sm:text-4xl lg:text-5xl">
                         Jonglei State Youth Union Work Plan
                     </h1>
                     <p className="mt-6 text-base font-medium text-jsyu-text-muted sm:text-lg">
                         This Annual Work Plan sets out how the Jonglei State Youth Union will mobilise, empower, and
-                        represent youth across all 9 counties in the 2026/2027 fiscal year&mdash;with a clear focus on
+                        represent youth across all 9 counties in the 2026/2030 fiscal year&mdash;with a clear focus on
                         economic empowerment, peacebuilding, climate resilience, health, and inclusion of youth with
                         disabilities.
                     </p>
@@ -125,7 +125,7 @@ export default function WorkPlanIndex() {
                 <section className="mt-16 rounded-3xl bg-jsyu-charcoal px-6 py-8 text-white sm:px-8">
                     <h2 className="text-lg font-semibold">Conclusion</h2>
                     <p className="mt-3 text-sm text-slate-200">
-                        The Annual Work Plan 2026/2027 is a roadmap for youth empowerment, peace, and development in
+                        The Annual Work Plan 2026/2030 is a roadmap for youth empowerment, peace, and development in
                         Jonglei State. Its success depends on strong coordination, transparent leadership, and active
                         participation from youth, communities, partners, and government. Together, we can ensure that no
                         young person&mdash;including youth with disabilities&mdash;is left behind.

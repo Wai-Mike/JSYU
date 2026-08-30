@@ -43,8 +43,8 @@ export default function AboutSection() {
                         <p className="mt-5 font-medium leading-relaxed text-jsyu-text-muted">
                             The Jonglei State Youth Union (JSYU) is an independent, non-political, and non-profit civil
                             society organisation serving as the primary representative body for young people in Jonglei
-                            State, South Sudan. We comprise members from all 9 counties of Jonglei, across Lou Nuer,
-                            Dinka, Murle and other communities.
+                            State, South Sudan. We comprise members from all 9 counties of Jonglei, across Nuer,
+                            Dinka, and Anyuak.
                         </p>
                         <p className="mt-4 font-medium leading-relaxed text-jsyu-text-muted">
                             Under the framework of the South Sudan National Youth Union (SSNYU) and National Youth

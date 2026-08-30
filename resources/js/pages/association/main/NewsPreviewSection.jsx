@@ -4,30 +4,30 @@ import { sectionImages } from '../../../constants/sectionImages';
 const placeholderPosts = [
     {
         id: 'placeholder-1',
-        category: 'Updates',
         date: 'Coming soon',
         title: 'Youth stories and program updates from across Jonglei',
         description:
             'Placeholder preview — connect the blog feed here to show the latest published posts from JSYU members and programs.',
         image: sectionImages.news[0],
+        alt: 'South Sudanese youth gathering outdoors in Jonglei',
     },
     {
         id: 'placeholder-2',
-        category: 'Programs',
         date: 'Coming soon',
         title: 'Peacebuilding and community dialogue highlights',
         description:
             'Placeholder preview — share news about youth-led peace initiatives, forums, and county-level activities.',
         image: sectionImages.news[1],
+        alt: 'South Sudanese youth in a community peace dialogue under a tree',
     },
     {
         id: 'placeholder-3',
-        category: 'Community',
         date: 'Coming soon',
         title: 'Education, skills, and opportunity announcements',
         description:
             'Placeholder preview — highlight scholarships, training, and advocacy updates for youth across the state.',
         image: sectionImages.news[2],
+        alt: 'South Sudanese youth learning together in an outdoor classroom',
     },
 ];
 
@@ -62,17 +62,12 @@ export default function NewsPreviewSection() {
                             <div className="aspect-[16/10] overflow-hidden bg-jsyu-green/10">
                                 <img
                                     src={post.image}
-                                    alt=""
+                                    alt={post.alt}
                                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
                             </div>
                             <div className="p-5">
-                                <div className="mb-3 flex items-center gap-3">
-                                    <span className="rounded-full bg-jsyu-green/10 px-2.5 py-1 text-xs font-bold text-jsyu-green">
-                                        {post.category}
-                                    </span>
-                                    <span className="text-xs font-medium text-jsyu-text-muted">{post.date}</span>
-                                </div>
+                                <p className="mb-3 text-xs font-medium text-jsyu-text-muted">{post.date}</p>
                                 <h3 className="mb-2 text-base font-bold leading-snug text-jsyu-green-deep transition-colors group-hover:text-jsyu-green">
                                     {post.title}
                                 </h3>

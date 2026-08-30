@@ -18,13 +18,6 @@ export default function HeroSection() {
 
             <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-24 sm:px-6 lg:grid-cols-2 lg:px-8 lg:pb-24 lg:pt-28">
                 <div className="text-center lg:text-left">
-                    <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-jsyu-accent/40 bg-jsyu-accent/15 px-4 py-1.5">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-jsyu-accent" />
-                        <span className="text-sm font-semibold text-jsyu-accent">
-                            Jonglei State Youth Union • 9 counties
-                        </span>
-                    </div>
-
                     <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
                         Empowering Youth.{' '}
                         <span className="text-jsyu-accent">Building</span> Communities. Shaping the Future.
