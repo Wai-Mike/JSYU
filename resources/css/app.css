@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @import 'tailwindcss';
 
@@ -23,7 +23,7 @@ html {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    background: linear-gradient(90deg, var(--color-jsyu-green), var(--color-jsyu-accent));
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width;
 }
@@ -61,16 +61,28 @@ a,
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--color-jsyu-green-light);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #38bdf8;
+    background: color-mix(in srgb, var(--color-jsyu-green) 40%, transparent);
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #0ea5e9;
+    background: var(--color-jsyu-green);
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-jsyu-charcoal);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+    font-family: var(--font-display);
 }
 
 /* Prevent body overflow when mobile menu is open */
@@ -176,11 +188,23 @@ a {
 
 @custom-variant dark (&:is(.dark *));
 
-
-
 @theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Manrope', system-ui, sans-serif;
+
+    /* JSYU brand colors — derived from official logo */
+    --color-jsyu-green: #2f7a33;
+    --color-jsyu-green-hover: #256429;
+    --color-jsyu-green-deep: #1a3d2e;
+    --color-jsyu-green-muted: #4a9460;
+    --color-jsyu-green-light: #edf5ee;
+    --color-jsyu-green-soft: #d9eadc;
+    --color-jsyu-accent: #c5d926;
+    --color-jsyu-accent-hover: #b3c622;
+    --color-jsyu-gold: #d4b84a;
+    --color-jsyu-charcoal: #1c1c1e;
+    --color-jsyu-text-muted: #5a6470;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -228,43 +252,35 @@ a {
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
-
-    /* Main brand colors */
-    --color-blue: var(--blue);
-    --color-red: var(--red);
-    --color-darkgray: var(--darkgray);
 }
 
-
 :root {
-    --main: rgb(4, 50, 75);
-    --main2: rgb(29, 84, 114);
-    --gold: rgb(210, 166, 73);
+    --main: #1a3d2e;
+    --main2: #2f7a33;
+    --gold: #d4b84a;
 
-    /* Main brand colors */
-    --blue: #3B82F6;
+    --blue: #2f7a33;
     --red: #DC2626;
     --darkgray: #374151;
 
     --background: #fff;
-    /* --foreground: #555; */
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: rgb(41, 170, 225);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    --primary: #2f7a33;
+    --primary-foreground: #ffffff;
+    --secondary: #edf5ee;
+    --secondary-foreground: #1a3d2e;
+    --muted: #edf5ee;
+    --muted-foreground: #5a6470;
+    --accent: #c5d926;
+    --accent-foreground: #1a3d2e;
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.87 0 0);
+    --border: #d9eadc;
+    --input: #d9eadc;
+    --ring: #2f7a33;
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
@@ -273,10 +289,10 @@ a {
     --radius: 0.625rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary: #1a3d2e;
     --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.87 0 0);
+    --sidebar-accent: #edf5ee;
+    --sidebar-accent-foreground: #1a3d2e;
+    --sidebar-border: #d9eadc;
+    --sidebar-ring: #2f7a33;
 }

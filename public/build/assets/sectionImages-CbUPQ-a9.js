@@ -1,0 +1,1 @@
+const a={logo:"/images/jsyu-logo.jpeg",hero:"/images/hero-section.jpeg",about:"/images/WhatsApp Image 2026-02-17 at 15.30.31 (1).jpeg",chairman:"/images/chairman-new.jpeg",news:["/images/WhatsApp Image 2026-02-17 at 15.30.31.jpeg","/images/WhatsApp Image 2026-02-17 at 15.30.31 (2).jpeg","/images/WhatsApp Image 2026-02-17 at 15.30.32.jpeg"]};export{a as s};

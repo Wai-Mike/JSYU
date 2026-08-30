@@ -22,13 +22,13 @@ export default function WorkPlanIndex() {
         <AssociationLayout>
             <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8 sm:py-32">
                 <header className="mx-auto max-w-3xl text-center">
-                    <span className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-600">
+                    <span className="text-sm font-bold uppercase tracking-[0.18em] text-jsyu-green">
                         Annual Work Plan 2026/2027
                     </span>
-                    <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                    <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-jsyu-green-deep sm:text-4xl lg:text-5xl">
                         Jonglei State Youth Union Work Plan
                     </h1>
-                    <p className="mt-6 text-base text-slate-600 sm:text-lg">
+                    <p className="mt-6 text-base font-medium text-jsyu-text-muted sm:text-lg">
                         This Annual Work Plan sets out how the Jonglei State Youth Union will mobilise, empower, and
                         represent youth across all 9 counties in the 2026/2027 fiscal year&mdash;with a clear focus on
                         economic empowerment, peacebuilding, climate resilience, health, and inclusion of youth with
@@ -38,7 +38,7 @@ export default function WorkPlanIndex() {
 
                 <section className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
                     <div className="space-y-6">
-                        <div className="rounded-3xl bg-slate-950 px-6 py-6 shadow-xl ring-1 ring-slate-800 sm:px-8 sm:py-8">
+                        <div className="rounded-3xl bg-jsyu-green-deep px-6 py-6 shadow-xl ring-1 ring-jsyu-green-deep/80 sm:px-8 sm:py-8">
                             <h2 className="text-xl font-semibold text-white">Vision</h2>
                             <p className="mt-3 text-sm text-slate-200">
                                 A united, skilled, peaceful, and economically empowered youth population contributing to
@@ -52,12 +52,12 @@ export default function WorkPlanIndex() {
                             </p>
                         </div>
 
-                        <div className="rounded-3xl bg-sky-50 px-6 py-6 shadow-sm ring-1 ring-sky-100 sm:px-8 sm:py-8">
-                            <h2 className="text-lg font-semibold text-slate-900">Strategic Objectives</h2>
-                            <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                        <div className="rounded-3xl bg-jsyu-green-light px-6 py-6 shadow-sm ring-1 ring-jsyu-green-soft sm:px-8 sm:py-8">
+                            <h2 className="text-lg font-bold text-jsyu-green-deep">Strategic Objectives</h2>
+                            <ul className="mt-4 space-y-2 text-sm font-medium text-jsyu-text-muted">
                                 {strategicObjectives.map((item) => (
                                     <li key={item} className="flex gap-2">
-                                        <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-sky-500" />
+                                        <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-jsyu-green" />
                                         <span>{item}</span>
                                     </li>
                                 ))}
@@ -66,13 +66,13 @@ export default function WorkPlanIndex() {
                     </div>
 
                     <div className="space-y-6">
-                        <div className="rounded-3xl bg-white px-6 py-6 shadow-sm ring-1 ring-slate-200 sm:px-8 sm:py-8">
-                            <h2 className="text-lg font-semibold text-slate-900">Program Areas</h2>
-                            <p className="mt-3 text-sm text-slate-700">
+                        <div className="rounded-3xl bg-white px-6 py-6 shadow-sm ring-1 ring-jsyu-green-soft sm:px-8 sm:py-8">
+                            <h2 className="text-lg font-bold text-jsyu-green-deep">Program Areas</h2>
+                            <p className="mt-3 text-sm font-medium text-jsyu-text-muted">
                                 The work plan is implemented through 7 core program areas and a cross-cutting inclusion
                                 program for youth with disabilities:
                             </p>
-                            <ol className="mt-4 list-decimal space-y-1.5 pl-5 text-sm text-slate-700">
+                            <ol className="mt-4 list-decimal space-y-1.5 pl-5 text-sm font-medium text-jsyu-text-muted">
                                 <li>Youth Economic Empowerment &amp; Livelihoods (including fishing livelihoods in the SUDD swamps)</li>
                                 <li>Peacebuilding &amp; Social Cohesion</li>
                                 <li>Education, Leadership &amp; Capacity Building</li>
@@ -82,11 +82,11 @@ export default function WorkPlanIndex() {
                                 <li>Volunteerism &amp; Community Service</li>
                                 <li>Inclusion &amp; Youth with Disabilities (cross-cutting)</li>
                             </ol>
-                            <p className="mt-4 text-sm text-slate-700">
+                            <p className="mt-4 text-sm font-medium text-jsyu-text-muted">
                                 You can explore the details of each program area on the{' '}
                                 <a
                                     href="/programs"
-                                    className="font-semibold text-sky-600 underline-offset-2 hover:underline"
+                                    className="font-bold text-jsyu-green underline-offset-2 hover:underline"
                                 >
                                     Programs page
                                 </a>
@@ -94,14 +94,14 @@ export default function WorkPlanIndex() {
                             </p>
                         </div>
 
-                        <div className="rounded-3xl bg-slate-50 px-6 py-6 shadow-sm ring-1 ring-slate-200 sm:px-8 sm:py-8">
-                            <h2 className="text-lg font-semibold text-slate-900">Implementation &amp; Monitoring</h2>
-                            <p className="mt-3 text-sm text-slate-700">
+                        <div className="rounded-3xl bg-jsyu-green-light px-6 py-6 shadow-sm ring-1 ring-jsyu-green-soft sm:px-8 sm:py-8">
+                            <h2 className="text-lg font-bold text-jsyu-green-deep">Implementation &amp; Monitoring</h2>
+                            <p className="mt-3 text-sm font-medium text-jsyu-text-muted">
                                 Implementation will be led by the JSYU Secretariat in partnership with county youth
                                 unions, State Government ministries, NGOs, and development partners. Youth structures in
                                 all 9 counties will help adapt activities to local realities.
                             </p>
-                            <p className="mt-3 text-sm text-slate-700">
+                            <p className="mt-3 text-sm font-medium text-jsyu-text-muted">
                                 Progress will be tracked through quarterly review meetings, activity and financial
                                 reports, and an annual performance review, ensuring that youth themselves can hold their
                                 leaders accountable.
@@ -110,19 +110,19 @@ export default function WorkPlanIndex() {
                     </div>
                 </section>
 
-                <section className="mt-16 rounded-3xl bg-sky-900 px-6 py-8 text-slate-50 sm:px-8">
-                    <h2 className="text-lg font-semibold">Cross-cutting priorities</h2>
-                    <ul className="mt-4 space-y-2 text-sm">
+                <section className="mt-16 rounded-3xl bg-jsyu-green-deep px-6 py-8 text-white sm:px-8">
+                    <h2 className="text-lg font-bold">Cross-cutting priorities</h2>
+                    <ul className="mt-4 space-y-2 text-sm font-medium">
                         {crossCutting.map((item) => (
                             <li key={item} className="flex gap-2">
-                                <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-sky-300" />
+                                <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-jsyu-accent" />
                                 <span>{item}</span>
                             </li>
                         ))}
                     </ul>
                 </section>
 
-                <section className="mt-16 rounded-3xl bg-slate-900 px-6 py-8 text-slate-50 sm:px-8">
+                <section className="mt-16 rounded-3xl bg-jsyu-charcoal px-6 py-8 text-white sm:px-8">
                     <h2 className="text-lg font-semibold">Conclusion</h2>
                     <p className="mt-3 text-sm text-slate-200">
                         The Annual Work Plan 2026/2027 is a roadmap for youth empowerment, peace, and development in

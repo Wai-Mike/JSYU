@@ -157,13 +157,13 @@ export default function ProgramsIndex() {
         <AssociationLayout>
             <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 sm:py-32">
                 <header className="mx-auto max-w-3xl text-center">
-                    <span className="text-sm font-semibold uppercase tracking-wider text-sky-600">
+                    <span className="text-sm font-bold uppercase tracking-wider text-jsyu-green">
                         Our Strategic Programs
                     </span>
-                    <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                    <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-jsyu-green-deep sm:text-4xl lg:text-5xl">
                         Fiscal Year 2026/2027 programs for Jonglei youth
                     </h1>
-                    <p className="mt-6 text-lg text-slate-600">
+                    <p className="mt-6 text-lg font-medium text-jsyu-text-muted">
                         These program areas come from the Jonglei State Youth Union Fiscal Year Plan and Annual Work Plan
                         2026/2027. They respond to unemployment, conflict, climate shocks, health risks, and leadership
                         gaps affecting young people across all 9 counties&mdash;with a deliberate focus on youth with
@@ -175,11 +175,11 @@ export default function ProgramsIndex() {
                     {programs.map((program) => (
                         <article
                             key={program.id}
-                            className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-slate-950/95 p-7 shadow-sm ring-1 ring-slate-800 transition-all hover:-translate-y-1 hover:shadow-2xl hover:ring-sky-500/70"
+                            className="group flex h-full flex-col rounded-2xl border border-jsyu-green-deep/30 bg-jsyu-green-deep p-7 shadow-sm ring-1 ring-jsyu-green-deep/50 transition-all hover:-translate-y-1 hover:shadow-2xl hover:ring-jsyu-green/70"
                         >
                             <div className="flex items-start justify-between gap-3">
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-400">
+                                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-jsyu-accent">
                                         {program.number}
                                     </p>
                                     <h2 className="mt-2 text-xl font-semibold text-white">{program.name}</h2>
@@ -191,7 +191,7 @@ export default function ProgramsIndex() {
                                 )}
                             </div>
 
-                            <p className="mt-4 text-sm font-medium text-sky-100">Objective</p>
+                            <p className="mt-4 text-sm font-bold text-jsyu-accent/90">Objective</p>
                             <p className="mt-1 text-sm text-slate-200">{program.objective}</p>
 
                             <div className="mt-5 space-y-3">
@@ -235,9 +235,9 @@ export default function ProgramsIndex() {
                     ))}
                 </div>
 
-                <section className="mt-20 rounded-3xl bg-sky-50 px-6 py-8 text-slate-800 sm:px-8">
-                    <h2 className="text-xl font-semibold text-slate-900">Cross-cutting priorities</h2>
-                    <p className="mt-3 text-sm text-slate-700">
+                <section className="mt-20 rounded-3xl bg-jsyu-green-light px-6 py-8 text-jsyu-charcoal sm:px-8">
+                    <h2 className="text-xl font-bold text-jsyu-green-deep">Cross-cutting priorities</h2>
+                    <p className="mt-3 text-sm font-medium text-jsyu-text-muted">
                         Every program in this plan is designed to intentionally include{' '}
                         <span className="font-semibold">young women</span>,{' '}
                         <span className="font-semibold">youth with disabilities</span>, and{' '}
