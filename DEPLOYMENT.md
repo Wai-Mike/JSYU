@@ -45,7 +45,7 @@ Copy `.env.example` to `.env.production` and set:
 APP_NAME="Jonglei State Youth Union"
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://yourdomain.com
+APP_URL=https://jsyu.org
 
 # Generate a key locally: php artisan key:generate --show
 APP_KEY=base64:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=
