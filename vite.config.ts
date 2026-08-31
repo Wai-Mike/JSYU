@@ -32,14 +32,14 @@ export default defineConfig({
         },
     },
     server: {
-        host: process.env.VITE_DEV_SERVER_HOST || 'localhost',
+        host: 'localhost',
         port: 5173,
         cors: {
             origin: true,
             credentials: true,
         },
         hmr: {
-            host: process.env.VITE_DEV_SERVER_HOST || 'localhost',
+            host: 'localhost',
             protocol: 'ws',
             clientPort: 5173,
         },
