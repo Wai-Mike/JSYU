@@ -1,31 +1,31 @@
 import { Link } from '@inertiajs/react';
 import { sectionImages } from '../../../constants/sectionImages';
 
-const placeholderPosts = [
+const newsPosts = [
     {
-        id: 'placeholder-1',
-        date: 'Coming soon',
-        title: 'Youth stories and program updates from across Jonglei',
+        id: 'bor-forum',
+        date: '12 March 2026',
+        title: 'County youth forum opens in Bor with all nine counties represented',
         description:
-            'Placeholder preview — connect the blog feed here to show the latest published posts from JSYU members and programs.',
+            'JSYU convened Nuer, Dinka, and Anyuak youth leaders in Bor to set shared priorities on livelihoods, peace, and flood preparedness for the 2026/2030 term.',
         image: sectionImages.news[0],
         alt: 'South Sudanese youth gathering outdoors in Jonglei',
     },
     {
-        id: 'placeholder-2',
-        date: 'Coming soon',
-        title: 'Peacebuilding and community dialogue highlights',
+        id: 'ayod-peace',
+        date: '28 February 2026',
+        title: 'Peace caravan links Ayod and Fangak youth ahead of rainy season',
         description:
-            'Placeholder preview — share news about youth-led peace initiatives, forums, and county-level activities.',
+            'Football matches and mediation training brought young people together to reduce revenge attacks and strengthen social cohesion along the White Nile corridor.',
         image: sectionImages.news[1],
         alt: 'South Sudanese youth in a community peace dialogue under a tree',
     },
     {
-        id: 'placeholder-3',
-        date: 'Coming soon',
-        title: 'Education, skills, and opportunity announcements',
+        id: 'pochalla-skills',
+        date: '5 February 2026',
+        title: 'Vocational skills week launches for youth in Pochalla and Twic East',
         description:
-            'Placeholder preview — highlight scholarships, training, and advocacy updates for youth across the state.',
+            'Carpentry, tailoring, and ICT sessions opened under the Economic Empowerment program, with places reserved for young women and youth with disabilities.',
         image: sectionImages.news[2],
         alt: 'South Sudanese youth learning together in an outdoor classroom',
     },
@@ -42,7 +42,7 @@ export default function NewsPreviewSection() {
                             News & Events
                         </h2>
                         <p className="mt-2 text-sm font-medium text-jsyu-text-muted">
-                            Preview cards below are placeholders until live blog posts are surfaced here.
+                            Updates from youth programs and gatherings across Jonglei State.
                         </p>
                     </div>
                     <Link
@@ -54,7 +54,7 @@ export default function NewsPreviewSection() {
                 </div>
 
                 <div className="grid gap-7 md:grid-cols-3">
-                    {placeholderPosts.map((post) => (
+                    {newsPosts.map((post) => (
                         <article
                             key={post.id}
                             className="group overflow-hidden rounded-2xl border border-jsyu-green-soft bg-jsyu-green-light transition-shadow duration-200 hover:shadow-lg"

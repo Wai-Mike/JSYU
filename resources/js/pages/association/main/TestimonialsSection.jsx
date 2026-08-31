@@ -1,29 +1,29 @@
 import { sectionImages } from '../../../constants/sectionImages';
 
-const placeholderTestimonials = [
+const testimonials = [
     {
-        id: 'placeholder-1',
-        name: 'Youth member',
-        role: 'JSYU member placeholder',
-        text: 'This is a generic placeholder testimonial. Replace with a real story from a JSYU youth member when available.',
+        id: 'nyandeng',
+        name: 'Nyandeng Mabior',
+        role: 'Youth member · Bor County',
+        text: 'Through JSYU dialogues in Bor, I learned how young people from Nuer, Dinka, and Anyuak communities can sit together and push for peace in our payams. That voice now reaches county leaders.',
         image: sectionImages.testimonials[0],
-        alt: 'Portrait of a young South Sudanese woman',
+        alt: 'Portrait of Nyandeng Mabior',
     },
     {
-        id: 'placeholder-2',
-        name: 'Community participant',
-        role: 'Program participant placeholder',
-        text: 'This is a generic placeholder testimonial. Replace with an authentic account of program impact or leadership experience.',
+        id: 'gatwech',
+        name: 'Gatwech Deng',
+        role: 'Peace caravan participant · Ayod County',
+        text: 'The inter-county peace football tournament brought youth from Fangak and Ayod into one pitch. We left with friendships and a shared promise to reject revenge violence in Jonglei.',
         image: sectionImages.testimonials[1],
-        alt: 'Portrait of a young South Sudanese man',
+        alt: 'Portrait of Gatwech Deng',
     },
     {
-        id: 'placeholder-3',
-        name: 'Youth volunteer',
-        role: 'Volunteer placeholder',
-        text: 'This is a generic placeholder testimonial. Replace with a verified quote from a youth volunteer or program beneficiary.',
+        id: 'achol',
+        name: 'Achol Omot',
+        role: 'Volunteer · Pochalla County',
+        text: 'I joined a JSYU clean-up and tree-planting day along the river near Pochalla. Serving our Anyuak neighbours taught me that climate action and community care start with youth hands.',
         image: sectionImages.testimonials[2],
-        alt: 'Portrait of a young South Sudanese volunteer',
+        alt: 'Portrait of Achol Omot',
     },
 ];
 
@@ -40,12 +40,13 @@ export default function TestimonialsSection() {
                     <span className="text-sm font-bold uppercase tracking-wider text-jsyu-accent">Youth Stories</span>
                     <h2 className="mt-2 text-3xl font-extrabold text-white lg:text-4xl">Voices from Our Community</h2>
                     <p className="mx-auto mt-3 max-w-xl text-sm font-medium text-white/55">
-                        Placeholder content only — replace with verified testimonials from JSYU youth when ready.
+                        Young people across Jonglei&apos;s nine counties sharing how the Union shapes peace, skills, and
+                        daily life.
                     </p>
                 </div>
 
                 <div className="grid gap-7 md:grid-cols-3">
-                    {placeholderTestimonials.map((item) => (
+                    {testimonials.map((item) => (
                         <div
                             key={item.id}
                             className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-sm"

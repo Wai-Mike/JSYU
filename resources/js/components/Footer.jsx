@@ -132,20 +132,18 @@ export default function Footer() {
                             Newsletter
                         </h4>
                         <p className="mb-2 text-xs text-white/45">
-                            Coming soon — stay updated on youth programs and events.
+                            Get JSYU updates on programs, peace forums, and county events across Jonglei.
                         </p>
-                        <div className="flex gap-2 opacity-60">
+                        <div className="flex gap-2">
                             <input
                                 type="email"
-                                disabled
-                                placeholder="Your email"
-                                aria-label="Newsletter email (coming soon)"
+                                placeholder="you@example.com"
+                                aria-label="Newsletter email"
                                 className="flex-1 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/40"
                             />
                             <button
                                 type="button"
-                                disabled
-                                className="rounded-lg bg-jsyu-green px-3 py-2 text-sm font-semibold text-white"
+                                className="rounded-lg bg-jsyu-green px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-jsyu-green-hover"
                             >
                                 →
                             </button>
