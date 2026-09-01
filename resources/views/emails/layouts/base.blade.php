@@ -271,7 +271,7 @@
     <div class="email-container">
         <div class="email-header">
             <div class="logo-container">
-                <img src="{{ config('app.url') }}/images/dark-background-logo.png.png"
+                <img src="{{ config('app.url') }}/images/jsyu-logo.png"
                     alt="{{ config('app.name', 'Jonglei State Youth Union') }}" class="logo"
                     style="display: block; max-width: 120px; height: auto;">
                 <h1 class="logo-text">{{ config('app.name', 'Jonglei State Youth Union') }}</h1>

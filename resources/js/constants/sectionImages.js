@@ -1,6 +1,6 @@
 /** Intentional image-to-section mapping — no duplicate hero image across major sections. */
 export const sectionImages = {
-    logo: '/images/jsyu-logo.jpeg',
+    logo: '/images/jsyu-logo.png',
     hero: '/images/hero-section.jpeg',
     about: '/images/WhatsApp Image 2026-02-17 at 15.30.31 (1).jpeg',
     chairman: '/images/chairman-tot-bangot.jpg',

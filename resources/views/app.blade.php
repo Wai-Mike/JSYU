@@ -21,7 +21,7 @@
     <meta property="og:description" content="@yield('og_description', 'The Jonglei State Youth Union is the primary representative body for young people in Jonglei State, South Sudan. Advocating for youth representation, peacebuilding, and empowerment.')">
     <meta property="og:url" content="@yield('og_url', request()->url())">
     <meta property="og:site_name" content="Jonglei State Youth Union">
-    <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
+    <meta property="og:image" content="@yield('og_image', asset('images/jsyu-logo.png'))">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
@@ -30,7 +30,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('twitter_title', 'Jonglei State Youth Union - Representation, Peacebuilding & Youth Empowerment')">
     <meta name="twitter:description" content="@yield('twitter_description', 'The Jonglei State Youth Union is the primary representative body for young people in Jonglei State, South Sudan.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('images/logo.png'))">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/jsyu-logo.png'))">
     <meta name="twitter:site" content="@JongleiYouth">
     <meta name="twitter:creator" content="@JongleiYouth">
 
@@ -42,7 +42,8 @@
     <meta name="apple-mobile-web-app-title" content="Jonglei State Youth Union">
 
     {{-- Favicon and App Icons --}}
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/jsyu-logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/jsyu-logo.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
     {{-- Preconnect for Performance --}}
