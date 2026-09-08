@@ -11,7 +11,7 @@ export default function HeroSection() {
     return (
         <section className="relative flex min-h-screen items-center overflow-hidden bg-jsyu-green-deep">
             <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                className="absolute inset-0 bg-cover bg-[center_20%] bg-no-repeat"
                 style={{ backgroundImage: `url('${sectionImages.hero}')` }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-jsyu-green-deep/94 via-jsyu-green-deep/78 to-jsyu-green-deep/35" />

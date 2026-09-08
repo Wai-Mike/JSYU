@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { sectionImages } from '../../constants/sectionImages';
 
@@ -10,6 +10,7 @@ const highlights = [
 ];
 
 export default function Login({ status, canResetPassword }) {
+    const { flash } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -96,9 +97,15 @@ export default function Login({ status, canResetPassword }) {
 
                 <div className="flex flex-1 items-center justify-center px-6 pb-10 lg:px-12">
                     <div className="w-full max-w-md rounded-2xl border border-jsyu-green-soft bg-white p-8 shadow-sm">
-                        {status && (
-                            <div className="mb-4 rounded-lg border border-jsyu-green/30 bg-jsyu-green-light px-4 py-3 text-sm font-medium text-jsyu-green-deep">
-                                {status}
+                        {(status || flash?.error) && (
+                            <div
+                                className={`mb-4 rounded-lg border px-4 py-3 text-sm font-medium ${
+                                    flash?.error
+                                        ? 'border-red-200 bg-red-50 text-red-700'
+                                        : 'border-jsyu-green/30 bg-jsyu-green-light text-jsyu-green-deep'
+                                }`}
+                            >
+                                {flash?.error || status}
                             </div>
                         )}
 

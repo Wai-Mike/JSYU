@@ -26,7 +26,7 @@ export default function AboutSection() {
                             <img
                                 src={sectionImages.about}
                                 alt="JSYU leadership and youth representatives"
-                                className="h-full w-full object-cover"
+                                className="h-full w-full object-cover object-[center_20%]"
                             />
                         </div>
                         <div className="absolute -bottom-6 -right-6 hidden rounded-2xl bg-jsyu-green-deep p-5 shadow-lg sm:block">

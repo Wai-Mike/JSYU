@@ -68,9 +68,34 @@ MAIL_HOST=...
 MAIL_PORT=...
 MAIL_USERNAME=...
 MAIL_PASSWORD=...
+
+# Google OAuth — required for "Continue with Google"
+# Create credentials at https://console.cloud.google.com/apis/credentials
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_REDIRECT_URL=https://jsyu.org/auth/google/callback
 ```
 
 Rename `.env.production` to `.env` **on the server** (or type the same values into `.env` there). **Never commit `.env` or `.env.production` with real secrets.**
+
+### Google sign-in setup (fix "Access blocked: Authorization Error")
+
+1. Go to [Google Cloud Console → Credentials](https://console.cloud.google.com/apis/credentials).
+2. Create an **OAuth 2.0 Client ID** (Web application).
+3. Set **Authorized JavaScript origins**:
+   - `https://jsyu.org`
+   - `http://localhost:8000` (for local dev only)
+4. Set **Authorized redirect URIs** (must match exactly):
+   - `https://jsyu.org/auth/google/callback`
+   - `http://localhost:8000/auth/google/callback` (for local dev only)
+5. Copy the Client ID and Client Secret into `.env` on the server as `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+6. Set `APP_URL=https://jsyu.org` and either leave `GOOGLE_REDIRECT_URL` empty or set it to `https://jsyu.org/auth/google/callback`.
+7. In **OAuth consent screen**, add your Google account under **Test users** (if the app is still in Testing), or **Publish** the app for all users.
+8. On the server after editing `.env`:
+   ```bash
+   php artisan config:clear
+   php artisan config:cache
+   ```
 
 ---
 
