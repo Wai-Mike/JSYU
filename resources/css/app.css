@@ -211,6 +211,79 @@ body.mobile-menu-open {
     animation: fade-in 1.2s ease both;
 }
 
+/* Hero slider */
+@keyframes ken-burns {
+    from {
+        transform: scale(1.15) translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: scale(1) translate3d(0, -1.5%, 0);
+    }
+}
+
+@keyframes slide-progress {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.animate-ken-burns {
+    animation: ken-burns 9s ease-out both;
+}
+
+.animate-slide-progress {
+    transform-origin: left;
+    animation: slide-progress var(--slide-duration, 7s) linear both;
+}
+
+/* Counties marquee */
+@keyframes marquee {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 40s linear infinite;
+}
+
+.animate-marquee-reverse {
+    animation: marquee 48s linear infinite reverse;
+}
+
+.marquee-mask {
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.county-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-jsyu-accent) 80%, transparent);
+}
+
+.county-outline:hover {
+    color: var(--color-jsyu-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-marquee-reverse,
+    .animate-ken-burns,
+    .animate-fade-up,
+    .animate-fade-up-delay,
+    .animate-fade-up-delay-2 {
+        animation: none;
+    }
+}
+
 /* Smooth transitions for specific elements */
 .navbar-link,
 .interactive,

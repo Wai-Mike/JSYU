@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import Reveal from '../../../components/Reveal';
 import { sectionImages } from '../../../constants/sectionImages';
 
 const newsPosts = [
@@ -39,18 +40,18 @@ export default function NewsPreviewSection() {
         <section className="bg-jsyu-green-light py-20 lg:py-28">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="mb-14 text-center">
-                    <h2 className="font-display text-4xl font-extrabold lowercase tracking-tight text-jsyu-green-deep sm:text-5xl">
+                    <h2 className="font-display text-jsyu-green-deep text-4xl font-extrabold tracking-tight lowercase sm:text-5xl">
                         latest news & events
                     </h2>
-                    <p className="mx-auto mt-3 max-w-lg text-sm font-medium text-jsyu-text-muted">
+                    <p className="text-jsyu-text-muted mx-auto mt-3 max-w-lg text-sm font-medium">
                         Subscribe to our updates and get the latest news from youth programs across Jonglei.
                     </p>
                 </div>
 
                 <div className="grid gap-8 md:grid-cols-3">
-                    {newsPosts.map((post) => (
-                        <article key={post.id} className="group bg-white">
-                            <div className="aspect-[16/10] overflow-hidden bg-jsyu-green-soft">
+                    {newsPosts.map((post, i) => (
+                        <Reveal as="article" key={post.id} delay={i * 0.12} className="group bg-white transition-shadow duration-300 hover:shadow-xl">
+                            <div className="bg-jsyu-green-soft aspect-[16/10] overflow-hidden">
                                 <img
                                     src={post.image}
                                     alt={post.alt}
@@ -58,23 +59,21 @@ export default function NewsPreviewSection() {
                                 />
                             </div>
                             <div className="p-5">
-                                <p className="text-xs font-bold uppercase tracking-[0.12em] text-jsyu-green-muted">
+                                <p className="text-jsyu-green-muted text-xs font-bold tracking-[0.12em] uppercase">
                                     {post.date} · {post.category}
                                 </p>
-                                <h3 className="mt-2 font-display text-xl font-bold leading-snug text-jsyu-green-deep transition-colors group-hover:text-jsyu-green">
+                                <h3 className="font-display text-jsyu-green-deep group-hover:text-jsyu-green mt-2 text-xl leading-snug font-bold transition-colors">
                                     {post.title}
                                 </h3>
-                                <p className="mt-2 line-clamp-3 text-sm font-medium leading-relaxed text-jsyu-text-muted">
-                                    {post.description}
-                                </p>
+                                <p className="text-jsyu-text-muted mt-2 line-clamp-3 text-sm leading-relaxed font-medium">{post.description}</p>
                                 <Link
                                     href={route('blog.index')}
-                                    className="mt-4 inline-block text-xs font-bold uppercase tracking-[0.14em] text-jsyu-green hover:text-jsyu-accent-hover"
+                                    className="text-jsyu-green hover:text-jsyu-accent-hover mt-4 inline-block text-xs font-bold tracking-[0.14em] uppercase"
                                 >
                                     Read More
                                 </Link>
                             </div>
-                        </article>
+                        </Reveal>
                     ))}
                 </div>
             </div>

@@ -44,15 +44,18 @@ export default function ImpactStatsSection() {
     }, []);
 
     return (
-        <section ref={statsRef} className="bg-jsyu-green-deep">
-            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-4 text-center sm:flex-row sm:px-6 sm:text-left lg:px-8">
-                <p className="text-sm font-bold uppercase tracking-[0.16em] text-white sm:text-base">
-                    Membership is open across all {counties} counties —{' '}
-                    <span className="text-jsyu-accent">join the youth of Jonglei</span>
-                </p>
+        <section ref={statsRef} className="border-jsyu-green-soft border-b bg-white">
+            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-4 py-6 text-center sm:flex-row sm:px-6 sm:text-left lg:px-8">
+                <div className="flex items-center gap-4">
+                    <span className="font-display text-jsyu-green text-4xl leading-none font-extrabold sm:text-5xl">{counties}</span>
+                    <span className="bg-jsyu-accent h-10 w-1" />
+                    <p className="text-jsyu-charcoal text-sm font-bold tracking-[0.16em] uppercase sm:text-base">
+                        Counties, one union — <span className="text-jsyu-green">membership is open to the youth of Jonglei</span>
+                    </p>
+                </div>
                 <Link
                     href={route('register')}
-                    className="shrink-0 bg-jsyu-accent px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-jsyu-green-deep hover:bg-jsyu-accent-hover"
+                    className="bg-jsyu-green hover:bg-jsyu-green-hover shrink-0 px-6 py-3 text-xs font-bold tracking-[0.14em] text-white uppercase"
                 >
                     Join Now
                 </Link>

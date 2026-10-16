@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Support\HomeUrl;
 
 class VerifyEmailController extends Controller
 {
@@ -36,14 +37,7 @@ class VerifyEmailController extends Controller
         // Auto-login the user after verification
         auth()->login($user);
 
-        // Redirect based on user role
-        $redirectRoute = match($user->role) {
-            'admin' => 'admin.dashboard',
-            'expert' => 'expert.dashboard',
-            'user' => 'user.dashboard',
-            default => 'user.dashboard'
-        };
-
-        return redirect()->intended(route($redirectRoute, absolute: false).'?verified=1');
+        // New members continue with their membership details (on the member subdomain)
+        return redirect()->away(HomeUrl::afterVerification($user));
     }
 }

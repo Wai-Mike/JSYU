@@ -8,7 +8,7 @@ Status as of 2026-10-17. Phase 0 (audit) and Phase 1 (foundation & organisationa
 
 **Stack:** Laravel 12, Inertia 2 + React 19, Tailwind 4, Vite. SQLite locally; MySQL on Hostinger in production. Ziggy for routes. Sanctum installed but unused (`routes/api.php` is empty).
 
-**Hosts:** public site on `APP_URL`; admin portal on `ADMIN_DOMAIN` (`routes/admin.php`). Shared session cookie via `SESSION_DOMAIN`.
+**Hosts:** public site on `APP_URL`; admin portal on `ADMIN_DOMAIN` (`routes/admin.php`); member area on `MEMBER_DOMAIN` (`routes/member.php`). Shared session cookie via `SESSION_DOMAIN`.
 
 **What works and is reused**
 
@@ -149,6 +149,7 @@ Run with `php artisan test tests/Feature/Portal`.
 | Setting | Purpose |
 |---|---|
 | `ADMIN_DOMAIN` | Admin portal host (defaults to `portal.<APP_URL host>`) |
+| `MEMBER_DOMAIN` | Member area host (defaults to `member.<APP_URL host>`) |
 | `SESSION_DOMAIN` | Leading-dot domain so one login works on both hosts |
 | `PORTAL_DOCUMENTS_DISK` | Disk for private attachments (default `local` → `storage/app/private`; never `public`) |
 

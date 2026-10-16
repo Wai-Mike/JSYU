@@ -1,5 +1,5 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { LogOut, Mail, MapPin, Phone, Search } from 'lucide-react';
+import { LayoutDashboard, LogOut, Mail, MapPin, Phone, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { sectionImages } from '../../constants/sectionImages';
 
@@ -35,6 +35,9 @@ export default function GuestNavbar() {
         e.preventDefault();
         router.post(route('logout'));
     };
+
+    // Portal users and members each have their own subdomain
+    const dashboardUrl = auth?.user?.role === 'admin' ? route('admin.dashboard') : route('member.dashboard');
 
     const navigation = [
         { name: 'Home', href: route('home') },
@@ -86,11 +89,11 @@ export default function GuestNavbar() {
                             <span>Bor, Jonglei State</span>
                         </a>
                         <a
-                            href="mailto:info@luac-akook-yieu.org"
+                            href="mailto:info@jsyu.org"
                             className="inline-flex items-center gap-2 hover:text-jsyu-green-deep"
                         >
                             <Mail className="h-3.5 w-3.5 text-jsyu-green-muted" />
-                            <span>info@luac-akook-yieu.org</span>
+                            <span>info@jsyu.org</span>
                         </a>
                         <span className="hidden items-center gap-2 xl:inline-flex">
                             <MapPin className="h-3.5 w-3.5 text-jsyu-green-muted" />
@@ -150,6 +153,13 @@ export default function GuestNavbar() {
                                                     {auth.user.email}
                                                 </div>
                                             </div>
+                                            <a
+                                                href={dashboardUrl}
+                                                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-jsyu-charcoal hover:bg-jsyu-green-light"
+                                            >
+                                                <LayoutDashboard className="h-4 w-4" />
+                                                My dashboard
+                                            </a>
                                             <button
                                                 onClick={handleLogout}
                                                 className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-jsyu-charcoal hover:bg-jsyu-green-light"
@@ -221,6 +231,15 @@ export default function GuestNavbar() {
                             ))}
 
                             <div className="mt-3 space-y-3 border-t border-white/10 pt-4 pb-4">
+                                {auth?.user && (
+                                    <a
+                                        href={dashboardUrl}
+                                        className="flex min-h-[44px] items-center justify-center gap-2 bg-jsyu-accent px-4 py-3 text-sm font-bold uppercase tracking-wider text-jsyu-green-deep"
+                                    >
+                                        <LayoutDashboard className="h-4 w-4" />
+                                        My dashboard
+                                    </a>
+                                )}
                                 {auth?.user ? (
                                     <div className="flex items-center justify-between px-2">
                                         <div className="min-w-0 text-left">

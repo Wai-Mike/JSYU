@@ -44,11 +44,11 @@ export default function TestimonialsSection() {
                     key={item.id}
                     src={item.image}
                     alt={item.name}
-                    className="mx-auto h-24 w-24 object-cover ring-4 ring-jsyu-accent/40 transition-opacity duration-500"
+                    className="ring-jsyu-accent/40 mx-auto h-24 w-24 object-cover ring-4 transition-opacity duration-500"
                 />
-                <p className="mt-5 text-sm font-bold uppercase tracking-[0.16em] text-jsyu-accent">{item.name}</p>
+                <p className="text-jsyu-accent mt-5 text-sm font-bold tracking-[0.16em] uppercase">{item.name}</p>
                 <p className="mt-1 text-xs font-medium text-white/50">{item.role}</p>
-                <blockquote className="mt-8 font-display text-2xl font-bold leading-snug text-white sm:text-3xl lg:text-4xl">
+                <blockquote className="font-display mt-8 text-2xl leading-snug font-bold text-white sm:text-3xl lg:text-4xl">
                     &ldquo;{item.text}&rdquo;
                 </blockquote>
 
@@ -59,9 +59,7 @@ export default function TestimonialsSection() {
                             type="button"
                             aria-label={`Show testimonial from ${t.name}`}
                             onClick={() => setActive(index)}
-                            className={`h-2 w-2  transition-colors ${
-                                index === active ? 'bg-jsyu-accent' : 'bg-white/30 hover:bg-white/50'
-                            }`}
+                            className={`h-2 w-2 transition-colors ${index === active ? 'bg-jsyu-accent' : 'bg-white/30 hover:bg-white/50'}`}
                         />
                     ))}
                 </div>

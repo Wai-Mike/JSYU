@@ -2,6 +2,12 @@
 export const sectionImages = {
     logo: '/images/jsyu-logo.png',
     hero: '/images/jsyu-leadership.jpg',
+    heroSlides: [
+        '/images/hero-section.jpeg',
+        '/images/WhatsApp Image 2026-02-17 at 15.30.32.jpeg',
+        '/images/jsyu-leadership.jpg',
+        '/images/news-youth-community.jpg',
+    ],
     about: '/images/jsyu-leadership.jpg',
     chairman: '/images/chairman-tot-bangot.jpg',
     news: [

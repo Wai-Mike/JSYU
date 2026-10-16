@@ -1,6 +1,7 @@
 import AssociationLayout from '../../../layouts/AssociationLayout';
 import AboutSection from './AboutSection.jsx';
 import ChairmanSection from './ChairmanSection.jsx';
+import CountiesMarqueeSection from './CountiesMarqueeSection.jsx';
 import CTASection from './CTASection.jsx';
 import HeroSection from './HeroSection.jsx';
 import ImageRibbonSection from './ImageRibbonSection.jsx';
@@ -16,6 +17,7 @@ export default function Index() {
             <HeroSection />
             <ImpactStatsSection />
             <AboutSection />
+            <CountiesMarqueeSection />
             <ProgramsPreviewSection />
             <OpportunitiesSection />
             <TestimonialsSection />

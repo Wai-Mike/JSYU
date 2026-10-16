@@ -57,6 +57,17 @@ class MemberProfile extends Model
         return $this->photo_path !== null;
     }
 
+    /** Whether the details required by the membership form have been filled in. */
+    public function isMembershipComplete(): bool
+    {
+        return filled($this->first_name)
+            && filled($this->last_name)
+            && $this->date_of_birth !== null
+            && filled($this->current_country_code)
+            && filled($this->person?->phone)
+            && filled($this->person?->gender);
+    }
+
     public function isOwnedBy(?User $user): bool
     {
         return $user !== null && $this->person?->user_id === $user->id;

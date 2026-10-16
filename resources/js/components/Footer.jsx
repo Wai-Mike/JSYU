@@ -64,10 +64,10 @@ export default function Footer() {
                             <li className="flex gap-2">
                                 <Mail className="h-4 w-4 shrink-0 text-jsyu-accent" />
                                 <a
-                                    href="mailto:info@luac-akook-yieu.org"
+                                    href="mailto:info@jsyu.org"
                                     className="hover:text-jsyu-accent"
                                 >
-                                    info@luac-akook-yieu.org
+                                    info@jsyu.org
                                 </a>
                             </li>
                         </ul>

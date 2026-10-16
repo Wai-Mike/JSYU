@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Support\CrossHostRedirect;
+use App\Support\HomeUrl;
 
 class ConfirmablePasswordController extends Controller
 {
@@ -23,7 +25,7 @@ class ConfirmablePasswordController extends Controller
     /**
      * Confirm the user's password.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): SymfonyResponse
     {
         if (! Auth::guard('web')->validate([
             'email' => $request->user()->email,
@@ -37,13 +39,7 @@ class ConfirmablePasswordController extends Controller
         $request->session()->put('auth.password_confirmed_at', time());
 
         $user = $request->user();
-        $redirectRoute = match($user->role) {
-            'admin' => 'admin.dashboard',
-            'expert' => 'expert.dashboard',
-            'user' => 'user.dashboard',
-            default => 'user.dashboard'
-        };
         
-        return redirect()->intended(route($redirectRoute, absolute: false));
+        return CrossHostRedirect::to($request, redirect()->intended(HomeUrl::for($user))->getTargetUrl());
     }
 }

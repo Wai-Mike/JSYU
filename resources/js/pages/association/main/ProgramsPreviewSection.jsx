@@ -1,19 +1,12 @@
 import { Link } from '@inertiajs/react';
-import {
-    BookOpen,
-    Briefcase,
-    HeartHandshake,
-    Landmark,
-    Leaf,
-    Users,
-} from 'lucide-react';
+import { BookOpen, Briefcase, HeartHandshake, Landmark, Leaf, Users } from 'lucide-react';
+import Reveal from '../../../components/Reveal';
 
 const programs = [
     {
         icon: Landmark,
         name: 'Youth Representation & Advocacy',
-        description:
-            'Promoting institutionalized representation of youth in state and county-level decision-making.',
+        description: 'Promoting institutionalized representation of youth in state and county-level decision-making.',
     },
     {
         icon: HeartHandshake,
@@ -23,8 +16,7 @@ const programs = [
     {
         icon: BookOpen,
         name: 'Education & Vocational Training',
-        description:
-            'Advocating for quality education and vocational training as alternatives to armed mobilization.',
+        description: 'Advocating for quality education and vocational training as alternatives to armed mobilization.',
     },
     {
         icon: Users,
@@ -48,33 +40,27 @@ export default function ProgramsPreviewSection() {
         <section className="bg-white py-20 lg:py-28">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="mb-14 text-center">
-                    <h2 className="font-display text-4xl font-extrabold lowercase tracking-tight text-jsyu-green-deep sm:text-5xl">
-                        our programs
-                    </h2>
-                    <p className="mx-auto mt-3 max-w-lg text-sm font-medium text-jsyu-text-muted">
+                    <h2 className="font-display text-jsyu-green-deep text-4xl font-extrabold tracking-tight lowercase sm:text-5xl">our programs</h2>
+                    <p className="text-jsyu-text-muted mx-auto mt-3 max-w-lg text-sm font-medium">
                         Key areas advancing youth representation, peace, education, and opportunity across Jonglei State.
                     </p>
                 </div>
 
                 <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-                    {programs.map((program) => {
+                    {programs.map((program, i) => {
                         const Icon = program.icon;
                         return (
-                            <Link
-                                key={program.name}
-                                href={route('programs')}
-                                className="group text-left"
-                            >
-                                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center border border-jsyu-green-soft text-jsyu-green-muted transition-colors group-hover:border-jsyu-accent group-hover:text-jsyu-green-deep">
-                                    <Icon className="h-7 w-7" strokeWidth={1.25} />
-                                </div>
-                                <h3 className="font-display text-xl font-bold text-jsyu-green-deep transition-colors group-hover:text-jsyu-green">
-                                    {program.name}
-                                </h3>
-                                <p className="mt-2 text-sm font-medium leading-relaxed text-jsyu-text-muted">
-                                    {program.description}
-                                </p>
-                            </Link>
+                            <Reveal key={program.name} delay={(i % 3) * 0.12}>
+                                <Link href={route('programs')} className="group block h-full text-left">
+                                    <div className="border-jsyu-green-soft text-jsyu-green-muted group-hover:border-jsyu-accent group-hover:text-jsyu-green-deep mb-4 inline-flex h-14 w-14 items-center justify-center border transition-colors">
+                                        <Icon className="h-7 w-7" strokeWidth={1.25} />
+                                    </div>
+                                    <h3 className="font-display text-jsyu-green-deep group-hover:text-jsyu-green text-xl font-bold transition-colors">
+                                        {program.name}
+                                    </h3>
+                                    <p className="text-jsyu-text-muted mt-2 text-sm leading-relaxed font-medium">{program.description}</p>
+                                </Link>
+                            </Reveal>
                         );
                     })}
                 </div>
@@ -82,7 +68,7 @@ export default function ProgramsPreviewSection() {
                 <div className="mt-14 text-center">
                     <Link
                         href={route('programs')}
-                        className="inline-flex items-center bg-jsyu-accent px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-jsyu-green-deep hover:bg-jsyu-accent-hover"
+                        className="bg-jsyu-accent text-jsyu-green-deep hover:bg-jsyu-accent-hover inline-flex items-center px-6 py-3 text-xs font-bold tracking-[0.14em] uppercase"
                     >
                         View All Programs
                     </Link>

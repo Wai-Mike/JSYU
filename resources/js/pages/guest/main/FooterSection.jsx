@@ -9,13 +9,13 @@ export default function FooterSection() {
             { name: 'About Us', href: '/#about' },
             { name: 'Our Mission', href: '/#about' },
             { name: 'Programs', href: '/programs' },
-            { name: 'Contact', href: 'mailto:info@luac-akook-yieu.org' },
+            { name: 'Contact', href: 'mailto:info@jsyu.org' },
         ],
         resources: [
             { name: 'Youth Representation', href: '/programs' },
             { name: 'Peacebuilding', href: '/programs' },
             { name: 'Education & Training', href: '/programs' },
-            { name: 'Get Involved', href: 'mailto:info@luac-akook-yieu.org' },
+            { name: 'Get Involved', href: 'mailto:info@jsyu.org' },
         ],
         legal: [
             { name: 'Privacy Policy', href: '#' },
@@ -51,8 +51,8 @@ export default function FooterSection() {
                         <div className="space-y-3 text-sm text-gray-600">
                             <div className="flex items-center gap-2">
                                 <Mail className="h-4 w-4 text-yellow-500" />
-                                <a href="mailto:info@luac-akook-yieu.org" className="transition-colors hover:text-yellow-500">
-                                    info@luac-akook-yieu.org
+                                <a href="mailto:info@jsyu.org" className="transition-colors hover:text-yellow-500">
+                                    info@jsyu.org
                                 </a>
                             </div>
                             <div className="flex items-start gap-2">

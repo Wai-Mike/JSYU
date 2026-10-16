@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Support\HomeUrl;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,12 +66,10 @@ class GoogleAuthController extends Controller
 
         Log::info('Google login succeeded', ['user_id' => $user->id]);
 
-        $redirectRoute = match ($user->role) {
-            'admin' => 'admin.dashboard',
-            default => 'home',
-        };
-
-        return redirect()->intended(route($redirectRoute));
+        // Brand-new Google members go on to fill in their membership details
+        return $user->wasRecentlyCreated && $user->hasVerifiedEmail()
+            ? redirect()->away(HomeUrl::afterVerification($user))
+            : redirect()->intended(HomeUrl::for($user));
     }
 
     private function resolveUser(SocialiteUser $googleUser): User

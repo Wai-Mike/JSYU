@@ -5,23 +5,26 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use App\Services\Members\MemberProfileService;
 use App\Notifications\VerificationWelcomeNotification;
 use App\Support\CrossHostRedirect;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use App\Support\HomeUrl;
 
 class RegisterController extends Controller
 {
     /**
-     * Display the registration view.
+     * Display the registration view (step 1: the account itself).
      */
     public function showRegistrationForm(): Response
     {
@@ -40,26 +43,42 @@ class RegisterController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
+     * Create the account, then send the member to verify their email. The rest
+     * of the membership details are collected once the email is confirmed.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function register(Request $request): SymfonyResponse
+    public function register(Request $request, MemberProfileService $profiles): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            // We always assign normal users the student role; admins are seeded/managed separately.
-            'email' => 'required|string|lowercase|email|max:255|unique:users,email',
+        $request->merge(['email' => strtolower(trim((string) $request->input('email')))]);
+
+        $validated = $request->validate([
+            'first_name' => ['required', 'string', 'max:80'],
+            'last_name' => ['required', 'string', 'max:80'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             // Keep password rules simple for this project (admins are managed separately).
             'password' => ['required', 'confirmed', 'min:5'],
+            'terms' => ['accepted'],
+        ], [
+            'terms.accepted' => 'Please agree to the community guidelines to join.',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'role' => 'student', // DB enum is ['student','admin'], so use student for public signups
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = DB::transaction(function () use ($validated, $profiles) {
+            $user = User::create([
+                'name' => trim($validated['first_name']).' '.trim($validated['last_name']),
+                'role' => 'student', // DB enum is ['student','admin'], so use student for public signups
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
+
+            // Start the member profile now so the next steps pick up the names
+            $profiles->forUser($user)->update([
+                'first_name' => trim($validated['first_name']),
+                'last_name' => trim($validated['last_name']),
+            ]);
+
+            return $user;
+        });
 
         // Fire the Registered event (this will trigger the welcome email listener)
         event(new Registered($user));
@@ -70,18 +89,7 @@ class RegisterController extends Controller
         // Auto-login the user after registration
         Auth::login($user);
 
-        // Admins → admin dashboard; normal users → main site (home)
-        $redirectRoute = match ($user->role) {
-            'admin' => 'admin.dashboard',
-            'expert' => 'home',
-            'user' => 'home',
-            'student' => 'home',
-            default => 'home',
-        };
-
-        $request->session()->flash('success', 'Registration successful! Welcome to our platform.');
-
-        return CrossHostRedirect::to($request, redirect()->intended(route($redirectRoute))->getTargetUrl());
+        return redirect()->route('verification.notice');
     }
 
     /**
@@ -100,17 +108,8 @@ class RegisterController extends Controller
             return redirect()->route('verification.notice');
         }
 
-        // Admins go to admin dashboard; normal users stay on main site (home/blog)
-        $redirectRoute = match ($user->role) {
-            'admin' => 'admin.dashboard',
-            'expert' => 'home',
-            'user' => 'home',
-            'student' => 'home',
-            default => 'home',
-        };
-
-        // Admins land on the admin subdomain, which needs a full page visit
-        return CrossHostRedirect::to($request, redirect()->intended(route($redirectRoute))->getTargetUrl());
+        // Portal and member areas live on their own subdomains, which need a full page visit
+        return CrossHostRedirect::to($request, redirect()->intended(HomeUrl::for($user))->getTargetUrl());
     }
 
     /**
@@ -168,13 +167,18 @@ class RegisterController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request): SymfonyResponse
     {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // Portal users go back to the portal login; everyone else to the public site
+        if ($request->getHost() === config('app.admin_domain')) {
+            return redirect('/');
+        }
+
+        return CrossHostRedirect::to($request, route('home'));
     }
 }

@@ -3,27 +3,23 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Illuminate\Support\Facades\Log;
+use App\Support\CrossHostRedirect;
+use App\Support\HomeUrl;
 
 class EmailVerificationNotificationController extends Controller
 {
     /**
      * Send a new email verification notification.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): SymfonyResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
             $user = $request->user();
-            $redirectRoute = match($user->role) {
-                'admin' => 'admin.dashboard',
-                'expert' => 'expert.dashboard',
-                'user' => 'user.dashboard',
-                default => 'user.dashboard'
-            };
             
-            return redirect()->intended(route($redirectRoute, absolute: false));
+            return CrossHostRedirect::to($request, redirect()->intended(HomeUrl::for($user))->getTargetUrl());
         }
 
         try {

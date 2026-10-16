@@ -36,7 +36,7 @@ class GoogleAuthenticationTest extends TestCase
     {
         $this->mockGoogleUser('g-new', 'New@Example.com');
 
-        $this->get(route('auth.google.callback'))->assertRedirect(route('home'));
+        $this->get(route('auth.google.callback'))->assertRedirect(route('member.dashboard'));
 
         $user = User::where('email', 'new@example.com')->firstOrFail();
         $this->assertAuthenticatedAs($user);

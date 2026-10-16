@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Support\HomeUrl;
 
 class RedirectIfAuthenticated
 {
@@ -22,14 +23,8 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 $user = Auth::guard($guard)->user();
-                
-                // Redirect based on user role
-                $redirectRoute = match($user->role ?? null) {
-                    'admin' => 'admin.dashboard',
-                    default => 'student.dashboard'
-                };
 
-                return CrossHostRedirect::to($request, route($redirectRoute));
+                return CrossHostRedirect::to($request, HomeUrl::for($user));
             }
         }
 

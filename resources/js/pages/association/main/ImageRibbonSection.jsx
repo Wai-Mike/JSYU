@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import Reveal from '../../../components/Reveal';
 import { sectionImages } from '../../../constants/sectionImages';
 
 const panels = [
@@ -11,27 +12,21 @@ const panels = [
 export default function ImageRibbonSection() {
     return (
         <section className="grid grid-cols-2 lg:grid-cols-4">
-            {panels.map((panel) => (
-                <Link
-                    key={panel.label}
-                    href={panel.href}
-                    className="group relative aspect-[4/3] overflow-hidden bg-jsyu-green-deep"
-                >
-                    <img
-                        src={panel.image}
-                        alt={panel.label}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-jsyu-green-deep/35 transition-colors group-hover:bg-jsyu-green-deep/55" />
-                    <div className="absolute inset-x-0 bottom-0 p-4">
-                        <p className="font-display text-lg font-bold uppercase tracking-wide text-white">
-                            {panel.label}
-                        </p>
-                        <p className="text-xs font-bold uppercase tracking-[0.14em] text-jsyu-accent">
-                            View portfolio
-                        </p>
-                    </div>
-                </Link>
+            {panels.map((panel, i) => (
+                <Reveal key={panel.label} delay={i * 0.1} from="none" scale>
+                    <Link href={panel.href} className="group bg-jsyu-green-deep relative block aspect-[4/3] overflow-hidden">
+                        <img
+                            src={panel.image}
+                            alt={panel.label}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="bg-jsyu-green-deep/35 group-hover:bg-jsyu-green-deep/55 absolute inset-0 transition-colors" />
+                        <div className="absolute inset-x-0 bottom-0 p-4">
+                            <p className="font-display text-lg font-bold tracking-wide text-white uppercase">{panel.label}</p>
+                            <p className="text-jsyu-accent text-xs font-bold tracking-[0.14em] uppercase">View portfolio</p>
+                        </div>
+                    </Link>
+                </Reveal>
             ))}
         </section>
     );
