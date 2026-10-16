@@ -38,10 +38,10 @@ export default defineConfig({
             origin: true,
             credentials: true,
         },
-        hmr: {
-            host: 'jsyu.org',
-            protocol: 'ws',
-            clientPort: 5173,
-        },
+        // hmr: {
+        //     host: 'jsyu.org',
+        //     protocol: 'ws',
+        //     clientPort: 5173,
+        // },
     },
 });
