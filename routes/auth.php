@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\FirebaseAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -42,11 +41,6 @@ Route::middleware('guest')->group(function () {
         ->middleware('throttle:10,1')
         ->name('auth.google.callback');
 
-    // Firebase Google Sign-In → Laravel session exchange
-    Route::post('auth/firebase/google', [FirebaseAuthController::class, 'login'])
-        ->middleware('throttle:10,1')
-        ->name('auth.firebase.google');
-
     // Admin login lives on the admin subdomain (routes/admin.php)
 });
 
@@ -67,14 +61,6 @@ Route::middleware('auth')->group(function () {
         ->name('auth.password.confirm');
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
-    // Link / unlink Firebase Google identity (authenticated)
-    Route::post('auth/firebase/link', [FirebaseAuthController::class, 'link'])
-        ->middleware('throttle:10,1')
-        ->name('auth.firebase.link');
-    Route::post('auth/firebase/unlink', [FirebaseAuthController::class, 'unlink'])
-        ->middleware('throttle:10,1')
-        ->name('auth.firebase.unlink');
 });
 
 // Logout route (accessible without auth middleware)

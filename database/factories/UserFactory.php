@@ -29,17 +29,6 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the user signed in with Firebase Google.
-     */
-    public function withFirebase(string $uid = 'firebase-test-uid'): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'firebase_uid' => $uid,
-            'password' => null,
-        ]);
-    }
-
-    /**
      * Indicate that the user is an expert.
      */
     public function expert(): static

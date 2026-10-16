@@ -42,11 +42,6 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URL', rtrim(env('APP_URL', 'http://localhost'), '/').'/auth/google/callback'),
     ],
 
-    'firebase' => [
-        'project_id' => env('FIREBASE_PROJECT_ID'),
-        'credentials' => env('FIREBASE_CREDENTIALS'),
-    ],
-
     'gemini' => [
         'api_key' => env('GEMINI_API_KEY'),
     ],

@@ -32,14 +32,14 @@ export default defineConfig({
         },
     },
     server: {
-        host: 'localhost',
+        host: 'jsyu.org',
         port: 5173,
         cors: {
             origin: true,
             credentials: true,
         },
         hmr: {
-            host: 'localhost',
+            host: 'jsyu.org',
             protocol: 'ws',
             clientPort: 5173,
         },
