@@ -13,6 +13,8 @@
 .env.backup
 .env.production
 .env.tmp
+/storage/app/firebase/*.json
+!/storage/app/firebase/.gitignore
 .phpactor.json
 .phpunit.result.cache
 Homestead.json

@@ -1,21 +1,14 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { LogOut } from 'lucide-react';
+import { LogOut, Mail, MapPin, Phone, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { sectionImages } from '../../constants/sectionImages';
 
 export default function GuestNavbar() {
     const { auth } = usePage().props;
     const { url } = usePage();
-    const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const userMenuRef = useRef(null);
-
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -47,8 +40,8 @@ export default function GuestNavbar() {
         { name: 'Home', href: route('home') },
         { name: 'About Us', href: '/#about' },
         { name: 'Programs', href: route('programs') },
-        { name: 'Youth Opportunities', href: '/#opportunities' },
-        { name: 'News & Events', href: route('blog.index') },
+        { name: 'Opportunities', href: '/#opportunities' },
+        { name: 'News', href: route('blog.index') },
         { name: 'Work Plan', href: route('work-plan') },
         { name: 'Contact', href: '/#contact' },
     ];
@@ -63,59 +56,85 @@ export default function GuestNavbar() {
         }
     };
 
-    const navLinkClass = (href, { mobile = false } = {}) =>
-        `inline-flex items-center rounded-md transition-all duration-150 ${
-            mobile
-                ? 'min-h-[44px] px-4 py-2.5 text-left text-base font-medium'
-                : 'px-3.5 py-2 text-base font-medium leading-none'
-        } ${
-            isActive(href)
-                ? 'bg-jsyu-green-light text-jsyu-green'
-                : 'text-jsyu-charcoal hover:bg-jsyu-green-light hover:text-jsyu-green'
-        }`;
-
     return (
-        <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                scrolled || mobileMenuOpen
-                    ? 'border-b border-jsyu-green-soft bg-white shadow-sm'
-                    : 'border-b border-transparent bg-white/97 backdrop-blur-sm'
-            }`}
-        >
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between lg:h-[4.5rem]">
-                    <Link href={route('home')} className="group flex min-w-0 shrink items-center gap-2.5 sm:gap-3">
+        <header className="fixed top-0 right-0 left-0 z-50">
+            {/* Top utility bar */}
+            <div className="border-b border-jsyu-green-soft bg-white">
+                <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
+                    <Link href={route('home')} className="flex min-w-0 items-center gap-2.5">
                         <img
                             src={sectionImages.logo}
                             alt="Jonglei State Youth Union"
-                            className="h-10 w-10 shrink-0 object-contain sm:h-11 sm:w-11"
+                            className="h-9 w-9 shrink-0 object-contain sm:h-10 sm:w-10"
                         />
-                        <div className="hidden min-w-0 text-left md:block">
-                            <div className="text-sm font-bold leading-tight text-jsyu-green-deep">JSYU</div>
-                            <div className="truncate text-xs leading-tight text-jsyu-text-muted">
+                        <div className="min-w-0 text-left">
+                            <div className="font-display text-base font-bold uppercase tracking-wide text-jsyu-green-deep sm:text-lg">
+                                JSYU
+                            </div>
+                            <div className="hidden truncate text-[11px] font-medium text-jsyu-text-muted sm:block">
                                 Jonglei State Youth Union
                             </div>
                         </div>
                     </Link>
 
-                    <div className="hidden items-center gap-2.5 xl:flex">
+                    <div className="hidden items-center gap-6 text-xs font-medium text-jsyu-text-muted md:flex lg:text-sm">
+                        <a
+                            href="tel:+211000000000"
+                            className="inline-flex items-center gap-2 hover:text-jsyu-green-deep"
+                        >
+                            <Phone className="h-3.5 w-3.5 text-jsyu-green-muted" />
+                            <span>Bor, Jonglei State</span>
+                        </a>
+                        <a
+                            href="mailto:info@luac-akook-yieu.org"
+                            className="inline-flex items-center gap-2 hover:text-jsyu-green-deep"
+                        >
+                            <Mail className="h-3.5 w-3.5 text-jsyu-green-muted" />
+                            <span>info@luac-akook-yieu.org</span>
+                        </a>
+                        <span className="hidden items-center gap-2 xl:inline-flex">
+                            <MapPin className="h-3.5 w-3.5 text-jsyu-green-muted" />
+                            South Sudan
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Main navy navigation */}
+            <nav className="bg-jsyu-green-deep">
+                <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+                    <div className="hidden items-stretch lg:flex">
                         {navigation.map((item) => (
-                            <Link key={item.name} href={item.href} className={navLinkClass(item.href)}>
+                            <Link
+                                key={item.name}
+                                href={item.href}
+                                className={`navbar-link inline-flex items-center px-3.5 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white/90 hover:text-jsyu-accent xl:px-4 ${
+                                    isActive(item.href) ? 'text-jsyu-accent' : ''
+                                }`}
+                            >
                                 {item.name}
                             </Link>
                         ))}
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-1 items-center justify-end gap-2 py-2 lg:flex-none lg:py-0">
+                        <Link
+                            href={route('blog.index')}
+                            className="hidden p-2 text-white/70 hover:text-jsyu-accent sm:inline-flex"
+                            aria-label="Search news"
+                        >
+                            <Search className="h-4 w-4" />
+                        </Link>
+
                         {auth?.user ? (
                             <div className="relative hidden sm:block" ref={userMenuRef}>
                                 <button
                                     type="button"
-                                    className="flex items-center gap-2 rounded-full text-sm font-semibold text-jsyu-charcoal hover:text-jsyu-green focus:outline-none"
+                                    className="flex items-center gap-2 px-2 py-2 text-sm font-semibold text-white hover:text-jsyu-accent focus:outline-none"
                                     onClick={() => setUserMenuOpen(!userMenuOpen)}
                                 >
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-jsyu-green text-white">
-                                        <span className="text-sm font-semibold">
+                                    <div className="flex h-8 w-8 items-center justify-center bg-jsyu-accent text-jsyu-green-deep">
+                                        <span className="text-sm font-bold">
                                             {auth.user.name?.charAt(0).toUpperCase()}
                                         </span>
                                     </div>
@@ -123,7 +142,7 @@ export default function GuestNavbar() {
                                 </button>
 
                                 {userMenuOpen && (
-                                    <div className="absolute right-0 z-50 mt-2 w-48 rounded-lg bg-white shadow-lg ring-1 ring-black/5">
+                                    <div className="absolute right-0 z-50 mt-2 w-48 bg-white ring-1 ring-black/5">
                                         <div className="py-1">
                                             <div className="px-4 py-2 text-xs text-jsyu-text-muted">
                                                 Signed in as
@@ -145,7 +164,7 @@ export default function GuestNavbar() {
                         ) : (
                             <Link
                                 href={route('login')}
-                                className="hidden text-sm font-semibold text-jsyu-green hover:text-jsyu-green-hover sm:inline-flex"
+                                className="hidden px-2 py-2 text-xs font-bold uppercase tracking-[0.12em] text-white/80 hover:text-jsyu-accent sm:inline-flex"
                             >
                                 Login
                             </Link>
@@ -153,100 +172,88 @@ export default function GuestNavbar() {
 
                         <Link
                             href={route('register')}
-                            className="hidden items-center rounded-full bg-jsyu-green px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-jsyu-green-hover sm:inline-flex"
+                            className="inline-flex items-center bg-jsyu-accent px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-jsyu-green-deep hover:bg-jsyu-accent-hover sm:px-5"
                         >
                             Join the Union
                         </Link>
 
                         <button
                             type="button"
-                            className="inline-flex flex-col gap-1.5 rounded-md p-2 transition-colors hover:bg-jsyu-green-light xl:hidden"
+                            className="inline-flex flex-col gap-1.5 p-2 lg:hidden"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                         >
                             <span
-                                className={`block h-0.5 w-5 bg-jsyu-charcoal transition-transform duration-200 ${
+                                className={`block h-0.5 w-5 bg-white transition-transform duration-200 ${
                                     mobileMenuOpen ? 'translate-y-2 rotate-45' : ''
                                 }`}
                             />
                             <span
-                                className={`block h-0.5 w-5 bg-jsyu-charcoal transition-opacity duration-200 ${
+                                className={`block h-0.5 w-5 bg-white transition-opacity duration-200 ${
                                     mobileMenuOpen ? 'opacity-0' : ''
                                 }`}
                             />
                             <span
-                                className={`block h-0.5 w-5 bg-jsyu-charcoal transition-transform duration-200 ${
+                                className={`block h-0.5 w-5 bg-white transition-transform duration-200 ${
                                     mobileMenuOpen ? '-translate-y-2 -rotate-45' : ''
                                 }`}
                             />
                         </button>
                     </div>
                 </div>
-            </div>
 
-            {mobileMenuOpen && (
-                <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-jsyu-green-soft xl:hidden">
-                    <div className="flex flex-col gap-1 px-4 py-4">
-                        {navigation.map((item) => (
-                            <Link
-                                key={item.name}
-                                href={item.href}
-                                className={`transition-colors ${navLinkClass(item.href, { mobile: true })}`}
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
+                {mobileMenuOpen && (
+                    <div className="max-h-[calc(100vh-7rem)] overflow-y-auto border-t border-white/10 bg-jsyu-green-deep lg:hidden">
+                        <div className="flex flex-col px-4 py-3">
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
+                                    className={`min-h-[44px] px-2 py-3 text-sm font-bold uppercase tracking-[0.12em] ${
+                                        isActive(item.href)
+                                            ? 'text-jsyu-accent'
+                                            : 'text-white/90 hover:text-jsyu-accent'
+                                    }`}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
 
-                        <div className="mt-4 space-y-3 border-t border-jsyu-green-soft pt-4">
-                            {auth?.user ? (
-                                <div className="flex items-center justify-between px-2">
-                                    <div className="flex items-center gap-2">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-jsyu-green text-white">
-                                            <span className="text-sm font-semibold">
-                                                {auth.user.name?.charAt(0).toUpperCase()}
-                                            </span>
-                                        </div>
+                            <div className="mt-3 space-y-3 border-t border-white/10 pt-4 pb-4">
+                                {auth?.user ? (
+                                    <div className="flex items-center justify-between px-2">
                                         <div className="min-w-0 text-left">
-                                            <p className="truncate text-sm font-semibold text-jsyu-green-deep">
+                                            <p className="truncate text-sm font-semibold text-white">
                                                 {auth.user.name}
                                             </p>
-                                            <p className="truncate text-xs text-jsyu-text-muted">{auth.user.email}</p>
+                                            <p className="truncate text-xs text-white/50">{auth.user.email}</p>
                                         </div>
+                                        <button
+                                            onClick={(e) => {
+                                                setMobileMenuOpen(false);
+                                                handleLogout(e);
+                                            }}
+                                            className="inline-flex items-center gap-1 border border-white/20 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10"
+                                        >
+                                            <LogOut className="h-3 w-3" />
+                                            Logout
+                                        </button>
                                     </div>
-                                    <button
-                                        onClick={(e) => {
-                                            setMobileMenuOpen(false);
-                                            handleLogout(e);
-                                        }}
-                                        className="inline-flex items-center gap-1 rounded-md border border-jsyu-green-soft px-3 py-1.5 text-xs font-semibold text-jsyu-charcoal hover:bg-jsyu-green-light"
-                                    >
-                                        <LogOut className="h-3 w-3" />
-                                        Logout
-                                    </button>
-                                </div>
-                            ) : (
-                                <>
+                                ) : (
                                     <Link
                                         href={route('login')}
-                                        className="flex min-h-[44px] items-center justify-center rounded-lg border border-jsyu-green/30 px-4 py-3 text-sm font-bold text-jsyu-green"
+                                        className="flex min-h-[44px] items-center justify-center border border-white/25 px-4 py-3 text-sm font-bold uppercase tracking-wider text-white"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         Login
                                     </Link>
-                                    <Link
-                                        href={route('register')}
-                                        className="flex min-h-[44px] items-center justify-center rounded-full bg-jsyu-green px-4 py-3 text-sm font-bold text-white hover:bg-jsyu-green-hover"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        Join the Union
-                                    </Link>
-                                </>
-                            )}
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </nav>
+                )}
+            </nav>
+        </header>
     );
 }

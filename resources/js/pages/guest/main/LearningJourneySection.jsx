@@ -52,7 +52,7 @@ export default function LearningJourneySection() {
             <h2 className="mb-12 text-center text-4xl font-bold text-gray-900">Learning Journey</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
                 {learningJourneys.map((journey) => (
-                    <div key={journey.name} className={`overflow-hidden rounded-xl border-2 border-gray-200 bg-white hover:shadow-lg`}>
+                    <div key={journey.name} className={`overflow-hidden  border-2 border-gray-200 bg-white `}>
                         <img src="/images/card-header.png" alt="DigiFriends" className="h-32 w-full lg:h-20" />
 
                         <div className="h-28 p-4 text-center">

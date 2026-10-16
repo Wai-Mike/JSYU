@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'role',
         'google_id',
+        'firebase_uid',
         'avatar',
         'date_of_birth',
         'gender',
@@ -55,6 +56,18 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'date_of_birth' => 'date',
         ];
+    }
+
+    /** Portal roles, each state-wide or scoped to a geographic area. */
+    public function roleAssignments(): HasMany
+    {
+        return $this->hasMany(RoleAssignment::class);
+    }
+
+    /** The person profile linked to this login account, if any. */
+    public function person(): HasOne
+    {
+        return $this->hasOne(Person::class);
     }
 
 }

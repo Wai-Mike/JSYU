@@ -56,6 +56,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Domains
+    |--------------------------------------------------------------------------
+    |
+    | The public site is served from "domain" and the admin portal from
+    | "admin_domain". Both default to values derived from APP_URL.
+    |
+    */
+
+    'domain' => env('APP_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+
+    'admin_domain' => env('ADMIN_DOMAIN', 'portal.'.env('APP_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST))),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

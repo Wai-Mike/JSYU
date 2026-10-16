@@ -7,6 +7,8 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Services\Audit\AuditLogger;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -29,8 +31,9 @@ class PostController extends Controller
     public function index(Request $request): Response
     {
         $posts = Post::with('user:id,name')
-            ->when($request->search, fn ($q) => $q->where('title', 'like', '%' . $request->search . '%')
-                ->orWhere('excerpt', 'like', '%' . $request->search . '%'))
+            ->when($request->search, fn ($q) => $q->where(fn ($w) => $w
+                ->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('excerpt', 'like', '%' . $request->search . '%')))
             ->when($request->type, fn ($q) => $q->where('type', $request->type))
             ->when($request->status, fn ($q) => $q->where('status', $request->status))
             ->latest()
@@ -40,6 +43,7 @@ class PostController extends Controller
         return Inertia::render('admin/posts/index', [
             'posts' => $posts,
             'filters' => $request->only(['search', 'type', 'status']),
+            'canPublish' => Gate::allows('content.publish'),
         ]);
     }
 
@@ -47,12 +51,14 @@ class PostController extends Controller
     {
         return Inertia::render('admin/posts/create', [
             'types' => Post::types(),
-            'statuses' => Post::statuses(),
+            'statuses' => $this->allowedStatuses(),
         ]);
     }
 
     public function store(StorePostRequest $request): RedirectResponse
     {
+        $this->ensureCanSetStatus($request->input('status'));
+
         $slug = Str::slug($request->input('slug', $request->input('title')));
         $slug = $this->ensureUniqueSlug($slug);
 
@@ -76,21 +82,31 @@ class PostController extends Controller
             'featured_image' => $featuredImageUrl,
         ]);
 
+        if ($post->status === Post::STATUS_PUBLISHED) {
+            app(AuditLogger::class)->log('post.published', $post, "Published \"{$post->title}\"");
+        }
+
         return redirect()->route('admin.posts.index')
             ->with('success', 'Post created successfully.');
     }
 
     public function edit(Post $post): Response
     {
+        $this->ensureCanEdit($post);
+
         return Inertia::render('admin/posts/edit', [
             'post' => $post,
             'types' => Post::types(),
-            'statuses' => Post::statuses(),
+            'statuses' => $this->allowedStatuses(),
         ]);
     }
 
     public function update(StorePostRequest $request, Post $post): RedirectResponse
     {
+        $this->ensureCanEdit($post);
+        $this->ensureCanSetStatus($request->input('status'));
+        $wasPublished = $post->status === Post::STATUS_PUBLISHED;
+
         $slug = Str::slug($request->input('slug', $request->input('title')));
         $slug = $this->ensureUniqueSlug($slug, $post->id);
 
@@ -114,13 +130,19 @@ class PostController extends Controller
             'featured_image' => $featuredImageUrl,
         ]);
 
+        if (! $wasPublished && $post->status === Post::STATUS_PUBLISHED) {
+            app(AuditLogger::class)->log('post.published', $post, "Published \"{$post->title}\"");
+        }
+
         return redirect()->route('admin.posts.index')
             ->with('success', 'Post updated successfully.');
     }
 
     public function destroy(Post $post): RedirectResponse
     {
+        $this->ensureCanEdit($post);
         $post->delete();
+        app(AuditLogger::class)->log('post.deleted', null, "Deleted post \"{$post->title}\"", ['post_id' => $post->id]);
         return redirect()->route('admin.posts.index')
             ->with('success', 'Post deleted.');
     }
@@ -131,8 +153,32 @@ class PostController extends Controller
             'status' => Post::STATUS_PUBLISHED,
             'published_at' => $post->published_at ?? now(),
         ]);
+        app(AuditLogger::class)->log('post.published', $post, "Approved and published \"{$post->title}\"");
         return redirect()->route('admin.posts.index')
             ->with('success', 'Post approved and published.');
+    }
+
+    /** Publishing is a separate permission from writing content. */
+    private function ensureCanSetStatus(?string $status): void
+    {
+        if ($status === Post::STATUS_PUBLISHED) {
+            Gate::authorize('content.publish');
+        }
+    }
+
+    /** Changing or removing live content also needs publishing rights. */
+    private function ensureCanEdit(Post $post): void
+    {
+        if ($post->status === Post::STATUS_PUBLISHED) {
+            Gate::authorize('content.publish');
+        }
+    }
+
+    private function allowedStatuses(): array
+    {
+        return Gate::allows('content.publish')
+            ? Post::statuses()
+            : array_diff_key(Post::statuses(), [Post::STATUS_PUBLISHED => true]);
     }
 
     private function ensureUniqueSlug(string $slug, ?int $ignoreId = null): string

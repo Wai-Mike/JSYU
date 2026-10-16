@@ -37,7 +37,7 @@ export default function StudentNavbar() {
     };
 
     return (
-        <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm">
+        <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
@@ -55,7 +55,7 @@ export default function StudentNavbar() {
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-blue-50 hover:text-blue-600"
                                 >
                                     <Icon className="h-4 w-4" />
                                     {item.name}
@@ -73,9 +73,9 @@ export default function StudentNavbar() {
                                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                             >
                                 {auth?.user?.avatar ? (
-                                    <img className="h-8 w-8 rounded-full" src={auth.user.avatar} alt={auth.user.name} />
+                                    <img className="h-8 w-8" src={auth.user.avatar} alt={auth.user.name} />
                                 ) : (
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                                    <div className="flex h-8 w-8 items-center justify-center bg-blue-100 text-blue-600">
                                         <span className="text-sm font-medium">{auth?.user?.name?.charAt(0).toUpperCase()}</span>
                                     </div>
                                 )}
@@ -83,7 +83,7 @@ export default function StudentNavbar() {
                             </button>
 
                             {userMenuOpen && (
-                                <div className="ring-opacity-5 absolute right-0 z-50 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black">
+                                <div className="ring-opacity-5 absolute right-0 z-50 mt-2 w-48 bg-white ring-1 ring-black">
                                     <div className="py-1">
                                         <Link
                                             href="#"
@@ -118,7 +118,7 @@ export default function StudentNavbar() {
                     <div className="md:hidden">
                         <button
                             type="button"
-                            className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            className="inline-flex items-center justify-center p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
                             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -137,7 +137,7 @@ export default function StudentNavbar() {
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                    className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     <Icon className="h-5 w-5" />
@@ -152,7 +152,7 @@ export default function StudentNavbar() {
                             </div>
                             <Link
                                 href="#"
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
+                                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 <User className="h-5 w-5" />
@@ -160,7 +160,7 @@ export default function StudentNavbar() {
                             </Link>
                             <Link
                                 href="#"
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
+                                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 <Settings className="h-5 w-5" />
@@ -171,7 +171,7 @@ export default function StudentNavbar() {
                                     setMobileMenuOpen(false);
                                     handleLogout(e);
                                 }}
-                                className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-50"
+                                className="flex w-full items-center gap-2 px-3 py-2 text-left text-base font-medium text-gray-700 hover:bg-gray-50"
                             >
                                 <LogOut className="h-5 w-5" />
                                 Logout

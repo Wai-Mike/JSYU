@@ -1,156 +1,190 @@
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
+import { Plus, ShieldCheck, Users, X } from 'lucide-react';
+import { useState } from 'react';
+import {
+    Button,
+    ConfirmDialog,
+    DataTable,
+    FilterBar,
+    FilterSelect,
+    FlashAlert,
+    formatDate,
+    Modal,
+    PageHeader,
+    Pagination,
+    Select,
+    StatusBadge,
+    TableCell,
+    useQueryFilters,
+    useTreeOptions,
+} from '../../../components/admin';
 import AdminLayout from '../../../layouts/AdminLayout';
-import { Shield, User as UserIcon, UserPlus } from 'lucide-react';
 
-export default function UsersIndex({ users }) {
-    const { flash, auth } = usePage().props;
+export default function UsersIndex({ users, filters, canAssign, roles, areas }) {
+    const [query, setQuery] = useQueryFilters({ search: filters.search ?? '', staff: filters.staff ?? '' });
+    const [assigningTo, setAssigningTo] = useState(null);
+    const [revoking, setRevoking] = useState(null);
 
-    const handleMakeAdmin = (user) => {
-        if (!confirm(`Make "${user.name}" an admin?`)) return;
-        router.post(route('admin.users.make-admin', user.id));
-    };
-
-    const isPrimaryAdmin = (user) => user.email === 'waimichael35@gmail.com';
+    const columns = [
+        { key: 'name', label: 'User' },
+        { key: 'roles', label: 'Portal roles' },
+        { key: 'joined', label: 'Joined' },
+        ...(canAssign ? [{ key: 'actions', label: '', align: 'right' }] : []),
+    ];
 
     return (
         <AdminLayout>
             <Head title="Users - Admin" />
-            <div>
-                {flash?.success && (
-                    <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
-                        {flash.success}
-                    </div>
-                )}
+            <FlashAlert />
 
-                <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-900">Users</h1>
-                        <p className="text-sm text-gray-600">
-                            View registered members and promote trusted users to admin.
-                        </p>
-                    </div>
-                </div>
+            <PageHeader
+                title="Users"
+                icon={Users}
+            />
 
-                <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                                    Name
-                                </th>
-                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                                    Email
-                                </th>
-                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                                    Role
-                                </th>
-                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                                    Joined
-                                </th>
-                                <th scope="col" className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200 bg-white">
-                            {users.data.length === 0 ? (
-                                <tr>
-                                    <td colSpan={5} className="px-4 py-8 text-center text-sm text-gray-500">
-                                        No users found.
-                                    </td>
-                                </tr>
+            <FilterBar
+                onSubmit={(e) => e.preventDefault()}
+                searchValue={query.search}
+                onSearchChange={(v) => setQuery('search', v)}
+                searchPlaceholder="Name or email"
+            >
+                <FilterSelect label="Show" value={query.staff} onChange={(v) => setQuery('staff', v)}>
+                    <option value="">All accounts</option>
+                    <option value="1">Portal staff only</option>
+                </FilterSelect>
+            </FilterBar>
+
+            <DataTable
+                columns={columns}
+                isEmpty={users.data.length === 0}
+                empty="No users match your filters."
+                footer={<Pagination paginator={users} />}
+            >
+                {users.data.map((user) => (
+                    <tr key={user.id} className="hover:bg-slate-50/80">
+                        <TableCell>
+                            <div className="flex items-center gap-2.5">
+                                <div className="bg-jsyu-green-light text-jsyu-green-deep flex h-8 w-8 shrink-0 items-center justify-center text-xs font-semibold">
+                                    {user.name?.charAt(0)?.toUpperCase() ?? '?'}
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="font-medium text-slate-900">{user.name}</div>
+                                    <div className="truncate text-xs text-slate-500">{user.email}</div>
+                                </div>
+                                {!user.verified && <StatusBadge variant="amber">Unverified</StatusBadge>}
+                            </div>
+                        </TableCell>
+                        <TableCell>
+                            {user.assignments.length === 0 ? (
+                                <span className="text-xs text-slate-400">Member — no portal access</span>
                             ) : (
-                                users.data.map((user) => (
-                                    <tr key={user.id} className="hover:bg-gray-50">
-                                        <td className="px-4 py-3 text-sm text-gray-900">
-                                            <div className="flex items-center gap-2">
-                                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-700">
-                                                    {user.name?.charAt(0)?.toUpperCase() ?? '?'}
-                                                </div>
-                                                <div>
-                                                    <div className="font-medium">{user.name}</div>
-                                                    {isPrimaryAdmin(user) && (
-                                                        <div className="flex items-center gap-1 text-xs text-red-600">
-                                                            <Shield className="h-3 w-3" />
-                                                            Primary admin
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-4 py-3 text-sm text-gray-600">{user.email}</td>
-                                        <td className="px-4 py-3 text-sm">
-                                            <span
-                                                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                                                    user.role === 'admin'
-                                                        ? 'bg-red-50 text-red-700'
-                                                        : 'bg-sky-50 text-sky-700'
-                                                }`}
-                                            >
-                                                {user.role === 'admin' ? (
-                                                    <>
-                                                        <Shield className="h-3 w-3" />
-                                                        Admin
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <UserIcon className="h-3 w-3" />
-                                                        Member
-                                                    </>
-                                                )}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-3 text-sm text-gray-500">
-                                            {user.created_at && new Date(user.created_at).toLocaleDateString()}
-                                        </td>
-                                        <td className="px-4 py-3 text-right text-sm">
-                                            {user.role !== 'admin' ? (
+                                <div className="flex flex-wrap gap-1.5">
+                                    {user.assignments.map((a) => (
+                                        <StatusBadge key={a.id} variant="soft">
+                                            <ShieldCheck className="h-3 w-3" />
+                                            {a.role.name}
+                                            <span className="text-jsyu-green-deep/60">· {a.area?.name ?? 'State-wide'}</span>
+                                            {canAssign && (
                                                 <button
                                                     type="button"
-                                                    onClick={() => handleMakeAdmin(user)}
-                                                    className="inline-flex items-center gap-1 rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                                                    onClick={() => setRevoking({ user, assignment: a })}
+                                                    className="ml-0.5 p-0.5 hover:bg-white"
+                                                    aria-label={`Remove ${a.role.name} from ${user.name}`}
                                                 >
-                                                    <UserPlus className="h-3 w-3" />
-                                                    Make admin
+                                                    <X className="h-3 w-3" />
                                                 </button>
-                                            ) : (
-                                                <span className="text-xs text-gray-400">—</span>
                                             )}
-                                        </td>
-                                    </tr>
-                                ))
+                                        </StatusBadge>
+                                    ))}
+                                </div>
                             )}
-                        </tbody>
-                    </table>
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap text-slate-500">{formatDate(user.joined)}</TableCell>
+                        {canAssign && (
+                            <TableCell align="right">
+                                <Button variant="secondary" size="sm" onClick={() => setAssigningTo(user)}>
+                                    <Plus className="h-3.5 w-3.5" />
+                                    Assign role
+                                </Button>
+                            </TableCell>
+                        )}
+                    </tr>
+                ))}
+            </DataTable>
 
-                    {users.last_page > 1 && (
-                        <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 text-sm text-gray-600">
-                            <p>
-                                Page {users.current_page} of {users.last_page}
-                            </p>
-                            <div className="flex gap-2">
-                                {users.prev_page_url && (
-                                    <Link
-                                        href={users.prev_page_url}
-                                        className="rounded border border-gray-300 px-3 py-1 hover:bg-gray-50"
-                                    >
-                                        Previous
-                                    </Link>
-                                )}
-                                {users.next_page_url && (
-                                    <Link
-                                        href={users.next_page_url}
-                                        className="rounded border border-gray-300 px-3 py-1 hover:bg-gray-50"
-                                    >
-                                        Next
-                                    </Link>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
+            {assigningTo && <AssignRoleModal user={assigningTo} roles={roles} areas={areas} onClose={() => setAssigningTo(null)} />}
+
+            <ConfirmDialog
+                open={!!revoking}
+                onClose={() => setRevoking(null)}
+                title="Remove role?"
+                message={
+                    revoking &&
+                    `${revoking.user.name} will lose the ${revoking.assignment.role.name} role (${revoking.assignment.area?.name ?? 'state-wide'}).`
+                }
+                confirmLabel="Remove role"
+                danger
+                onConfirm={() =>
+                    router.delete(route('admin.users.roles.destroy', revoking.assignment.id), {
+                        preserveScroll: true,
+                        onFinish: () => setRevoking(null),
+                    })
+                }
+            />
         </AdminLayout>
     );
 }
 
+function AssignRoleModal({ user, roles, areas, onClose }) {
+    const form = useForm({ role_id: '', geographic_area_id: '' });
+    const areaOptions = useTreeOptions(areas);
+    const isSuperAdmin = roles.find((r) => String(r.id) === String(form.data.role_id))?.key === 'super_admin';
+
+    const submit = (e) => {
+        e.preventDefault();
+        form.post(route('admin.users.roles.store', user.id), { preserveScroll: true, onSuccess: onClose });
+    };
+
+    return (
+        <Modal
+            open
+            onClose={onClose}
+            title={`Assign a role to ${user.name}`}
+            description="Leave the area empty for a state-wide role. An area limits the role to that county or payam and everything inside it."
+            footer={
+                <>
+                    <Button variant="secondary" onClick={onClose}>
+                        Cancel
+                    </Button>
+                    <Button type="submit" form="assign-role" loading={form.processing}>
+                        Assign role
+                    </Button>
+                </>
+            }
+        >
+            <form id="assign-role" onSubmit={submit} className="space-y-4">
+                <Select
+                    id="role_id"
+                    label="Role"
+                    required
+                    placeholder="Choose a role"
+                    value={form.data.role_id}
+                    onChange={(e) => form.setData('role_id', e.target.value)}
+                    options={roles.map((r) => ({ value: r.id, label: r.name }))}
+                    error={form.errors.role_id}
+                />
+                <Select
+                    id="geographic_area_id"
+                    label="Area"
+                    placeholder="State-wide"
+                    value={form.data.geographic_area_id}
+                    onChange={(e) => form.setData('geographic_area_id', e.target.value)}
+                    options={areaOptions}
+                    disabled={isSuperAdmin}
+                    hint={isSuperAdmin ? 'Super Administrator is always state-wide.' : undefined}
+                    error={form.errors.geographic_area_id}
+                />
+            </form>
+        </Modal>
+    );
+}

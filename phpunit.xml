@@ -19,6 +19,9 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="APP_URL" value="http://jsyu.test"/>
+        <env name="ADMIN_DOMAIN" value="portal.jsyu.test"/>
+        <env name="SESSION_DOMAIN" value="null"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_STORE" value="array"/>

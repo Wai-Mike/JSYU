@@ -35,39 +35,38 @@ export default function BlogIndex({ posts, filters }) {
     return (
         <AssociationLayout>
             <Head title="Blog - Jonglei State Youth Union" />
-            <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 sm:py-32">
+            <div className="bg-jsyu-green-deep">
+                <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-16">
+                    <span className="text-xs font-bold uppercase tracking-[0.22em] text-jsyu-accent">
+                        Youth stories &amp; updates
+                    </span>
+                    <h1 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+                        latest news &amp; events
+                    </h1>
+                </div>
+            </div>
+
+            <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
                 <div className="mx-auto flex max-w-5xl flex-col gap-6 lg:flex-row">
                     {/* Left column: feed */}
                     <div className="mx-auto w-full max-w-2xl">
                         {flash?.success && (
-                            <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+                            <div className="mb-4 border border-jsyu-accent/40 bg-jsyu-accent/15 px-4 py-3 text-sm text-jsyu-green-deep">
                                 {flash.success}
                             </div>
                         )}
 
-                        <header className="mb-4">
-                            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
-                                Youth stories &amp; updates
-                            </span>
-                            <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                                Jonglei youth newsfeed
-                            </h1>
-                            <p className="mt-2 text-sm text-slate-600">
-                                Share experiences, highlight programs, and stay connected with youth across Jonglei State.
-                            </p>
-                        </header>
-
                         {/* Composer (Facebook/Instagram-style) */}
                         {auth?.user && (
-                            <div className="mb-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                            <div className="mb-4 border border-slate-200 bg-white p-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-600 text-sm font-semibold text-white">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-jsyu-green text-sm font-semibold text-white">
                                         {auth.user.name?.charAt(0).toUpperCase()}
                                     </div>
                                     <button
                                         type="button"
                                         onClick={() => (window.location.href = route('blog.create'))}
-                                        className="flex-1 rounded-full bg-slate-100 px-4 py-2.5 text-left text-sm text-slate-600 transition hover:bg-slate-200"
+                                        className="flex-1 bg-slate-100 px-4 py-2.5 text-left text-sm text-slate-600 transition hover:bg-slate-200"
                                     >
                                         What&apos;s on your mind, {auth.user.name?.split(' ')?.[0] ?? 'friend'}?
                                     </button>
@@ -78,7 +77,7 @@ export default function BlogIndex({ posts, filters }) {
                                         <button
                                             type="button"
                                             onClick={() => (window.location.href = route('blog.create'))}
-                                            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
+                                            className="flex w-full items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
                                         >
                                             <ImageIcon className="h-4 w-4 text-emerald-500" />
                                             Photo
@@ -86,7 +85,7 @@ export default function BlogIndex({ posts, filters }) {
                                         <button
                                             type="button"
                                             onClick={() => (window.location.href = route('blog.create'))}
-                                            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
+                                            className="flex w-full items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
                                         >
                                             <Video className="h-4 w-4 text-rose-500" />
                                             Video
@@ -94,7 +93,7 @@ export default function BlogIndex({ posts, filters }) {
                                         <button
                                             type="button"
                                             onClick={() => (window.location.href = route('blog.create'))}
-                                            className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
+                                            className="flex w-full items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 sm:text-sm"
                                         >
                                             <Smile className="h-4 w-4 text-amber-500" />
                                             Feeling
@@ -116,7 +115,7 @@ export default function BlogIndex({ posts, filters }) {
                                         setFilterData('type', e.target.value);
                                         get(route('blog.index'), { preserveState: true });
                                     }}
-                                    className="rounded-lg border border-slate-300 px-3 py-2 text-xs text-slate-700 focus:border-sky-500 focus:ring-sky-500"
+                                    className="border border-slate-300 px-3 py-2 text-xs text-slate-700 focus:border-jsyu-green focus:ring-jsyu-green"
                                 >
                                     <option value="">All types</option>
                                     {Object.entries(typeLabels).map(([value, label]) => (
@@ -127,7 +126,7 @@ export default function BlogIndex({ posts, filters }) {
                                     <button
                                         type="button"
                                         onClick={() => { setFilterData('type', ''); get(route('blog.index')); }}
-                                        className="rounded-lg border border-slate-300 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50"
+                                        className="border border-slate-300 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50"
                                     >
                                         Clear
                                     </button>
@@ -136,7 +135,7 @@ export default function BlogIndex({ posts, filters }) {
                         </div>
 
                         {posts.data.length === 0 ? (
-                            <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-10 text-center">
+                            <div className="mt-4 border border-slate-200 bg-slate-50 p-10 text-center">
                                 <FileText className="mx-auto h-10 w-10 text-slate-400" />
                                 <p className="mt-3 text-slate-600">No posts yet. Be the first to share something.</p>
                             </div>
@@ -145,11 +144,11 @@ export default function BlogIndex({ posts, filters }) {
                                 {posts.data.map((post) => (
                                     <article
                                         key={post.id}
-                                        className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+                                        className="border border-slate-200 bg-white p-4"
                                     >
                                         {/* Header */} 
                                         <div className="mb-3 flex items-center gap-3">
-                                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-sky-100 text-sm font-semibold text-sky-700">
+                                            <div className="flex h-9 w-9 items-center justify-center bg-jsyu-green-light text-sm font-semibold text-jsyu-green-hover">
                                                 {post.user?.name?.charAt(0).toUpperCase() ?? '?'}
                                             </div>
                                             <div className="min-w-0">
@@ -171,7 +170,7 @@ export default function BlogIndex({ posts, filters }) {
                                         </h2>
                                         {post.excerpt && <p className="mt-1 text-sm text-slate-700">{post.excerpt}</p>}
                                         {post.featured_image && (
-                                            <div className="mt-3 overflow-hidden rounded-xl bg-slate-100">
+                                            <div className="mt-3 overflow-hidden bg-slate-100">
                                                 <img
                                                     src={post.featured_image}
                                                     alt=""
@@ -205,9 +204,9 @@ export default function BlogIndex({ posts, filters }) {
                                                         <>
                                                             <button
                                                                 type="button"
-                                                                className={`flex items-center gap-1 rounded-md px-3 py-1.5 ${
+                                                                className={`flex items-center gap-1  px-3 py-1.5 ${
                                                                     liked
-                                                                        ? 'bg-sky-50 text-sky-600'
+                                                                        ? 'bg-jsyu-green-light text-jsyu-green'
                                                                         : 'hover:bg-slate-50'
                                                                 }`}
                                                                 onClick={() => {
@@ -221,12 +220,12 @@ export default function BlogIndex({ posts, filters }) {
                                                                     }, { preserveScroll: true });
                                                                 }}
                                                             >
-                                                                <ThumbsUp className={`h-4 w-4 ${liked ? 'text-sky-600' : ''}`} />
+                                                                <ThumbsUp className={`h-4 w-4 ${liked ? 'text-jsyu-green' : ''}`} />
                                                                 Like
                                                             </button>
                                                             <button
                                                                 type="button"
-                                                                className={`flex items-center gap-1 rounded-md px-3 py-1.5 ${
+                                                                className={`flex items-center gap-1  px-3 py-1.5 ${
                                                                     hearted
                                                                         ? 'bg-red-50 text-red-500'
                                                                         : 'hover:bg-slate-50'
@@ -250,7 +249,7 @@ export default function BlogIndex({ posts, filters }) {
                                                 })()}
                                                 <button
                                                     type="button"
-                                                    className="flex items-center gap-1 rounded-md px-3 py-1.5 hover:bg-slate-50"
+                                                    className="flex items-center gap-1 px-3 py-1.5 hover:bg-slate-50"
                                                     onClick={() => {
                                                         if (!auth?.user) {
                                                             window.location.href = route('login');
@@ -285,12 +284,12 @@ export default function BlogIndex({ posts, filters }) {
                                                     value={commentData.body}
                                                     onChange={(e) => setCommentData('body', e.target.value)}
                                                     placeholder="Write a comment..."
-                                                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-sky-500 focus:ring-sky-500"
+                                                    className="w-full border border-slate-300 px-3 py-2 text-xs focus:border-jsyu-green focus:ring-jsyu-green"
                                                 />
                                                 <button
                                                     type="submit"
                                                     disabled={commenting}
-                                                    className="self-end rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-sky-700 disabled:opacity-50"
+                                                    className="self-end bg-jsyu-green px-3 py-1.5 text-xs font-medium text-white hover:bg-jsyu-green-hover disabled:opacity-50"
                                                 >
                                                     Post
                                                 </button>
@@ -309,7 +308,7 @@ export default function BlogIndex({ posts, filters }) {
                                 {posts.prev_page_url && (
                                     <Link
                                         href={posts.prev_page_url}
-                                        className="rounded-full border border-slate-300 px-4 py-1.5 font-medium text-slate-700 hover:bg-slate-50"
+                                        className="border border-slate-300 px-4 py-1.5 font-medium text-slate-700 hover:bg-slate-50"
                                     >
                                         Previous
                                     </Link>
@@ -320,7 +319,7 @@ export default function BlogIndex({ posts, filters }) {
                                 {posts.next_page_url && (
                                     <Link
                                         href={posts.next_page_url}
-                                        className="rounded-full border border-slate-300 px-4 py-1.5 font-medium text-slate-700 hover:bg-slate-50"
+                                        className="border border-slate-300 px-4 py-1.5 font-medium text-slate-700 hover:bg-slate-50"
                                     >
                                         Next
                                     </Link>
@@ -331,7 +330,7 @@ export default function BlogIndex({ posts, filters }) {
 
                     {/* Right column: small info sidebar (optional) */}
                     <aside className="hidden w-full max-w-xs space-y-4 text-sm text-slate-600 lg:block">
-                        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                        <div className="border border-slate-200 bg-white p-4">
                             <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                                 About this space
                             </h2>

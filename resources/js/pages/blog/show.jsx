@@ -21,14 +21,14 @@ export default function BlogShow({ post }) {
             <article className="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8 sm:py-32">
                 <Link
                     href={route('blog.index')}
-                    className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-sky-600 hover:text-sky-700"
+                    className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-jsyu-green hover:text-jsyu-green-hover"
                 >
                     <ArrowLeft className="h-4 w-4" />
                     Back to blog
                 </Link>
 
                 <header>
-                    <span className="text-sm font-semibold uppercase tracking-wider text-sky-600">
+                    <span className="text-sm font-semibold uppercase tracking-wider text-jsyu-green">
                         {typeLabels[post.type] ?? post.type}
                     </span>
                     <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -54,7 +54,7 @@ export default function BlogShow({ post }) {
                     <img
                         src={post.featured_image}
                         alt=""
-                        className="mt-8 w-full rounded-xl object-cover shadow-lg"
+                        className="mt-8 w-full object-cover"
                     />
                 )}
 
@@ -63,14 +63,14 @@ export default function BlogShow({ post }) {
                 )}
 
                 <div
-                    className="prose prose-slate mt-8 max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-sky-600"
+                    className="prose prose-slate mt-8 max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-a:text-jsyu-green"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                 />
 
                 {/* Comments */}
                 <section className="mt-12 border-t border-slate-200 pt-10">
                     <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
-                        <MessageCircle className="h-5 w-5 text-sky-600" />
+                        <MessageCircle className="h-5 w-5 text-jsyu-green" />
                         Comments {post.comments?.length ? `(${post.comments.length})` : ''}
                     </h2>
 
@@ -81,13 +81,13 @@ export default function BlogShow({ post }) {
                                 onChange={(e) => setData('body', e.target.value)}
                                 rows={3}
                                 placeholder="Add a comment..."
-                                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:ring-sky-500"
+                                className="w-full border border-slate-300 px-3 py-2 text-sm focus:border-jsyu-green focus:ring-jsyu-green"
                             />
                             {errors.body && <p className="mt-1 text-sm text-red-600">{errors.body}</p>}
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="mt-2 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700 disabled:opacity-50"
+                                className="mt-2 bg-jsyu-green px-4 py-2 text-sm font-medium text-white hover:bg-jsyu-green-hover disabled:opacity-50"
                             >
                                 {processing ? 'Posting...' : 'Post comment'}
                             </button>
@@ -95,7 +95,7 @@ export default function BlogShow({ post }) {
                     )}
                     {!auth?.user && (
                         <p className="mt-4 text-sm text-slate-500">
-                            <Link href={route('login')} className="font-medium text-sky-600 hover:text-sky-700">Log in</Link> to comment.
+                            <Link href={route('login')} className="font-medium text-jsyu-green hover:text-jsyu-green-hover">Log in</Link> to comment.
                         </p>
                     )}
 
@@ -105,8 +105,8 @@ export default function BlogShow({ post }) {
 
                     <ul className="mt-6 space-y-4">
                         {(post.comments ?? []).map((comment) => (
-                            <li key={comment.id} className="flex gap-3 rounded-lg border border-slate-100 bg-slate-50/50 p-4">
-                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-semibold text-sky-700">
+                            <li key={comment.id} className="flex gap-3 border border-slate-100 bg-slate-50/50 p-4">
+                                <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-jsyu-green-light text-sm font-semibold text-jsyu-green-hover">
                                     {comment.user?.name?.charAt(0)?.toUpperCase() ?? '?'}
                                 </div>
                                 <div className="min-w-0 flex-1">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\CrossHostRedirect;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class RedirectIfAuthenticated
                     default => 'student.dashboard'
                 };
 
-                return redirect()->route($redirectRoute);
+                return CrossHostRedirect::to($request, route($redirectRoute));
             }
         }
 

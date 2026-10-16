@@ -52,6 +52,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role.or.higher' => RoleOrHigherMiddleware::class,
             'guest' => RedirectIfAuthenticated::class,
             'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+            'portal' => \App\Http\Middleware\EnsurePortalAccess::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

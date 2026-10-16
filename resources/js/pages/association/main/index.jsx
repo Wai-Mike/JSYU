@@ -3,6 +3,7 @@ import AboutSection from './AboutSection.jsx';
 import ChairmanSection from './ChairmanSection.jsx';
 import CTASection from './CTASection.jsx';
 import HeroSection from './HeroSection.jsx';
+import ImageRibbonSection from './ImageRibbonSection.jsx';
 import ImpactStatsSection from './ImpactStatsSection.jsx';
 import NewsPreviewSection from './NewsPreviewSection.jsx';
 import OpportunitiesSection from './OpportunitiesSection.jsx';
@@ -17,8 +18,9 @@ export default function Index() {
             <AboutSection />
             <ProgramsPreviewSection />
             <OpportunitiesSection />
-            <NewsPreviewSection />
             <TestimonialsSection />
+            <ImageRibbonSection />
+            <NewsPreviewSection />
             <ChairmanSection />
             <CTASection />
         </AssociationLayout>

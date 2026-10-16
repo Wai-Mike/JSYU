@@ -53,6 +53,16 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+
+        // Portal access comes from role assignments; give the seeded admins Super Administrator
+        app(\App\Services\Access\AccessRegistry::class)->sync();
+        $superAdmin = \App\Models\Role::query()->where('key', \App\Models\Role::SUPER_ADMIN)->value('id');
+
+        User::query()->where('role', 'admin')->each(fn (User $user) => \App\Models\RoleAssignment::query()->firstOrCreate([
+            'user_id' => $user->id,
+            'role_id' => $superAdmin,
+            'geographic_area_id' => null,
+        ]));
     }
 
     /**

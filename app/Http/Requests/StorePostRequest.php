@@ -9,7 +9,12 @@ class StorePostRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        // Changing a live post, or publishing one, needs publishing rights (checked before validation)
+        $post = $this->route('post');
+        $touchesLiveContent = ($post && $post->status === \App\Models\Post::STATUS_PUBLISHED)
+            || $this->input('status') === \App\Models\Post::STATUS_PUBLISHED;
+
+        return ! $touchesLiveContent || \Illuminate\Support\Facades\Gate::allows('content.publish');
     }
 
     public function rules(): array

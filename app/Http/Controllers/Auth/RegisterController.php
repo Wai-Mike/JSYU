@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Notifications\VerificationWelcomeNotification;
+use App\Support\CrossHostRedirect;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class RegisterController extends Controller
 {
@@ -42,7 +44,7 @@ class RegisterController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function register(Request $request): RedirectResponse
+    public function register(Request $request): SymfonyResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -77,14 +79,15 @@ class RegisterController extends Controller
             default => 'home',
         };
 
-        return redirect()->intended(route($redirectRoute))
-            ->with('success', 'Registration successful! Welcome to our platform.');
+        $request->session()->flash('success', 'Registration successful! Welcome to our platform.');
+
+        return CrossHostRedirect::to($request, redirect()->intended(route($redirectRoute))->getTargetUrl());
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function login(LoginRequest $request): RedirectResponse
+    public function login(LoginRequest $request): SymfonyResponse
     {
         $request->authenticate();
 
@@ -106,7 +109,8 @@ class RegisterController extends Controller
             default => 'home',
         };
 
-        return redirect()->intended(route($redirectRoute));
+        // Admins land on the admin subdomain, which needs a full page visit
+        return CrossHostRedirect::to($request, redirect()->intended(route($redirectRoute))->getTargetUrl());
     }
 
     /**
@@ -144,7 +148,7 @@ class RegisterController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        if ($user->role !== 'admin') {
+        if (! app(\App\Services\Access\AccessControl::class)->hasAnywhere($user, 'portal.access')) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

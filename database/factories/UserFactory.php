@@ -20,10 +20,23 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'), // Default password for testing
-            'role' => 'user',
+            'role' => 'student',
             'google_id' => null,
+            'firebase_uid' => null,
             'avatar' => null,
+            'email_verified_at' => now(),
         ];
+    }
+
+    /**
+     * Indicate that the user signed in with Firebase Google.
+     */
+    public function withFirebase(string $uid = 'firebase-test-uid'): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'firebase_uid' => $uid,
+            'password' => null,
+        ]);
     }
 
     /**

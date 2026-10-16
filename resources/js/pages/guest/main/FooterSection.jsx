@@ -9,13 +9,13 @@ export default function FooterSection() {
             { name: 'About Us', href: '/#about' },
             { name: 'Our Mission', href: '/#about' },
             { name: 'Programs', href: '/programs' },
-            { name: 'Contact', href: 'mailto:info@jongleiyouthunion.org' },
+            { name: 'Contact', href: 'mailto:info@luac-akook-yieu.org' },
         ],
         resources: [
             { name: 'Youth Representation', href: '/programs' },
             { name: 'Peacebuilding', href: '/programs' },
             { name: 'Education & Training', href: '/programs' },
-            { name: 'Get Involved', href: 'mailto:info@jongleiyouthunion.org' },
+            { name: 'Get Involved', href: 'mailto:info@luac-akook-yieu.org' },
         ],
         legal: [
             { name: 'Privacy Policy', href: '#' },
@@ -39,7 +39,7 @@ export default function FooterSection() {
                         <Link href={route('home')} className="mb-4 flex items-center gap-2">
                             <div className="relative">
                                 <Sparkles className="h-8 w-8 text-yellow-500" />
-                                <div className="absolute inset-0 animate-ping rounded-full bg-yellow-500 opacity-30 blur-md"></div>
+                                <div className="absolute inset-0 animate-ping bg-yellow-500 opacity-30 blur-md"></div>
                             </div>
                             <span className="text-2xl font-bold text-gray-900">Jonglei State Youth Union</span>
                         </Link>
@@ -51,8 +51,8 @@ export default function FooterSection() {
                         <div className="space-y-3 text-sm text-gray-600">
                             <div className="flex items-center gap-2">
                                 <Mail className="h-4 w-4 text-yellow-500" />
-                                <a href="mailto:info@jongleiyouthunion.org" className="transition-colors hover:text-yellow-500">
-                                    info@jongleiyouthunion.org
+                                <a href="mailto:info@luac-akook-yieu.org" className="transition-colors hover:text-yellow-500">
+                                    info@luac-akook-yieu.org
                                 </a>
                             </div>
                             <div className="flex items-start gap-2">
@@ -119,7 +119,7 @@ export default function FooterSection() {
                                             key={social.name}
                                             href={social.href}
                                             aria-label={social.name}
-                                            className="group rounded-full bg-gray-100 p-2 text-gray-600 transition-all hover:bg-yellow-500 hover:text-white"
+                                            className="group bg-gray-100 p-2 text-gray-600 transition-all hover:bg-yellow-500 hover:text-white"
                                         >
                                             <Icon className="h-5 w-5" />
                                         </a>

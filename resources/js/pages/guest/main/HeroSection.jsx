@@ -17,11 +17,11 @@ export default function StudentHeroSection() {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
-                        <button className="group hover:shadow-3xl relative overflow-hidden rounded-full bg-white px-8 py-4 text-lg font-semibold text-blue-600 shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95">
+                        <button className="group relative overflow-hidden bg-white px-8 py-4 text-lg font-semibold text-blue-600 transition-all duration-300 hover:scale-105 active:scale-95">
                             <span className="relative z-10">Start Your Adventure</span>
                             <span className="absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
                         </button>
-                        <button className="group rounded-full border-2 border-white/80 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-blue-600 hover:shadow-xl active:scale-95">
+                        <button className="group border-2 border-white/80 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-blue-600 active:scale-95">
                             Explore Demo
                         </button>
                     </div>

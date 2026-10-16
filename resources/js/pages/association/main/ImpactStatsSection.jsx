@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 function useCountUp(target, duration = 2000, start = false) {
@@ -24,30 +25,10 @@ function useCountUp(target, duration = 2000, start = false) {
     return count;
 }
 
-function StatCard({ value, suffix, label, start, animate = true }) {
-    const numericValue = typeof value === 'number' ? value : null;
-    const count = useCountUp(numericValue ?? 0, 2000, start && animate && numericValue !== null);
-
-    const displayValue =
-        numericValue !== null ? `${count.toLocaleString()}${suffix}` : `${value}${suffix ?? ''}`;
-
-    return (
-        <div className="text-center">
-            <div className="text-4xl font-extrabold text-jsyu-green lg:text-5xl">{displayValue}</div>
-            <div className="mt-1 text-sm font-semibold text-jsyu-text-muted">{label}</div>
-        </div>
-    );
-}
-
-const stats = [
-    { value: 9, suffix: '', label: 'Counties represented', animate: true },
-    { value: '7+1', suffix: '', label: 'Core & cross-cutting programs', animate: false },
-    { value: '1.2k', suffix: '+', label: 'Youth engaged & organising', animate: false },
-];
-
 export default function ImpactStatsSection() {
     const statsRef = useRef(null);
     const [statsVisible, setStatsVisible] = useState(false);
+    const counties = useCountUp(9, 1600, statsVisible);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -63,20 +44,18 @@ export default function ImpactStatsSection() {
     }, []);
 
     return (
-        <section ref={statsRef} className="border-b border-jsyu-green-soft bg-white py-16">
-            <div className="mx-auto max-w-5xl px-4 sm:px-6">
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:gap-12">
-                    {stats.map((stat) => (
-                        <StatCard
-                            key={stat.label}
-                            value={stat.value}
-                            suffix={stat.suffix}
-                            label={stat.label}
-                            start={statsVisible}
-                            animate={stat.animate}
-                        />
-                    ))}
-                </div>
+        <section ref={statsRef} className="bg-jsyu-green-deep">
+            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-4 text-center sm:flex-row sm:px-6 sm:text-left lg:px-8">
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-white sm:text-base">
+                    Membership is open across all {counties} counties —{' '}
+                    <span className="text-jsyu-accent">join the youth of Jonglei</span>
+                </p>
+                <Link
+                    href={route('register')}
+                    className="shrink-0 bg-jsyu-accent px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] text-jsyu-green-deep hover:bg-jsyu-accent-hover"
+                >
+                    Join Now
+                </Link>
             </div>
         </section>
     );

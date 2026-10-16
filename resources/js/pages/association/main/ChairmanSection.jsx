@@ -5,60 +5,49 @@ export default function ChairmanSection() {
         <section className="bg-white py-20 lg:py-28">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="mb-12 text-center">
-                    <span className="text-sm font-bold uppercase tracking-wider text-jsyu-green">Our Team</span>
-                    <h2 className="mt-2 text-3xl font-extrabold text-jsyu-green-deep lg:text-4xl">Leadership</h2>
+                    <h2 className="font-display text-4xl font-extrabold lowercase tracking-tight text-jsyu-green-deep sm:text-5xl">
+                        our leadership
+                    </h2>
                 </div>
 
-                <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-                    <div className="order-1 lg:order-none">
-                        <div className="relative mx-auto max-w-sm">
-                            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-jsyu-green/20 via-jsyu-accent/10 to-transparent blur-3xl" />
-                            <div className="relative overflow-hidden rounded-3xl bg-jsyu-green-deep shadow-2xl ring-1 ring-jsyu-green-deep/80">
-                                <img
-                                    src={sectionImages.chairman}
-                                    alt="Jonglei State Youth Union Chairman Tot Bangot Deng"
-                                    className="h-[360px] w-full object-cover object-top sm:h-[420px] lg:h-[460px]"
-                                />
-                                <div className="relative px-5 pb-5 pt-4">
-                                    <p className="text-sm font-bold uppercase tracking-[0.18em] text-jsyu-accent">
-                                        Chairman, Jonglei State Youth Union
-                                    </p>
-                                    <h3 className="mt-1 text-xl font-bold text-white">Tot Bangot Deng</h3>
-                                    <p className="mt-1 text-sm font-medium text-white/70">Term 2026/2030</p>
-                                </div>
-                            </div>
-                        </div>
+                <div className="grid items-stretch gap-0 lg:grid-cols-2">
+                    <div className="relative min-h-[360px] overflow-hidden bg-jsyu-green-deep sm:min-h-[460px]">
+                        <img
+                            src={sectionImages.chairman}
+                            alt="Jonglei State Youth Union Chairman Tot Bangot Deng"
+                            className="h-full w-full object-cover object-top"
+                        />
                     </div>
 
-                    <div className="order-2 space-y-6">
-                        <h3 className="text-2xl font-extrabold text-jsyu-green-deep sm:text-3xl">Meet our Chairman</h3>
-                        <p className="max-w-2xl text-base font-medium leading-relaxed text-jsyu-text-muted sm:text-lg">
-                            At the heart of the Jonglei State Youth Union is a leadership committed to{' '}
-                            <span className="font-bold text-jsyu-green">
-                                representation, peacebuilding, and opportunity
-                            </span>{' '}
-                            for every young person across Jonglei. Our Chairman works with community leaders, youth
-                            groups, and partners to turn the voice of youth into real change.
+                    <div className="flex flex-col justify-center bg-jsyu-green-light px-6 py-10 sm:px-10 lg:px-14">
+                        <span className="text-xs font-bold uppercase tracking-[0.22em] text-jsyu-green">
+                            Chairman · Term 2026/2030
+                        </span>
+                        <h3 className="mt-3 font-display text-3xl font-extrabold text-jsyu-green-deep sm:text-4xl">
+                            Tot Bangot Deng
+                        </h3>
+                        <p className="mt-5 text-base font-medium leading-relaxed text-jsyu-text-muted">
+                            At the heart of the Jonglei State Youth Union is leadership committed to representation,
+                            peacebuilding, and opportunity for every young person across Jonglei — working with
+                            community leaders, youth groups, and partners to turn the voice of youth into real change.
                         </p>
 
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            <div className="rounded-2xl border border-jsyu-green-soft bg-jsyu-green-light p-4">
-                                <p className="text-xs font-bold uppercase tracking-wide text-jsyu-green">
-                                    Focus areas
-                                </p>
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            <div className="border border-jsyu-green-soft bg-white p-4">
+                                <p className="text-xs font-bold uppercase tracking-wide text-jsyu-green">Focus areas</p>
                                 <ul className="mt-2 space-y-1.5 text-sm font-medium text-jsyu-text-muted">
                                     <li>• Youth representation in state decisions</li>
                                     <li>• Community peace & reconciliation</li>
                                     <li>• Education and livelihoods for youth</li>
                                 </ul>
                             </div>
-                            <div className="rounded-2xl bg-jsyu-green-deep p-4 text-white">
+                            <div className="bg-jsyu-green-deep p-4 text-white">
                                 <p className="text-xs font-bold uppercase tracking-wide text-jsyu-accent">
                                     A message to youth
                                 </p>
                                 <p className="mt-2 text-sm font-medium leading-relaxed text-white/90">
                                     &ldquo;When youth are included, communities are safer, fairer, and more hopeful.
-                                    Jonglei&apos;s future is in your hands, and we are here to walk with you.&rdquo;
+                                    Jonglei&apos;s future is in your hands.&rdquo;
                                 </p>
                             </div>
                         </div>

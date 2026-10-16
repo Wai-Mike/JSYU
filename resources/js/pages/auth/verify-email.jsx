@@ -23,7 +23,7 @@ export default function VerifyEmail({ status }) {
                     <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-black/50"></div>
                     <div className="relative z-10 flex h-full items-center justify-center">
                         <div className="p-8 text-center text-white">
-                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
+                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-white/20">
                                 <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
                                         strokeLinecap="round"
@@ -45,7 +45,7 @@ export default function VerifyEmail({ status }) {
                 <div className="w-full max-w-md">
                     {/* Header */}
                     <div className="mb-8">
-                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-100">
+                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-sky-100">
                             <svg className="h-8 w-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path
                                     strokeLinecap="round"
@@ -60,12 +60,12 @@ export default function VerifyEmail({ status }) {
                         <p className="text-center text-sm text-gray-600">
                             Before continuing, please verify your email address by clicking the link in the email we sent you.
                         </p>
-                        <div className="mx-auto mt-4 h-1 w-12 rounded bg-sky-600"></div>
+                        <div className="mx-auto mt-4 h-1 w-12 bg-sky-600"></div>
                     </div>
 
                     {/* Status Message */}
                     {status === 'verification-link-sent' && (
-                        <div className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4">
+                        <div className="mb-6 border border-green-200 bg-green-50 p-4">
                             <div className="flex items-start">
                                 <svg className="mr-3 h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                                     <path
@@ -82,7 +82,7 @@ export default function VerifyEmail({ status }) {
                     )}
 
                     {/* Information Box */}
-                    <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 p-4">
+                    <div className="mb-6 border border-amber-200 bg-amber-50 p-4">
                         <div className="flex items-start">
                             <svg className="mr-3 h-5 w-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path
@@ -105,7 +105,7 @@ export default function VerifyEmail({ status }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="w-full rounded-lg bg-sky-600 px-4 py-3 font-medium text-white transition-colors hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="w-full bg-sky-600 px-4 py-3 font-medium text-white transition-colors hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {processing ? (
                                 <>
@@ -131,7 +131,7 @@ export default function VerifyEmail({ status }) {
                     </form>
 
                     {/* Help Text */}
-                    <div className="mt-6 rounded-lg bg-gray-50 p-4">
+                    <div className="mt-6 bg-gray-50 p-4">
                         <p className="text-center text-sm text-gray-600">
                             If you continue to have issues, please{' '}
                             <a href={route('contact')} className="font-medium text-sky-600 hover:text-sky-500">

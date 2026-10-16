@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            // Reference data, also safe for production: php artisan db:seed --class=JongleiGeographySeeder
+            JongleiGeographySeeder::class,
             UserSeeder::class,
             PostSeeder::class,
         ]);

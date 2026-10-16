@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\Access\AccessControl;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -54,7 +55,10 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'quote' => $quote,
             'auth' => [
-                'user' => $request->user(),
+                // Only what the UI needs; never ship OAuth IDs or personal details to every page
+                'user' => fn () => $request->user()?->only(['id', 'name', 'email', 'avatar', 'role']),
+                // Portal permission keys; used only to show/hide navigation (the server still enforces them)
+                'permissions' => fn () => app(AccessControl::class)->permissionKeys($request->user()),
             ],
             'flash' => [
                 'success' => $request->session()->get('success'),

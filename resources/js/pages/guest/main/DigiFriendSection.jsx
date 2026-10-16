@@ -31,10 +31,10 @@ export default function StudentDigiFriendSection() {
                 <p className="mb-12 text-center text-xl text-gray-700">Your child's guides on this learning adventure!</p>
                 <div className="grid gap-8 md:grid-cols-3">
                     {digiFriends.map((friend) => (
-                        <div key={friend.name} className="rounded-xl p-8 text-center transition-transform hover:scale-105">
+                        <div key={friend.name} className="p-8 text-center transition-transform hover:scale-105">
                             <div className="relative mb-6 flex justify-center">
                                 {/* <img src={friend.backgroundImage} alt="Bubble" className="w- absolute inset-0 -z-0 h-[12rem]" /> */}
-                                <div className={`w- z-10 flex h-[16rem] items-center justify-center rounded-full`}>
+                                <div className={`w- z-10 flex h-[16rem] items-center justify-center `}>
                                     <img src={friend.image} alt={friend.name} className="h-full w-full object-contain" />
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="overflow-x-hidden {{ ($appearance ?? 'system') == 'dark' ? 'dark' : '' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="overflow-x-clip {{ ($appearance ?? 'system') == 'dark' ? 'dark' : '' }}">
 
 <head>
     <meta charset="utf-8">
@@ -91,7 +91,7 @@
     @inertiaHead
 </head>
 
-<body class="min-h-screen overflow-x-hidden font-sans antialiased">
+<body class="min-h-screen overflow-x-clip font-sans antialiased">
     @inertia
 
     {{-- Google Analytics --}}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\FirebaseAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -33,22 +34,21 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('auth.password.store');
 
-    // Google OAuth (guest)
-    Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])
+    // Google Sign-In via Socialite
+    Route::get('auth/google', [GoogleAuthController::class, 'redirect'])
+        ->middleware('throttle:10,1')
         ->name('auth.google');
+    Route::get('auth/google/callback', [GoogleAuthController::class, 'callback'])
+        ->middleware('throttle:10,1')
+        ->name('auth.google.callback');
 
-    // Admin-only login (separate page)
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('login', [RegisterController::class, 'showAdminLoginForm'])
-            ->name('login');
+    // Firebase Google Sign-In → Laravel session exchange
+    Route::post('auth/firebase/google', [FirebaseAuthController::class, 'login'])
+        ->middleware('throttle:10,1')
+        ->name('auth.firebase.google');
 
-        Route::post('login', [RegisterController::class, 'adminLogin']);
-    });
+    // Admin login lives on the admin subdomain (routes/admin.php)
 });
-
-// Google OAuth callback (no middleware - handles authentication internally)
-Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
-    ->name('auth.google.callback');
 
 // Email verification routes (accessible without auth for initial verification)
 Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
@@ -68,11 +68,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    // Google account link/unlink (authenticated)
-    Route::post('auth/google/link', [GoogleAuthController::class, 'linkGoogleAccount'])
-        ->name('auth.google.link');
-    Route::post('auth/google/unlink', [GoogleAuthController::class, 'unlinkGoogleAccount'])
-        ->name('auth.google.unlink');
+    // Link / unlink Firebase Google identity (authenticated)
+    Route::post('auth/firebase/link', [FirebaseAuthController::class, 'link'])
+        ->middleware('throttle:10,1')
+        ->name('auth.firebase.link');
+    Route::post('auth/firebase/unlink', [FirebaseAuthController::class, 'unlink'])
+        ->middleware('throttle:10,1')
+        ->name('auth.firebase.unlink');
 });
 
 // Logout route (accessible without auth middleware)

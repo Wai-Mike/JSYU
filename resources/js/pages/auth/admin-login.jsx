@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
+import { sectionImages } from '../../constants/sectionImages';
 
 export default function AdminLogin({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -17,56 +18,66 @@ export default function AdminLogin({ status, canResetPassword }) {
         });
     };
 
+    const fieldClass =
+        'w-full  border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-jsyu-green focus:bg-white focus:ring-2 focus:ring-jsyu-green/20 focus:outline-none';
+
     return (
         <div className="flex h-screen overflow-hidden">
             <Head title="Admin Login - Jonglei State Youth Union" />
 
-            {/* Left Section - Branding */}
             <div className="relative hidden h-full overflow-hidden lg:flex lg:flex-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800" />
-                <div className="relative z-10 flex h-full items-center justify-center px-10">
+                <div className="absolute inset-0 bg-gradient-to-br from-admin-sidebar via-jsyu-green-deep to-jsyu-green" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(125,183,54,0.25),transparent_55%)]" />
+                <div className="relative z-10 flex h-full flex-col justify-between px-10 py-12">
+                    <div className="flex items-center gap-3">
+                        <img src={sectionImages.logo} alt="JSYU" className="h-10 w-10 object-contain" />
+                        <div>
+                            <p className="text-sm font-bold text-white">JSYU Admin</p>
+                            <p className="text-xs text-white/60">Management portal</p>
+                        </div>
+                    </div>
                     <div className="max-w-md text-white">
-                        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-red-300">
+                        <p className="mb-2 text-sm font-semibold tracking-[0.18em] text-jsyu-accent uppercase">
                             Admin Portal
                         </p>
-                        <h1 className="mb-4 text-3xl font-bold sm:text-4xl">
+                        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
                             Jonglei State Youth Union
                         </h1>
-                        <p className="text-sm text-slate-200/80">
-                            Secure access for administrators to manage news, programs, and other official communications
-                            of the Jonglei State Youth Union.
-                        </p>
                     </div>
+                    <p className="text-xs text-white/40">Authorized personnel only</p>
                 </div>
             </div>
 
-            {/* Right Section - Admin Login Form */}
-            <div className="flex h-full w-full items-center justify-center overflow-y-auto bg-white lg:w-[40%]">
+            <div className="flex h-full w-full items-center justify-center overflow-y-auto bg-admin-canvas lg:w-[42%]">
                 <div className="w-full max-w-md p-8">
-                    {/* Status Message */}
+                    <div className="mb-8 flex items-center gap-3 lg:hidden">
+                        <img src={sectionImages.logo} alt="JSYU" className="h-9 w-9 object-contain" />
+                        <div>
+                            <p className="text-sm font-bold text-jsyu-green-deep">JSYU Admin</p>
+                            <p className="text-xs text-slate-500">Management portal</p>
+                        </div>
+                    </div>
+
                     {status && (
-                        <div className="mb-4 rounded-lg border border-sky-300 bg-sky-500/10 p-3 text-sm text-sky-800">
+                        <div className="mb-4 border border-jsyu-green-soft bg-jsyu-green-light p-3 text-sm text-jsyu-green-deep">
                             {status}
                         </div>
                     )}
 
-                    {/* Header */}
                     <div className="mb-6">
-                        <p className="mb-1 text-xs font-medium uppercase tracking-[0.2em] text-red-500">
-                            Admin Access
+                        <p className="mb-1 text-xs font-semibold tracking-[0.18em] text-jsyu-green uppercase">
+                            Admin access
                         </p>
-                        <h2 className="mb-1 text-2xl font-bold text-gray-800">Sign in to admin panel</h2>
-                        <p className="text-sm text-gray-500">
+                        <h2 className="mb-1 text-2xl font-bold text-slate-900">Sign in to admin panel</h2>
+                        <p className="text-sm text-slate-500">
                             Only authorized administrators can access this area.
                         </p>
-                        <div className="mt-3 h-1 w-12 rounded bg-gradient-to-r from-red-500 to-sky-500" />
+                        <div className="mt-3 h-1 w-12 bg-jsyu-green" />
                     </div>
 
-                    {/* Form */}
                     <form className="space-y-4" onSubmit={submit}>
-                        {/* Email Field */}
                         <div>
-                            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-700">
+                            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-700">
                                 Admin email
                             </label>
                             <input
@@ -75,7 +86,7 @@ export default function AdminLogin({ status, canResetPassword }) {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                                className={fieldClass}
                                 placeholder="admin@example.com"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
@@ -83,9 +94,8 @@ export default function AdminLogin({ status, canResetPassword }) {
                             {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                         </div>
 
-                        {/* Password Field */}
                         <div>
-                            <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-gray-700">
+                            <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-slate-700">
                                 Password
                             </label>
                             <div className="relative">
@@ -95,14 +105,14 @@ export default function AdminLogin({ status, canResetPassword }) {
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="current-password"
                                     required
-                                    className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2.5 pr-12 text-sm text-gray-900 placeholder:text-gray-400 focus:border-red-500 focus:ring-2 focus:ring-red-500 focus:outline-none"
+                                    className={`${fieldClass} pr-12`}
                                     placeholder="Enter your password"
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
                                 />
                                 <button
                                     type="button"
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? (
@@ -116,7 +126,12 @@ export default function AdminLogin({ status, canResetPassword }) {
                                         </svg>
                                     ) : (
                                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                            />
                                             <path
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -130,14 +145,13 @@ export default function AdminLogin({ status, canResetPassword }) {
                             {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password}</p>}
                         </div>
 
-                        {/* Remember Me */}
                         <div className="flex items-center justify-between">
-                            <label className="flex items-center gap-2 text-xs text-gray-600">
+                            <label className="flex items-center gap-2 text-xs text-slate-600">
                                 <input
                                     id="remember"
                                     name="remember"
                                     type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500 focus:ring-offset-0"
+                                    className="h-4 w-4 border-slate-300 text-jsyu-green focus:ring-jsyu-green focus:ring-offset-0"
                                     checked={data.remember}
                                     onChange={(e) => setData('remember', e.target.checked)}
                                 />
@@ -147,35 +161,36 @@ export default function AdminLogin({ status, canResetPassword }) {
                             {canResetPassword && (
                                 <Link
                                     href={route('auth.password.request')}
-                                    className="text-xs font-medium text-red-600 hover:text-red-700"
+                                    className="text-xs font-medium text-jsyu-green hover:text-jsyu-green-hover"
                                 >
                                     Forgot password?
                                 </Link>
                             )}
                         </div>
 
-                        {/* Sign In Button */}
                         <button
                             type="submit"
                             disabled={processing}
-                            className="mt-2 w-full rounded-lg bg-gradient-to-r from-red-600 to-red-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-500/30 transition-all hover:from-red-700 hover:to-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="mt-2 w-full bg-jsyu-green px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-jsyu-green-hover focus:ring-2 focus:ring-jsyu-green focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {processing ? 'Signing in...' : 'Sign in'}
                         </button>
                     </form>
 
-                    {/* Link back to main site login */}
                     <div className="mt-6 text-center">
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-slate-500">
                             Need a regular member account?{' '}
-                            <Link href={route('login')} className="font-medium text-sky-500 hover:text-sky-600">
+                            <a
+                                href={new URL('/login', route('home')).href}
+                                className="font-medium text-jsyu-green hover:text-jsyu-green-hover"
+                            >
                                 Go to member login
-                            </Link>
+                            </a>
                         </p>
                         <div className="mt-2">
-                            <Link href={route('home')} className="text-xs text-gray-500 hover:text-sky-500">
+                            <a href={route('home')} className="text-xs text-slate-500 hover:text-jsyu-green">
                                 ← Back to home
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -183,4 +198,3 @@ export default function AdminLogin({ status, canResetPassword }) {
         </div>
     );
 }
-

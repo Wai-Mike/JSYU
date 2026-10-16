@@ -147,54 +147,50 @@ const programs = [
 export default function ProgramsIndex() {
     return (
         <AssociationLayout>
-            <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 sm:py-32">
-                <header className="mx-auto max-w-3xl text-center">
-                    <span className="text-sm font-bold uppercase tracking-wider text-jsyu-green">
+            <div className="bg-jsyu-green-deep">
+                <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
+                    <span className="text-xs font-bold uppercase tracking-[0.22em] text-jsyu-accent">
                         Our Strategic Programs
                     </span>
-                    <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-jsyu-green-deep sm:text-4xl lg:text-5xl">
+                    <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
                         Fiscal Year 2026/2030 programs for Jonglei youth
                     </h1>
-                    <p className="mt-6 text-lg font-medium text-jsyu-text-muted">
-                        These program areas come from the Jonglei State Youth Union Fiscal Year Plan and Annual Work Plan
-                        2026/2030. They respond to unemployment, conflict, climate shocks, health risks, and leadership
-                        gaps affecting young people across all 9 counties&mdash;with a deliberate focus on youth with
-                        disabilities.
-                    </p>
-                </header>
+                </div>
+            </div>
 
-                <div className="mt-16 grid gap-8 md:grid-cols-2">
+            <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+                <div className="grid gap-6 md:grid-cols-2">
                     {programs.map((program) => (
                         <article
                             key={program.id}
-                            className="group flex h-full flex-col rounded-2xl border border-jsyu-green-deep/30 bg-jsyu-green-deep p-7 shadow-sm ring-1 ring-jsyu-green-deep/50 transition-all hover:-translate-y-1 hover:shadow-2xl hover:ring-jsyu-green/70"
+                            className="group flex h-full flex-col bg-jsyu-green-deep p-7 transition-transform hover:-translate-y-0.5"
                         >
                             <div>
                                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-jsyu-accent">
                                     {program.number}
                                 </p>
-                                <h2 className="mt-2 text-xl font-semibold text-white">{program.name}</h2>
+                                <h2 className="mt-2 font-display text-2xl font-bold text-white">{program.name}</h2>
                             </div>
 
                             <p className="mt-4 text-sm font-bold text-jsyu-accent/90">Objective</p>
-                            <p className="mt-1 text-sm text-slate-200">{program.objective}</p>
+                            <p className="mt-1 text-sm text-white/75">{program.objective}</p>
 
                             <div className="mt-5 space-y-3">
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
                                         Key activities
                                     </p>
-                                    <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-slate-200">
+                                    <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-white/75">
                                         {program.activities.map((activity) => (
                                             <li key={activity}>{activity}</li>
                                         ))}
                                     </ul>
                                 </div>
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
                                         Expected results
                                     </p>
-                                    <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-slate-200">
+                                    <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-white/75">
                                         {program.outcomes.map((outcome) => (
                                             <li key={outcome}>{outcome}</li>
                                         ))}
@@ -203,21 +199,21 @@ export default function ProgramsIndex() {
                             </div>
 
                             {program.highlight && (
-                                <p className="mt-4 text-xs text-emerald-200/90">{program.highlight}</p>
+                                <p className="mt-4 text-xs font-medium text-jsyu-accent/90">{program.highlight}</p>
                             )}
                         </article>
                     ))}
                 </div>
 
-                <section className="mt-20 rounded-3xl bg-jsyu-green-light px-6 py-8 text-jsyu-charcoal sm:px-8">
-                    <h2 className="text-xl font-bold text-jsyu-green-deep">Cross-cutting priorities</h2>
+                <section className="mt-16 bg-jsyu-green-light px-6 py-8 sm:px-8">
+                    <h2 className="font-display text-2xl font-bold text-jsyu-green-deep">Cross-cutting priorities</h2>
                     <p className="mt-3 text-sm font-medium text-jsyu-text-muted">
                         Every program in this plan is designed to intentionally include{' '}
-                        <span className="font-semibold">young women</span>,{' '}
-                        <span className="font-semibold">youth with disabilities</span>, and{' '}
-                        <span className="font-semibold">youth from all 9 counties of Jonglei</span>. Transparency,
-                        accountability, and youth participation in decision-making are non-negotiable principles in how
-                        we plan, implement, and report on our work.
+                        <span className="font-semibold text-jsyu-green-deep">young women</span>,{' '}
+                        <span className="font-semibold text-jsyu-green-deep">youth with disabilities</span>, and{' '}
+                        <span className="font-semibold text-jsyu-green-deep">youth from all 9 counties of Jonglei</span>.
+                        Transparency, accountability, and youth participation in decision-making are non-negotiable
+                        principles in how we plan, implement, and report on our work.
                     </p>
                 </section>
             </div>

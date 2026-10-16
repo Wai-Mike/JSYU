@@ -65,7 +65,7 @@ export default function Layout({ children }) {
                                     <Link
                                         key={item.name}
                                         href={item.href}
-                                        className="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                        className="group flex items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                                     >
                                         {item.name}
                                     </Link>
@@ -76,16 +76,16 @@ export default function Layout({ children }) {
                             <div className="flex items-center">
                                 <div className="flex-shrink-0">
                                     {auth.user?.avatar ? (
-                                        <img className="h-8 w-8 rounded-full" src={auth.user.avatar} alt={auth.user.name} />
+                                        <img className="h-8 w-8" src={auth.user.avatar} alt={auth.user.name} />
                                     ) : (
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300">
+                                        <div className="flex h-8 w-8 items-center justify-center bg-gray-300">
                                             <span className="text-sm font-medium text-gray-700">{auth.user?.name?.charAt(0).toUpperCase()}</span>
                                         </div>
                                     )}
                                 </div>
                                 <div className="ml-3">
                                     <p className="text-sm font-medium text-gray-700">{auth.user?.name}</p>
-                                    <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${getRoleColor(auth.user?.role)}`}>
+                                    <span className={`inline-flex  px-2 py-1 text-xs font-semibold ${getRoleColor(auth.user?.role)}`}>
                                         {auth.user?.role}
                                     </span>
                                 </div>

@@ -23,7 +23,7 @@ export default function ResetPassword({ token, email }) {
 
             <div className="w-full max-w-md space-y-8">
                 <div>
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center bg-green-100">
                         <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
@@ -50,7 +50,7 @@ export default function ResetPassword({ token, email }) {
                                 autoComplete="email"
                                 required
                                 disabled
-                                className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 bg-gray-100 px-3 py-2 text-gray-900 placeholder-gray-500 sm:text-sm"
+                                className="relative mt-1 block w-full appearance-none border border-gray-300 bg-gray-100 px-3 py-2 text-gray-900 placeholder-gray-500 sm:text-sm"
                                 value={data.email}
                             />
                         </div>
@@ -66,7 +66,7 @@ export default function ResetPassword({ token, email }) {
                                     type={showPassword ? 'text' : 'password'}
                                     autoComplete="new-password"
                                     required
-                                    className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-500 focus:ring-green-500 focus:outline-none sm:text-sm"
+                                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-500 focus:ring-green-500 focus:outline-none sm:text-sm"
                                     placeholder="Enter your new password"
                                     value={data.password}
                                     onChange={(e) => setData('password', e.target.value)}
@@ -112,7 +112,7 @@ export default function ResetPassword({ token, email }) {
                                     type={showConfirmPassword ? 'text' : 'password'}
                                     autoComplete="new-password"
                                     required
-                                    className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-500 focus:ring-green-500 focus:outline-none sm:text-sm"
+                                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2 pr-10 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-500 focus:ring-green-500 focus:outline-none sm:text-sm"
                                     placeholder="Confirm your new password"
                                     value={data.password_confirmation}
                                     onChange={(e) => setData('password_confirmation', e.target.value)}
@@ -152,7 +152,7 @@ export default function ResetPassword({ token, email }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="group relative flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="group relative flex w-full justify-center border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {processing ? (
                                 <svg

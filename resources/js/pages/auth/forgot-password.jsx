@@ -16,7 +16,7 @@ export default function ForgotPassword({ status }) {
 
             <div className="w-full max-w-md space-y-8">
                 <div>
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center bg-green-100">
                         <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                                 strokeLinecap="round"
@@ -33,7 +33,7 @@ export default function ForgotPassword({ status }) {
                     </p>
                 </div>
 
-                {status && <div className="rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">{status}</div>}
+                {status && <div className="border border-green-400 bg-green-100 px-4 py-3 text-green-700">{status}</div>}
 
                 <form className="mt-8 space-y-6" onSubmit={submit}>
                     <div>
@@ -46,7 +46,7 @@ export default function ForgotPassword({ status }) {
                             type="email"
                             autoComplete="email"
                             required
-                            className="relative mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-500 focus:ring-green-500 focus:outline-none sm:text-sm"
+                            className="relative mt-1 block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-500 focus:ring-green-500 focus:outline-none sm:text-sm"
                             placeholder="Enter your email address"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
@@ -58,7 +58,7 @@ export default function ForgotPassword({ status }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="group relative flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="group relative flex w-full justify-center border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {processing ? (
                                 <svg

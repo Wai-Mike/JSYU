@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap');
 
 @import 'tailwindcss';
 
@@ -23,7 +23,7 @@ html {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--color-jsyu-green), var(--color-jsyu-accent));
+    background: var(--color-jsyu-accent);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width;
 }
@@ -66,7 +66,7 @@ a,
 
 ::-webkit-scrollbar-thumb {
     background: color-mix(in srgb, var(--color-jsyu-green) 40%, transparent);
-    border-radius: 3px;
+    border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -173,6 +173,44 @@ body.mobile-menu-open {
     animation: spin-slow 20s linear infinite;
 }
 
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(1.25rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-up {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-up-delay {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.animate-fade-up-delay-2 {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.animate-fade-in {
+    animation: fade-in 1.2s ease both;
+}
+
 /* Smooth transitions for specific elements */
 .navbar-link,
 .interactive,
@@ -189,22 +227,28 @@ a {
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-display: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-    --font-body: 'Manrope', system-ui, sans-serif;
+    --font-sans: 'Barlow', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Barlow Condensed', 'Barlow', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Barlow', system-ui, sans-serif;
 
-    /* JSYU brand colors — derived from official logo */
+    /* Logo palette — dark green, bright green, gold */
     --color-jsyu-green: #2f7a33;
     --color-jsyu-green-hover: #256429;
-    --color-jsyu-green-deep: #1a3d2e;
+    --color-jsyu-green-deep: #2d4f2a;
     --color-jsyu-green-muted: #4a9460;
     --color-jsyu-green-light: #edf5ee;
     --color-jsyu-green-soft: #d9eadc;
-    --color-jsyu-accent: #c5d926;
-    --color-jsyu-accent-hover: #b3c622;
-    --color-jsyu-gold: #d4b84a;
+    --color-jsyu-accent: #7db736;
+    --color-jsyu-accent-hover: #6ca32e;
+    --color-jsyu-bright: #7db736;
+    --color-jsyu-gold: #d6a928;
     --color-jsyu-charcoal: #1c1c1e;
     --color-jsyu-text-muted: #5a6470;
+
+    /* Admin portal shell (Mang’Gala-style, JSYU green) */
+    --color-admin-sidebar: #1a3320;
+    --color-admin-sidebar-hover: #244428;
+    --color-admin-canvas: #f4f6f5;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -255,9 +299,9 @@ a {
 }
 
 :root {
-    --main: #1a3d2e;
+    --main: #2d4f2a;
     --main2: #2f7a33;
-    --gold: #d4b84a;
+    --gold: #d6a928;
 
     --blue: #2f7a33;
     --red: #DC2626;
@@ -271,11 +315,11 @@ a {
     --primary: #2f7a33;
     --primary-foreground: #ffffff;
     --secondary: #edf5ee;
-    --secondary-foreground: #1a3d2e;
+    --secondary-foreground: #2d4f2a;
     --muted: #edf5ee;
     --muted-foreground: #5a6470;
-    --accent: #c5d926;
-    --accent-foreground: #1a3d2e;
+    --accent: #7db736;
+    --accent-foreground: #2d4f2a;
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.577 0.245 27.325);
     --border: #d9eadc;
@@ -286,13 +330,13 @@ a {
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: #1a3d2e;
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: #edf5ee;
-    --sidebar-accent-foreground: #1a3d2e;
-    --sidebar-border: #d9eadc;
-    --sidebar-ring: #2f7a33;
+    --radius: 0;
+    --sidebar: #1a3320;
+    --sidebar-foreground: #f4f6f5;
+    --sidebar-primary: #7db736;
+    --sidebar-primary-foreground: #1a3320;
+    --sidebar-accent: #244428;
+    --sidebar-accent-foreground: #f4f6f5;
+    --sidebar-border: rgba(255, 255, 255, 0.1);
+    --sidebar-ring: #7db736;
 }
