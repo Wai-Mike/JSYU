@@ -69,7 +69,7 @@ class GoogleAuthController extends Controller
 
         Log::info('Google login succeeded', ['user_id' => $user->id]);
 
-        // New Google members confirm their address by email, the same as an email sign-up
+        // Google has normally verified the address already, so this only sends mail when it hasn't
         if ($user->wasRecentlyCreated) {
             event(new Registered($user));
         }
@@ -91,8 +91,15 @@ class GoogleAuthController extends Controller
 
             if ($user) {
                 if (! $user->avatar && $googleUser->getAvatar()) {
-                    $user->forceFill(['avatar' => $googleUser->getAvatar()])->save();
+                    $user->forceFill(['avatar' => $googleUser->getAvatar()]);
                 }
+
+                // Google members created before verification was trusted are verified now
+                if ($emailVerified && ! $user->hasVerifiedEmail()) {
+                    $user->forceFill(['email_verified_at' => now()]);
+                }
+
+                $user->save();
 
                 return $user;
             }
@@ -122,8 +129,11 @@ class GoogleAuthController extends Controller
                 'role' => 'student',
             ]);
 
-            // Left unverified: the verification email confirms it (see callback)
-            $user->forceFill(['google_id' => $googleUser->getId()])->save();
+            // Google has proven ownership of the address, so no verification email is needed
+            $user->forceFill([
+                'google_id' => $googleUser->getId(),
+                'email_verified_at' => $emailVerified ? now() : null,
+            ])->save();
 
             // Start the member profile with Google's names so the membership form is pre-filled
             app(MemberProfileService::class)->forUser($user)->update([

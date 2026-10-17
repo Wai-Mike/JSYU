@@ -34,19 +34,45 @@ class GoogleAuthenticationTest extends TestCase
             ->assertSessionHas('error', 'Google sign-in is not configured yet.');
     }
 
-    public function test_new_google_member_must_verify_their_email_first(): void
+    public function test_new_google_member_is_verified_without_a_verification_email(): void
     {
         Notification::fake();
         $this->mockGoogleUser('g-new', 'New@Example.com');
 
-        $this->get(route('auth.google.callback'))->assertRedirect(route('verification.notice'));
+        $response = $this->get(route('auth.google.callback'));
 
         $user = User::where('email', 'new@example.com')->firstOrFail();
+        $this->assertNotSame(route('verification.notice'), $response->headers->get('Location'));
         $this->assertAuthenticatedAs($user);
         $this->assertSame('g-new', $user->google_id);
         $this->assertSame('student', $user->role);
+        $this->assertNotNull($user->email_verified_at);
+        Notification::assertNotSentTo($user, VerifyEmail::class);
+    }
+
+    public function test_new_google_member_with_unverified_google_email_must_verify(): void
+    {
+        Notification::fake();
+        $this->mockGoogleUser('g-unverified', 'unverified@example.com', verified: false);
+
+        $this->get(route('auth.google.callback'))->assertRedirect(route('verification.notice'));
+
+        $user = User::where('email', 'unverified@example.com')->firstOrFail();
         $this->assertNull($user->email_verified_at);
         Notification::assertSentTo($user, VerifyEmail::class);
+    }
+
+    public function test_existing_unverified_google_member_is_verified_on_next_sign_in(): void
+    {
+        $user = User::factory()->create(['email' => 'waiting@example.com', 'email_verified_at' => null]);
+        $user->forceFill(['google_id' => 'g-waiting'])->save();
+
+        $this->mockGoogleUser('g-waiting', 'waiting@example.com');
+
+        $this->get(route('auth.google.callback'));
+
+        $this->assertAuthenticatedAs($user);
+        $this->assertNotNull($user->fresh()->email_verified_at);
     }
 
     public function test_callback_logs_in_user_by_google_id_without_changing_role(): void
