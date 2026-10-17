@@ -105,7 +105,7 @@ export default function VerifyEmail({ status }) {
                 >
                     Used the wrong email? Start again
                 </Link>
-                <a href={route('contact')} className="text-jsyu-green hover:text-jsyu-green-hover font-semibold underline-offset-4 hover:underline">
+                <a href="mailto:info@jsyu.org" className="text-jsyu-green hover:text-jsyu-green-hover font-semibold underline-offset-4 hover:underline">
                     Contact support
                 </a>
             </div>

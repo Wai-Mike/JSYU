@@ -1,8 +1,16 @@
+# Only used when the whole project sits inside public_html (DEPLOYMENT.md, option B).
+# Prefer option A: keep the project outside public_html and point the domain at /public.
+Options -Indexes
+
+# Never serve config, environment or dot files, even if rewriting is unavailable
+<FilesMatch "^(\.env.*|\.git.*|composer\.(json|lock|phar)|artisan|package(-lock)?\.json|phpunit\.xml|.*\.(log|sh|md|sql))$">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Hostinger serves from public_html; Laravel's front controller is in /public.
-    # Keep root clean and forward everything into /public.
+    # Laravel's front controller is in /public: forward everything there.
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L,QSA]
 </IfModule>
