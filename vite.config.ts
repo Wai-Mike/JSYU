@@ -32,7 +32,8 @@ export default defineConfig({
         },
     },
     server: {
-        host: '10.122.0.201',
+        // localhost (not a LAN IP) so the dev server keeps working when the network changes
+        host: 'localhost',
         port: 5173,
         cors: {
             origin: true,

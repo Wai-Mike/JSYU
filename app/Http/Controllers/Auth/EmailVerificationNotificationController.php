@@ -19,7 +19,7 @@ class EmailVerificationNotificationController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             $user = $request->user();
             
-            return CrossHostRedirect::to($request, redirect()->intended(HomeUrl::for($user))->getTargetUrl());
+            return CrossHostRedirect::to($request, HomeUrl::afterVerification($user));
         }
 
         try {

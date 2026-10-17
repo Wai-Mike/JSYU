@@ -75,11 +75,17 @@ return new class extends Migration
 
     public function down(): void
     {
+        // SQLite refuses DROP TABLE on geographic_areas while its self-referential
+        // parent_id FK is enforced, so turn checks off for the teardown.
+        Schema::disableForeignKeyConstraints();
+
         Schema::dropIfExists('audit_logs');
         Schema::dropIfExists('role_assignments');
         Schema::dropIfExists('permission_role');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('geographic_areas');
+
+        Schema::enableForeignKeyConstraints();
     }
 };

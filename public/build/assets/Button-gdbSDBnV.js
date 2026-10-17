@@ -1,0 +1,6 @@
+import{j as t,$ as d}from"./app-CySLvRTp.js";import{c as b}from"./createLucideIcon-DVkJoi-Z.js";/**
+ * @license lucide-react v0.475.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const m=[["path",{d:"M21 12a9 9 0 1 1-6.219-8.56",key:"13zald"}]],u=b("LoaderCircle",m),i={primary:"bg-jsyu-green text-white  hover:bg-jsyu-green-hover",secondary:"border border-slate-200 bg-white text-slate-700  hover:bg-slate-50",danger:"bg-red-600 text-white  hover:bg-red-700",ghost:"text-slate-600 hover:bg-slate-100 hover:text-slate-900"};function y({variant:n="primary",size:l="md",href:s,loading:r=!1,className:c="",children:a,...e}){const o=`inline-flex items-center justify-center gap-1.5  font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-jsyu-green/40 disabled:cursor-not-allowed disabled:opacity-50 ${l==="sm"?"px-3 py-1.5 text-xs":"px-4 py-2 text-sm"} ${i[n]??i.primary} ${c}`;return s?t.jsx(d,{href:s,className:o,...e,children:a}):t.jsxs("button",{type:"button",...e,disabled:r||e.disabled,className:o,children:[r&&t.jsx(u,{className:"h-4 w-4 animate-spin"}),a]})}export{y as B,u as L};

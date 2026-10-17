@@ -21,6 +21,7 @@ class DashboardController extends Controller
                 'joined' => $user->created_at?->toDateString(),
                 'signInMethod' => $user->google_id ? 'Google' : 'Email & password',
             ],
+            'membershipComplete' => (bool) $profile?->isMembershipComplete(),
             'profile' => $profile ? [
                 'homeArea' => $profile->homeArea?->name,
                 'sections' => $profile->completeness(),

@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Support\HomeUrl;
+use App\Support\SessionHandoff;
 
 class VerifyEmailController extends Controller
 {
@@ -38,6 +39,6 @@ class VerifyEmailController extends Controller
         auth()->login($user);
 
         // New members continue with their membership details (on the member subdomain)
-        return redirect()->away(HomeUrl::afterVerification($user));
+        return redirect()->away(SessionHandoff::url($user, HomeUrl::afterVerification($user)));
     }
 }

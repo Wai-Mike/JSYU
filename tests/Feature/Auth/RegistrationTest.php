@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\GeographicArea;
 use App\Models\User;
-use App\Services\Geography\JongleiGeography;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -19,8 +17,6 @@ class RegistrationTest extends TestCase
     {
         parent::setUp();
 
-        app(JongleiGeography::class)->sync();
-        Event::fake([Registered::class]);
         Notification::fake();
     }
 
@@ -28,69 +24,54 @@ class RegistrationTest extends TestCase
     {
         return array_merge([
             'first_name' => 'Nyandeng',
-            'middle_name' => 'Achol',
             'last_name' => 'Mabior',
-            'gender' => 'female',
-            'date_of_birth' => '2001-04-12',
             'email' => 'Nyandeng@Example.com',
-            'phone' => '+211 912 345 678',
-            'alternative_phone' => '',
-            'home_area_id' => GeographicArea::query()->where('code', 'SS-JG-BOR')->value('id'),
-            'current_country_code' => 'ss',
-            'current_location' => 'Bor',
-            'bio' => 'Student and peace volunteer.',
-            'visibility' => 'officials',
             'password' => 'password',
-            'password_confirmation' => 'password',
-            'terms' => true,
         ], $overrides);
     }
 
     public function test_registration_screen_can_be_rendered()
     {
-        $this->get('/register')
-            ->assertStatus(200)
-            ->assertInertia(fn ($page) => $page->component('auth/register')->has('areas', 9)->has('visibilities', 3));
+        $this->get('/register')->assertStatus(200)->assertInertia(fn ($page) => $page->component('auth/register'));
     }
 
-    public function test_new_members_register_with_their_full_profile()
+    public function test_step_one_creates_the_account_and_asks_for_email_verification()
     {
-        $this->post('/register', $this->payload())->assertSessionHasNoErrors();
+        $this->post('/register', $this->payload())->assertRedirect(route('verification.notice'));
 
         $this->assertAuthenticated();
 
         $user = User::query()->where('email', 'nyandeng@example.com')->firstOrFail();
-        $this->assertSame('Nyandeng Achol Mabior', $user->name);
+        $this->assertSame('Nyandeng Mabior', $user->name);
+        $this->assertNull($user->email_verified_at);
+        Notification::assertSentTo($user, VerifyEmail::class);
 
-        $person = $user->person;
-        $this->assertSame('+211 912 345 678', $person->phone);
-        $this->assertSame('female', $person->gender);
-
-        $profile = $person->memberProfile;
+        // The member profile is started with the names so later steps are pre-filled
+        $profile = $user->person->memberProfile;
         $this->assertSame('Nyandeng', $profile->first_name);
         $this->assertSame('Mabior', $profile->last_name);
-        $this->assertSame('2001-04-12', $profile->date_of_birth->toDateString());
-        $this->assertSame('Bor', $profile->homeArea->name);
-        $this->assertSame('SS', $profile->current_country_code);
-        $this->assertSame('officials', $profile->visibility);
+        $this->assertFalse($profile->isMembershipComplete());
     }
 
-    public function test_membership_details_are_required()
+    public function test_account_details_are_required()
     {
-        $this->post('/register', $this->payload([
-            'first_name' => '',
-            'phone' => 'call me',
-            'home_area_id' => '',
-            'terms' => false,
-        ]))->assertSessionHasErrors(['first_name', 'phone', 'home_area_id', 'terms']);
+        $this->post('/register', $this->payload(['first_name' => '', 'email' => 'not-an-email', 'password' => '123']))
+            ->assertSessionHasErrors(['first_name', 'email', 'password']);
 
         $this->assertGuest();
     }
 
-    public function test_home_area_must_be_inside_jonglei()
+    public function test_verifying_the_email_continues_to_the_membership_details()
     {
-        $country = GeographicArea::query()->where('code', 'SS')->value('id');
+        $this->post('/register', $this->payload());
+        $user = User::query()->where('email', 'nyandeng@example.com')->firstOrFail();
 
-        $this->post('/register', $this->payload(['home_area_id' => $country]))->assertSessionHasErrors('home_area_id');
+        $url = URL::temporarySignedRoute('verification.verify', now()->addHour(), [
+            'id' => $user->id,
+            'hash' => sha1($user->getEmailForVerification()),
+        ]);
+
+        $this->get($url)->assertRedirect(route('member.membership.edit'));
+        $this->assertNotNull($user->fresh()->email_verified_at);
     }
 }

@@ -19,7 +19,7 @@ class CrossHostRedirect
         $targetHost = parse_url($url, PHP_URL_HOST);
 
         if ($targetHost && $targetHost !== $request->getHost()) {
-            return Inertia::location($url);
+            return Inertia::location($request->user() ? SessionHandoff::url($request->user(), $url) : $url);
         }
 
         return redirect($url);

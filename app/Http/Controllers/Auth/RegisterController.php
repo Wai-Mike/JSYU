@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Services\Members\MemberProfileService;
-use App\Notifications\VerificationWelcomeNotification;
 use App\Support\CrossHostRedirect;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -57,10 +56,8 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:80'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             // Keep password rules simple for this project (admins are managed separately).
-            'password' => ['required', 'confirmed', 'min:5'],
-            'terms' => ['accepted'],
-        ], [
-            'terms.accepted' => 'Please agree to the community guidelines to join.',
+            // No confirmation field: the form has a show-password toggle instead.
+            'password' => ['required', 'min:5'],
         ]);
 
         $user = DB::transaction(function () use ($validated, $profiles) {
@@ -80,11 +77,8 @@ class RegisterController extends Controller
             return $user;
         });
 
-        // Fire the Registered event (this will trigger the welcome email listener)
+        // Laravel sends the verification email on this event (User implements MustVerifyEmail)
         event(new Registered($user));
-
-        // Send custom verification email
-        $user->notify(new VerificationWelcomeNotification());
 
         // Auto-login the user after registration
         Auth::login($user);

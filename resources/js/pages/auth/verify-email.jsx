@@ -1,154 +1,114 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { CheckCircle2, Inbox, MailCheck, RefreshCw } from 'lucide-react';
+import { useEffect } from 'react';
+import AuthShell from '../../components/auth/AuthShell';
+import { SubmitButton } from '../../components/auth/FormFields';
+import JourneySteps from '../../components/auth/JourneySteps';
+
+const CHECK_EVERY_MS = 8000;
 
 export default function VerifyEmail({ status }) {
+    const { auth, flash } = usePage().props;
     const { post, processing } = useForm({});
+    const reduceMotion = useReducedMotion();
 
-    const submit = (e) => {
+    // If the link is opened in another tab, reloading this page moves the
+    // member straight on to their membership details.
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (document.visibilityState === 'visible') router.reload({ preserveScroll: true });
+        }, CHECK_EVERY_MS);
+        return () => clearInterval(timer);
+    }, []);
+
+    const resend = (e) => {
         e.preventDefault();
         post(route('auth.verification.send'));
     };
 
     return (
-        <div className="flex min-h-screen">
+        <AuthShell eyebrow="Almost there" title="Check your inbox" accent="to continue">
             <Head title="Verify Email - Jonglei State Youth Union" />
 
-            {/* Left Section - Image with Gradient */}
-            <div className="relative hidden lg:flex lg:flex-1">
-                <div
-                    className="h-full w-full bg-cover bg-center bg-no-repeat"
-                    style={{
-                        backgroundImage: `url('/images/pexels-pixabay-51953.jpg')`,
-                    }}
+            <JourneySteps current={1} />
+
+            <div className="mt-10 text-center">
+                <motion.div
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 14, delay: 0.2 }}
+                    className="bg-jsyu-green-light relative mx-auto flex h-24 w-24 items-center justify-center"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-black/50"></div>
-                    <div className="relative z-10 flex h-full items-center justify-center">
-                        <div className="p-8 text-center text-white">
-                            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-white/20">
-                                <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                    />
-                                </svg>
-                            </div>
-                            <h2 className="mb-4 text-3xl font-bold">Jonglei State Youth Union</h2>
-                            <p className="text-lg opacity-90">Verify your email to access your account and get involved</p>
-                        </div>
-                    </div>
-                </div>
+                    {!reduceMotion && <span className="bg-jsyu-accent/30 absolute inset-0 animate-ping" style={{ animationDuration: '2.4s' }} />}
+                    <MailCheck className="text-jsyu-green relative h-11 w-11" strokeWidth={1.5} />
+                </motion.div>
+
+                <p className="text-jsyu-green mt-8 text-xs font-bold tracking-[0.2em] uppercase">Step 2 · Verify your email</p>
+                <h2 className="font-display text-jsyu-green-deep mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    Confirm your email address
+                </h2>
+                <span className="bg-jsyu-accent mx-auto mt-3 block h-1 w-14" />
+                <p className="text-jsyu-text-muted mx-auto mt-4 max-w-md text-sm font-medium">
+                    We sent a confirmation link to{' '}
+                    {auth?.user?.email ? <strong className="text-jsyu-charcoal">{auth.user.email}</strong> : 'your email address'}. Open it to
+                    continue with your membership details.
+                </p>
             </div>
 
-            {/* Right Section - Verification Form */}
-            <div className="flex w-full items-center justify-center p-8 lg:w-[40%]">
-                <div className="w-full max-w-md">
-                    {/* Header */}
-                    <div className="mb-8">
-                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-sky-100">
-                            <svg className="h-8 w-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                />
-                            </svg>
-                        </div>
-                        <p className="mb-1 text-center text-sm font-medium text-sky-600">Jonglei State Youth Union</p>
-                        <h1 className="mb-2 text-center text-3xl font-bold text-gray-900">Verify Your Email</h1>
-                        <p className="text-center text-sm text-gray-600">
-                            Before continuing, please verify your email address by clicking the link in the email we sent you.
-                        </p>
-                        <div className="mx-auto mt-4 h-1 w-12 bg-sky-600"></div>
-                    </div>
+            {status === 'verification-link-sent' && (
+                <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="border-jsyu-green bg-jsyu-green-light text-jsyu-green-deep mt-8 flex items-center gap-3 border-l-4 px-4 py-3 text-sm font-medium"
+                >
+                    <CheckCircle2 className="text-jsyu-green h-5 w-5 shrink-0" />A new confirmation link has been sent to your email.
+                </motion.div>
+            )}
+            {flash?.error && <div className="mt-8 border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">{flash.error}</div>}
 
-                    {/* Status Message */}
-                    {status === 'verification-link-sent' && (
-                        <div className="mb-6 border border-green-200 bg-green-50 p-4">
-                            <div className="flex items-start">
-                                <svg className="mr-3 h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                                <div className="flex-1">
-                                    <p className="text-sm font-medium text-green-800">A new verification link has been sent to your email address.</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+            <ol className="border-jsyu-green-soft mt-8 space-y-4 border p-5">
+                {[
+                    'Open the email from Jonglei State Youth Union.',
+                    'Click "Verify email address" in that message.',
+                    "You'll come straight back here to finish your membership.",
+                ].map((text, i) => (
+                    <li key={text} className="flex items-start gap-3 text-sm">
+                        <span className="bg-jsyu-accent text-jsyu-green-deep flex h-6 w-6 shrink-0 items-center justify-center text-xs font-bold">
+                            {i + 1}
+                        </span>
+                        <span className="text-jsyu-charcoal pt-0.5">{text}</span>
+                    </li>
+                ))}
+            </ol>
 
-                    {/* Information Box */}
-                    <div className="mb-6 border border-amber-200 bg-amber-50 p-4">
-                        <div className="flex items-start">
-                            <svg className="mr-3 h-5 w-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    fillRule="evenodd"
-                                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            <div className="flex-1">
-                                <p className="text-sm text-amber-800">
-                                    <strong>Didn't receive the email?</strong> Check your spam folder or click the button below to request a new
-                                    verification link.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Resend Verification Email Form */}
-                    <form onSubmit={submit} className="space-y-4">
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="w-full bg-sky-600 px-4 py-3 font-medium text-white transition-colors hover:bg-sky-700 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                            {processing ? (
-                                <>
-                                    <svg
-                                        className="mr-2 inline-block h-5 w-5 animate-spin"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path
-                                            className="opacity-75"
-                                            fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                        ></path>
-                                    </svg>
-                                    Sending...
-                                </>
-                            ) : (
-                                'Resend Verification Email'
-                            )}
-                        </button>
-                    </form>
-
-                    {/* Help Text */}
-                    <div className="mt-6 bg-gray-50 p-4">
-                        <p className="text-center text-sm text-gray-600">
-                            If you continue to have issues, please{' '}
-                            <a href={route('contact')} className="font-medium text-sky-600 hover:text-sky-500">
-                                contact support
-                            </a>
-                            .
-                        </p>
-                    </div>
-
-                    {/* Back to Home */}
-                    <div className="mt-8 text-center">
-                        <a href={route('home')} className="text-sm text-gray-600 transition-colors hover:text-sky-600">
-                            ← Back to home
-                        </a>
-                    </div>
-                </div>
+            <div className="text-jsyu-text-muted mt-6 flex items-start gap-3 text-sm">
+                <Inbox className="text-jsyu-green-muted mt-0.5 h-5 w-5 shrink-0" />
+                <p>
+                    <strong className="text-jsyu-charcoal">Can't find it?</strong> Check your spam or promotions folder, or send a new link below.
+                </p>
             </div>
-        </div>
+
+            <form onSubmit={resend} className="mt-6">
+                <SubmitButton processing={processing} busyLabel="Sending…" className="w-full">
+                    <RefreshCw className="h-4 w-4 transition-transform duration-500 group-hover:rotate-180" />
+                    Resend confirmation email
+                </SubmitButton>
+            </form>
+
+            <div className="text-jsyu-text-muted mt-8 flex flex-col items-center gap-3 text-sm sm:flex-row sm:justify-between">
+                <Link
+                    href={route('logout')}
+                    method="post"
+                    as="button"
+                    className="text-jsyu-green hover:text-jsyu-green-hover font-semibold underline-offset-4 hover:underline"
+                >
+                    Used the wrong email? Start again
+                </Link>
+                <a href={route('contact')} className="text-jsyu-green hover:text-jsyu-green-hover font-semibold underline-offset-4 hover:underline">
+                    Contact support
+                </a>
+            </div>
+        </AuthShell>
     );
 }

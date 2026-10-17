@@ -2,12 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\AnswerSubmitted;
-use App\Listeners\SendAnswerNotificationListener;
-use App\Listeners\SendWelcomeEmailAfterVerificationListener;
-use App\Listeners\SendWelcomeEmailListener;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -17,17 +11,9 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<class-string, array<int, class-string>>
      */
-    protected $listen = [
-        Registered::class => [
-            SendWelcomeEmailListener::class,
-        ],
-        Verified::class => [
-            SendWelcomeEmailAfterVerificationListener::class,
-        ],
-        AnswerSubmitted::class => [
-            SendAnswerNotificationListener::class,
-        ],
-    ];
+    // The welcome/answer listeners once registered here were never committed and
+    // crashed sign-up. Laravel itself wires the verification email to Registered.
+    protected $listen = [];
 
     /**
      * Register any events for your application.

@@ -3,7 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as GoogleUser;
 use Tests\TestCase;
@@ -36,7 +38,8 @@ class GoogleAuthenticationTest extends TestCase
     {
         $this->mockGoogleUser('g-new', 'New@Example.com');
 
-        $this->get(route('auth.google.callback'))->assertRedirect(route('member.dashboard'));
+        // New Google members continue to their membership details
+        $this->get(route('auth.google.callback'))->assertRedirect(route('member.membership.edit'));
 
         $user = User::where('email', 'new@example.com')->firstOrFail();
         $this->assertAuthenticatedAs($user);
@@ -104,9 +107,32 @@ class GoogleAuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_new_google_member_starts_with_their_names_on_the_membership_form(): void
+    {
+        $this->mockGoogleUser('g-names', 'names@example.com');
+
+        $this->get(route('auth.google.callback'));
+
+        $profile = User::where('email', 'names@example.com')->firstOrFail()->person->memberProfile;
+        $this->assertSame('Google', $profile->first_name);
+        $this->assertSame('Person', $profile->last_name);
+    }
+
+    public function test_new_google_member_with_unconfirmed_email_must_verify_first(): void
+    {
+        Notification::fake();
+        $this->mockGoogleUser('g-unverified', 'unverified@example.com', verified: false);
+
+        $this->get(route('auth.google.callback'))->assertRedirect(route('verification.notice'));
+
+        $user = User::where('email', 'unverified@example.com')->firstOrFail();
+        $this->assertNull($user->email_verified_at);
+        Notification::assertSentTo($user, VerifyEmail::class);
+    }
+
     private function mockGoogleUser(string $id, string $email, bool $verified = true): void
     {
-        $googleUser = (new GoogleUser)->setRaw(['email_verified' => $verified])->map([
+        $googleUser = (new GoogleUser)->setRaw(['email_verified' => $verified, 'given_name' => 'Google', 'family_name' => 'Person'])->map([
             'id' => $id,
             'name' => 'Google Person',
             'email' => $email,

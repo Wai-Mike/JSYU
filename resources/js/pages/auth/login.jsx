@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { sectionImages } from '../../constants/sectionImages';
 
 const inputClass =
-    'w-full border border-slate-300 bg-white px-3.5 py-3 text-sm text-jsyu-charcoal transition-colors placeholder:text-slate-400 focus:border-jsyu-green focus:ring-1 focus:ring-jsyu-green focus:outline-none';
+    'w-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-jsyu-charcoal transition-colors placeholder:text-slate-400 focus:border-jsyu-green focus:ring-1 focus:ring-jsyu-green focus:outline-none';
 
 export default function Login({ status, canResetPassword }) {
     const { flash } = usePage().props;
@@ -26,20 +26,15 @@ export default function Login({ status, canResetPassword }) {
     const isError = Boolean(flash?.error);
 
     return (
-        <div className="flex min-h-screen bg-white">
+        <div className="bg-jsyu-green-deep flex min-h-screen lg:h-screen lg:overflow-hidden">
             <Head title="Login - Jonglei State Youth Union" />
 
             {/* Brand panel */}
-            <div className="bg-jsyu-green-deep relative hidden w-1/2 overflow-hidden lg:block">
+            <div className="relative hidden overflow-hidden lg:block lg:w-[58.75%]">
                 <img src={sectionImages.hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="from-jsyu-green-deep via-jsyu-green-deep/70 to-jsyu-green-deep/30 absolute inset-0 bg-gradient-to-t" />
 
-                <div className="relative flex h-full flex-col justify-between p-10 xl:p-14">
-                    <Link href={route('home')} className="flex items-center gap-3">
-                        <img src={sectionImages.logo} alt="Jonglei State Youth Union" className="h-12 w-12 object-contain" />
-                        <span className="text-sm font-bold tracking-wide text-white">JSYU</span>
-                    </Link>
-
+                <div className="relative flex h-full flex-col justify-end p-10 xl:p-14">
                     <div className="max-w-md">
                         <span className="bg-jsyu-gold block h-1 w-12" />
                         <h2 className="font-display mt-5 text-4xl leading-tight font-extrabold text-white xl:text-5xl">Jonglei State Youth Union</h2>
@@ -49,25 +44,24 @@ export default function Login({ status, canResetPassword }) {
             </div>
 
             {/* Form panel */}
-            <div className="flex w-full flex-col lg:w-1/2">
-                <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 lg:border-b-0 lg:px-10">
-                    <Link href={route('home')} className="flex items-center gap-2 lg:invisible">
-                        <img src={sectionImages.logo} alt="JSYU" className="h-9 w-9 object-contain" />
-                        <span className="text-jsyu-green-deep text-sm font-bold">JSYU</span>
+            <div className="relative flex w-full flex-col bg-white lg:w-[41.25%] lg:overflow-hidden">
+                <div className="flex items-center justify-between border-b border-slate-200 px-6 py-3 lg:border-b-0 lg:px-10 lg:pt-4">
+                    <Link href={route('home')} className="font-display text-jsyu-green-deep text-sm font-bold lg:invisible">
+                        JSYU
                     </Link>
                     <Link href={route('home')} className="hover:text-jsyu-green text-xs font-semibold text-slate-500">
                         ← Back to home
                     </Link>
                 </div>
 
-                <div className="flex flex-1 items-center justify-center px-6 py-10 lg:px-10">
+                <div className="flex flex-1 items-center justify-center px-5 py-4 sm:px-8 lg:px-10 lg:py-3">
                     <div className="w-full max-w-sm">
-                        <h1 className="font-display text-jsyu-green-deep text-3xl font-extrabold">Sign in</h1>
-                        <span className="bg-jsyu-accent mt-3 block h-0.5 w-10" />
+                        <h1 className="font-display text-jsyu-green-deep text-2xl font-extrabold">Sign in</h1>
+                        <span className="bg-jsyu-accent mt-2 block h-0.5 w-10" />
 
                         {alert && (
                             <div
-                                className={`mt-6 border-l-4 px-4 py-3 text-sm font-medium ${
+                                className={`mt-4 border-l-4 px-4 py-3 text-sm font-medium ${
                                     isError ? 'border-red-500 bg-red-50 text-red-700' : 'border-jsyu-green bg-jsyu-green-light text-jsyu-green-deep'
                                 }`}
                             >
@@ -77,7 +71,7 @@ export default function Login({ status, canResetPassword }) {
 
                         <a
                             href={route('auth.google', { remember: data.remember ? 1 : 0 })}
-                            className="text-jsyu-charcoal hover:border-jsyu-green hover:bg-jsyu-green-light focus:ring-jsyu-green mt-8 flex w-full items-center justify-center gap-3 border border-slate-300 bg-white px-4 py-3 text-sm font-semibold transition-colors focus:ring-1 focus:outline-none"
+                            className="text-jsyu-charcoal hover:border-jsyu-green hover:bg-jsyu-green-light focus:ring-jsyu-green mt-5 flex w-full items-center justify-center gap-3 border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold transition-colors focus:ring-1 focus:outline-none"
                         >
                             <svg className="h-5 w-5" viewBox="0 0 24 24">
                                 <path
@@ -100,15 +94,15 @@ export default function Login({ status, canResetPassword }) {
                             Continue with Google
                         </a>
 
-                        <div className="my-6 flex items-center gap-3">
+                        <div className="my-4 flex items-center gap-3">
                             <span className="h-px flex-1 bg-slate-200" />
                             <span className="text-xs font-semibold tracking-wider text-slate-400 uppercase">Or with email</span>
                             <span className="h-px flex-1 bg-slate-200" />
                         </div>
 
-                        <form className="space-y-5" onSubmit={submit}>
+                        <form className="space-y-3" onSubmit={submit}>
                             <div>
-                                <label htmlFor="email" className="text-jsyu-charcoal mb-1.5 block text-sm font-semibold">
+                                <label htmlFor="email" className="text-jsyu-charcoal mb-1 block text-sm font-semibold">
                                     Email address
                                 </label>
                                 <input
@@ -127,7 +121,7 @@ export default function Login({ status, canResetPassword }) {
                             </div>
 
                             <div>
-                                <div className="mb-1.5 flex items-center justify-between">
+                                <div className="mb-1 flex items-center justify-between">
                                     <label htmlFor="password" className="text-jsyu-charcoal block text-sm font-semibold">
                                         Password
                                     </label>
@@ -179,13 +173,13 @@ export default function Login({ status, canResetPassword }) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="bg-jsyu-green hover:bg-jsyu-green-hover focus:ring-jsyu-green/30 w-full px-4 py-3 text-sm font-bold tracking-wide text-white uppercase transition-colors focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                className="bg-jsyu-green hover:bg-jsyu-green-hover focus:ring-jsyu-green/30 w-full px-4 py-2.5 text-sm font-bold tracking-wide text-white uppercase transition-colors focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 {processing ? 'Signing in...' : 'Sign in'}
                             </button>
                         </form>
 
-                        <p className="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-600">
+                        <p className="mt-4 text-sm text-slate-600">
                             New to the Union?{' '}
                             <Link href={route('register')} className="text-jsyu-green hover:text-jsyu-green-hover font-bold">
                                 Create an account →

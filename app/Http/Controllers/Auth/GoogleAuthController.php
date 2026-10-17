@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Members\MemberProfileService;
 use App\Support\HomeUrl;
+use App\Support\SessionHandoff;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,10 +69,16 @@ class GoogleAuthController extends Controller
 
         Log::info('Google login succeeded', ['user_id' => $user->id]);
 
-        // Brand-new Google members go on to fill in their membership details
-        return $user->wasRecentlyCreated && $user->hasVerifiedEmail()
-            ? redirect()->away(HomeUrl::afterVerification($user))
-            : redirect()->intended(HomeUrl::for($user));
+        // New Google members confirm their address by email, the same as an email sign-up
+        if ($user->wasRecentlyCreated) {
+            event(new Registered($user));
+        }
+
+        if (! $user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        return redirect()->away(SessionHandoff::url($user, redirect()->intended(HomeUrl::for($user))->getTargetUrl()));
     }
 
     private function resolveUser(SocialiteUser $googleUser): User
@@ -113,10 +122,14 @@ class GoogleAuthController extends Controller
                 'role' => 'student',
             ]);
 
-            $user->forceFill([
-                'google_id' => $googleUser->getId(),
-                'email_verified_at' => $emailVerified ? now() : null,
-            ])->save();
+            // Left unverified: the verification email confirms it (see callback)
+            $user->forceFill(['google_id' => $googleUser->getId()])->save();
+
+            // Start the member profile with Google's names so the membership form is pre-filled
+            app(MemberProfileService::class)->forUser($user)->update([
+                'first_name' => $googleUser->user['given_name'] ?? null,
+                'last_name' => $googleUser->user['family_name'] ?? null,
+            ]);
 
             Log::info('Google user registered', ['user_id' => $user->id]);
 

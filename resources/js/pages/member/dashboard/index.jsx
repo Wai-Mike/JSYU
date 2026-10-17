@@ -1,5 +1,5 @@
 import { Head, usePage } from '@inertiajs/react';
-import { CheckCircle2, Circle, PenSquare } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Circle, PenSquare } from 'lucide-react';
 import MemberLayout from '../../../layouts/MemberLayout';
 
 function Row({ label, value }) {
@@ -11,24 +11,40 @@ function Row({ label, value }) {
     );
 }
 
-export default function MemberDashboard({ account, profile }) {
+export default function MemberDashboard({ account, profile, membershipComplete }) {
     const { flash } = usePage().props;
     const firstName = account.name?.split(' ')[0] || 'member';
-    const joined = account.joined
-        ? new Date(account.joined).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
-        : null;
+    const joined = account.joined ? new Date(account.joined).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : null;
 
     return (
         <MemberLayout>
             <Head title="Member Dashboard" />
 
             {flash?.success && (
-                <div className="mb-4 border-l-4 border-jsyu-green bg-jsyu-green-light px-4 py-3 text-sm font-medium text-jsyu-green-deep">
+                <div className="border-jsyu-green bg-jsyu-green-light text-jsyu-green-deep mb-4 border-l-4 px-4 py-3 text-sm font-medium">
                     {flash.success}
                 </div>
             )}
 
             <h1 className="mb-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Welcome, {firstName}</h1>
+
+            {!membershipComplete && (
+                <a
+                    href={route('member.membership.edit')}
+                    className="group border-jsyu-accent bg-jsyu-green-deep mb-4 flex flex-col gap-3 border px-5 py-4 text-white sm:flex-row sm:items-center sm:justify-between"
+                >
+                    <span>
+                        <span className="block text-sm font-bold">Finish your membership</span>
+                        <span className="block text-sm text-white/75">
+                            Add your personal details, contact and home area to complete your JSYU membership.
+                        </span>
+                    </span>
+                    <span className="bg-jsyu-accent text-jsyu-green-deep group-hover:bg-jsyu-accent-hover inline-flex shrink-0 items-center gap-2 px-4 py-2 text-xs font-bold tracking-[0.14em] uppercase">
+                        Continue
+                        <ArrowRight className="h-4 w-4" />
+                    </span>
+                </a>
+            )}
 
             <div className="grid gap-4 lg:grid-cols-3">
                 <section className="border border-slate-200 bg-white lg:col-span-2">
@@ -50,7 +66,7 @@ export default function MemberDashboard({ account, profile }) {
                                 {profile.sections.map((section) => (
                                     <li key={section.key} className="flex items-center gap-2.5 text-sm">
                                         {section.complete ? (
-                                            <CheckCircle2 className="h-4 w-4 shrink-0 text-jsyu-green" />
+                                            <CheckCircle2 className="text-jsyu-green h-4 w-4 shrink-0" />
                                         ) : (
                                             <Circle className="h-4 w-4 shrink-0 text-slate-300" />
                                         )}
@@ -65,9 +81,9 @@ export default function MemberDashboard({ account, profile }) {
 
                     <a
                         href={route('blog.create')}
-                        className="flex items-center gap-3 border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-900 hover:border-jsyu-green hover:bg-jsyu-green-light"
+                        className="hover:border-jsyu-green hover:bg-jsyu-green-light flex items-center gap-3 border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-900"
                     >
-                        <PenSquare className="h-4 w-4 text-jsyu-green" />
+                        <PenSquare className="text-jsyu-green h-4 w-4" />
                         Write a post for the news page
                     </a>
                 </div>
