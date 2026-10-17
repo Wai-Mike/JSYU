@@ -107,7 +107,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Display the admin login view.
+     * Display the portal login view.
      */
     public function showAdminLoginForm(Request $request): Response
     {
@@ -118,7 +118,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Handle an admin-only login request.
+     * Handle a portal login request (officials and members).
      */
     public function adminLogin(Request $request): RedirectResponse
     {
@@ -138,23 +138,11 @@ class RegisterController extends Controller
 
         $request->session()->regenerate();
 
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-
-        if (! app(\App\Services\Access\AccessControl::class)->hasAnywhere($user, 'portal.access')) {
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            return back()->withErrors([
-                'email' => 'You are not authorized to access the admin area.',
-            ])->onlyInput('email');
-        }
-
-        if (! $user->hasVerifiedEmail()) {
+        if (! Auth::user()->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 
+        // Officials land on the management dashboard, members on theirs (see EnsurePortalAccess)
         return redirect()->intended(route('admin.dashboard'));
     }
 

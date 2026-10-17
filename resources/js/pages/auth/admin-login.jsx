@@ -23,7 +23,7 @@ export default function AdminLogin({ status, canResetPassword }) {
 
     return (
         <div className="flex h-screen overflow-hidden">
-            <Head title="Admin Login - Jonglei State Youth Union" />
+            <Head title="Portal Sign In - Jonglei State Youth Union" />
 
             <div className="relative hidden h-full overflow-hidden lg:flex lg:flex-1">
                 <div className="absolute inset-0 bg-gradient-to-br from-admin-sidebar via-jsyu-green-deep to-jsyu-green" />
@@ -32,19 +32,19 @@ export default function AdminLogin({ status, canResetPassword }) {
                     <div className="flex items-center gap-3">
                         <img src={sectionImages.logo} alt="JSYU" className="h-10 w-10 object-contain" />
                         <div>
-                            <p className="text-sm font-bold text-white">JSYU Admin</p>
-                            <p className="text-xs text-white/60">Management portal</p>
+                            <p className="text-sm font-bold text-white">JSYU Portal</p>
+                            <p className="text-xs text-white/60">Members & officials</p>
                         </div>
                     </div>
                     <div className="max-w-md text-white">
                         <p className="mb-2 text-sm font-semibold tracking-[0.18em] text-jsyu-accent uppercase">
-                            Admin Portal
+                            Member & Management Portal
                         </p>
                         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
                             Jonglei State Youth Union
                         </h1>
                     </div>
-                    <p className="text-xs text-white/40">Authorized personnel only</p>
+                    <p className="text-xs text-white/40">Members and officials of the Union</p>
                 </div>
             </div>
 
@@ -53,8 +53,8 @@ export default function AdminLogin({ status, canResetPassword }) {
                     <div className="mb-8 flex items-center gap-3 lg:hidden">
                         <img src={sectionImages.logo} alt="JSYU" className="h-9 w-9 object-contain" />
                         <div>
-                            <p className="text-sm font-bold text-jsyu-green-deep">JSYU Admin</p>
-                            <p className="text-xs text-slate-500">Management portal</p>
+                            <p className="text-sm font-bold text-jsyu-green-deep">JSYU Portal</p>
+                            <p className="text-xs text-slate-500">Members & officials</p>
                         </div>
                     </div>
 
@@ -66,11 +66,11 @@ export default function AdminLogin({ status, canResetPassword }) {
 
                     <div className="mb-6">
                         <p className="mb-1 text-xs font-semibold tracking-[0.18em] text-jsyu-green uppercase">
-                            Admin access
+                            Portal access
                         </p>
-                        <h2 className="mb-1 text-2xl font-bold text-slate-900">Sign in to admin panel</h2>
+                        <h2 className="mb-1 text-2xl font-bold text-slate-900">Sign in to the portal</h2>
                         <p className="text-sm text-slate-500">
-                            Only authorized administrators can access this area.
+                            Members reach their membership area; officials also see the management tools.
                         </p>
                         <div className="mt-3 h-1 w-12 bg-jsyu-green" />
                     </div>
@@ -78,7 +78,7 @@ export default function AdminLogin({ status, canResetPassword }) {
                     <form className="space-y-4" onSubmit={submit}>
                         <div>
                             <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-700">
-                                Admin email
+                                Email address
                             </label>
                             <input
                                 id="email"
@@ -87,7 +87,7 @@ export default function AdminLogin({ status, canResetPassword }) {
                                 autoComplete="email"
                                 required
                                 className={fieldClass}
-                                placeholder="admin@example.com"
+                                placeholder="you@example.com"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
                             />

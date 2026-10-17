@@ -11,9 +11,16 @@ class MemberAreaTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_member_dashboard_lives_on_the_member_subdomain(): void
+    public function test_member_area_lives_on_the_portal(): void
     {
-        $this->assertSame('http://member.jsyu.test', route('member.dashboard'));
+        $this->assertSame('http://portal.jsyu.test/member', route('member.dashboard'));
+    }
+
+    public function test_members_opening_the_portal_go_to_their_dashboard(): void
+    {
+        $member = User::factory()->create(['role' => 'student']);
+
+        $this->actingAs($member)->get(route('admin.dashboard'))->assertRedirect(route('member.dashboard'));
     }
 
     public function test_guests_are_sent_to_login(): void
@@ -63,11 +70,11 @@ class MemberAreaTest extends TestCase
         $this->get('http://jsyu.test/student/learn')->assertRedirect(route('member.dashboard'));
     }
 
-    public function test_logout_from_member_area_returns_to_public_site(): void
+    public function test_logout_from_the_portal_returns_to_the_portal_sign_in(): void
     {
         $member = User::factory()->create(['role' => 'student']);
 
-        $this->actingAs($member)->post('http://member.jsyu.test/logout')->assertRedirect(route('home'));
+        $this->actingAs($member)->post('http://portal.jsyu.test/logout')->assertRedirect('http://portal.jsyu.test');
         $this->assertGuest();
     }
 }

@@ -12,11 +12,11 @@ class PortalAccessTest extends PortalTestCase
         $this->get(route('admin.dashboard'))->assertRedirect(route('admin.login'));
     }
 
-    public function test_members_without_a_portal_role_are_forbidden(): void
+    public function test_members_without_a_portal_role_only_reach_the_member_area(): void
     {
         $member = User::factory()->create(['role' => 'student']);
 
-        $this->actingAs($member)->get(route('admin.dashboard'))->assertForbidden();
+        $this->actingAs($member)->get(route('admin.dashboard'))->assertRedirect(route('member.dashboard'));
         $this->actingAs($member)->get(route('admin.organisation.units.index'))->assertForbidden();
     }
 
@@ -40,13 +40,15 @@ class PortalAccessTest extends PortalTestCase
         $this->actingAs($coordinator)->get(route('admin.posts.index'))->assertForbidden();
     }
 
-    public function test_admin_login_only_admits_portal_users(): void
+    public function test_portal_login_admits_officials_and_members(): void
     {
         $member = User::factory()->create(['password' => bcrypt('secret-pass')]);
 
         $this->post(route('admin.login'), ['email' => $member->email, 'password' => 'secret-pass'])
-            ->assertSessionHasErrors('email');
-        $this->assertGuest();
+            ->assertRedirect(route('admin.dashboard'));
+        $this->assertAuthenticatedAs($member);
+        $this->get(route('admin.dashboard'))->assertRedirect(route('member.dashboard'));
+        auth()->logout();
 
         $officer = $this->userWithRole('secretariat_admin');
         $officer->forceFill(['password' => bcrypt('secret-pass')])->save();

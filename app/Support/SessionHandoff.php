@@ -13,7 +13,7 @@ class SessionHandoff
      *
      * When the session cookie is shared across subdomains (SESSION_DOMAIN=.jsyu.org)
      * the target URL is returned untouched. Otherwise (browsers refuse to share a
-     * cookie between localhost and member.localhost) the user goes through a
+     * cookie between localhost and portal.localhost) the user goes through a
      * one-minute, single-use signed link that signs them in on the target host.
      */
     public static function url(User $user, string $target): string

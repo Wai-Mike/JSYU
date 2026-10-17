@@ -59,17 +59,15 @@ return [
     | Application Domains
     |--------------------------------------------------------------------------
     |
-    | The public site is served from "domain", the admin portal from
-    | "admin_domain" and the member area from "member_domain". All default to
-    | values derived from APP_URL.
+    | The public site is served from "domain" and the portal (management for
+    | officials, the member area for everyone else) from "admin_domain". Both
+    | default to values derived from APP_URL.
     |
     */
 
     'domain' => env('APP_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
 
     'admin_domain' => env('ADMIN_DOMAIN', 'portal.'.env('APP_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST))),
-
-    'member_domain' => env('MEMBER_DOMAIN', 'member.'.env('APP_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST))),
 
     /*
     |--------------------------------------------------------------------------

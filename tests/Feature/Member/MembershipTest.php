@@ -14,7 +14,7 @@ class MembershipTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const URL = 'http://member.jsyu.test/membership';
+    private const URL = 'http://portal.jsyu.test/member/membership';
 
     protected function setUp(): void
     {
@@ -56,7 +56,7 @@ class MembershipTest extends TestCase
 
         $this->actingAs($user)->get(self::URL)->assertRedirect(route('verification.notice'));
         $this->actingAs($user)->post(self::URL, $this->payload())->assertRedirect(route('verification.notice'));
-        $this->actingAs($user)->get('http://member.jsyu.test/')->assertRedirect(route('verification.notice'));
+        $this->actingAs($user)->get('http://portal.jsyu.test/member')->assertRedirect(route('verification.notice'));
     }
 
     public function test_membership_form_is_prefilled_from_registration()

@@ -15,6 +15,11 @@ class EnsurePortalAccess
     public function handle(Request $request, Closure $next): Response
     {
         if (! $this->access->hasAnywhere($request->user(), 'portal.access')) {
+            // Members share the portal: its home page takes them to the member area
+            if ($request->routeIs('admin.dashboard')) {
+                return redirect()->route('member.dashboard');
+            }
+
             abort(403, 'You do not have access to the management portal.');
         }
 
