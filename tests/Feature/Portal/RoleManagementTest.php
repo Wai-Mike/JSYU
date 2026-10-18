@@ -74,7 +74,7 @@ class RoleManagementTest extends PortalTestCase
 
     public function test_role_permissions_can_only_be_changed_within_the_editors_own_permissions(): void
     {
-        $editor = $this->userWithPermissions(['portal.access', 'users.view', 'roles.manage', 'people.view', 'members.view']);
+        $editor = $this->userWithPermissions(['portal.access', 'users.view', 'roles.manage', 'people.view', 'members.view', 'members.review']);
         $role = $this->role('membership_officer');
         $people = Permission::query()->where('key', 'people.view')->value('id');
         $audit = Permission::query()->where('key', 'audit.view')->value('id');

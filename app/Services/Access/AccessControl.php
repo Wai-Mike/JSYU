@@ -60,6 +60,39 @@ class AccessControl
         return $scopes->contains(fn (GeographicArea $scope) => in_array($scope->id, $lineage, true));
     }
 
+    /**
+     * Does $user hold $permission somewhere inside or above $area? Unlike
+     * allows(), a county grant also matches a state-wide record (e.g. a
+     * campaign or election the county takes part in). Null = state level.
+     */
+    public function overlaps(?User $user, string $permission, GeographicArea|int|null $area = null): bool
+    {
+        if (! $user) {
+            return false;
+        }
+
+        $scopes = $this->scopesFor($user, $permission);
+
+        if ($scopes === null) {
+            return true;
+        }
+
+        if ($area === null) {
+            return $scopes->isNotEmpty();
+        }
+
+        $area = $area instanceof GeographicArea ? $area : GeographicArea::query()->find($area);
+
+        if (! $area) {
+            return false;
+        }
+
+        $lineage = [...$area->ancestorIds(), $area->id];
+
+        return $scopes->contains(fn (GeographicArea $scope) => in_array($scope->id, $lineage, true)
+            || in_array($area->id, $scope->ancestorIds(), true));
+    }
+
     /** Does $user hold $permission anywhere (state-wide or in any area)? */
     public function hasAnywhere(?User $user, string $permission): bool
     {

@@ -46,6 +46,26 @@ export default function MemberDashboard({ account, profile, membershipComplete }
                 </a>
             )}
 
+            {membershipComplete && profile?.status === 'pending' && (
+                <p className="mb-4 border-l-4 border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+                    Your membership application is waiting for review by a JSYU membership officer.
+                </p>
+            )}
+            {profile?.status === 'approved' && (
+                <p className="border-jsyu-green bg-jsyu-green-light text-jsyu-green-deep mb-4 border-l-4 px-4 py-3 text-sm font-medium">
+                    Your membership has been approved.
+                </p>
+            )}
+            {profile?.status === 'rejected' && (
+                <div className="mb-4 border-l-4 border-red-400 bg-red-50 px-4 py-3 text-sm text-red-800">
+                    <p className="font-semibold">Your membership application was not approved.</p>
+                    {profile.reviewNote && <p className="mt-1 whitespace-pre-line">{profile.reviewNote}</p>}
+                    <a href={route('member.membership.edit')} className="mt-2 inline-block font-semibold underline">
+                        Update your details to apply again
+                    </a>
+                </div>
+            )}
+
             <div className="grid gap-4 lg:grid-cols-3">
                 <section className="border border-slate-200 bg-white lg:col-span-2">
                     <h2 className="border-b border-slate-200 px-5 py-3 text-sm font-bold text-slate-900">Your account</h2>

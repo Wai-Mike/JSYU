@@ -33,9 +33,25 @@ return [
         'appointments.documents' => ['name' => 'View appointment documents', 'group' => 'Organisation', 'scoped' => true],
         'people.view' => ['name' => 'View people records', 'group' => 'Organisation', 'scoped' => true],
         'people.manage' => ['name' => 'Create and edit people records', 'group' => 'Organisation', 'scoped' => true],
+        'teams.view' => ['name' => 'View management teams', 'group' => 'Organisation', 'scoped' => true],
+        'teams.manage' => ['name' => 'Create and edit management teams', 'group' => 'Organisation', 'scoped' => true],
 
         // Youth management
         'members.view' => ['name' => 'View member profiles shared with officials', 'group' => 'Youth Management', 'scoped' => true],
+        'members.review' => ['name' => 'Review, approve and reject membership applications', 'group' => 'Youth Management', 'scoped' => true],
+
+        // Youth census
+        'census.view' => ['name' => 'View census records and reports', 'group' => 'Census', 'scoped' => true],
+        'census.collect' => ['name' => 'Enter census records', 'group' => 'Census', 'scoped' => true],
+        'census.review' => ['name' => 'Approve and reject census records', 'group' => 'Census', 'scoped' => true],
+        'census.manage' => ['name' => 'Create, open and close census campaigns', 'group' => 'Census', 'scoped' => true],
+        // Disability and displacement status; state-wide only and granted deliberately
+        'census.sensitive' => ['name' => 'View sensitive census fields (disability, displacement)', 'group' => 'Census', 'scoped' => false],
+
+        // Elections
+        'elections.view' => ['name' => 'View elections, turnout and results', 'group' => 'Elections', 'scoped' => true],
+        'elections.manage' => ['name' => 'Create, open and close elections', 'group' => 'Elections', 'scoped' => true],
+        'elections.certify' => ['name' => 'Certify and publish election results', 'group' => 'Elections', 'scoped' => true],
 
         // Content
         'content.manage' => ['name' => 'Create and edit website posts', 'group' => 'Content', 'scoped' => false],
@@ -63,7 +79,8 @@ return [
             'description' => 'State-level leadership with oversight of the whole Union.',
             'permissions' => [
                 'portal.access', 'geography.view', 'organisation.view', 'appointments.view',
-                'appointments.documents', 'people.view', 'users.view', 'audit.view',
+                'appointments.documents', 'people.view', 'teams.view', 'users.view', 'audit.view',
+                'census.view', 'elections.view', 'elections.certify',
             ],
         ],
         'secretariat_admin' => [
@@ -72,40 +89,40 @@ return [
             'permissions' => [
                 'portal.access', 'geography.view', 'geography.manage', 'organisation.view', 'organisation.manage',
                 'positions.manage', 'appointments.view', 'appointments.manage', 'appointments.documents',
-                'people.view', 'people.manage', 'content.manage', 'users.view',
+                'people.view', 'people.manage', 'teams.view', 'teams.manage', 'content.manage', 'users.view',
             ],
         ],
         'department_head' => [
             'name' => 'Department Head',
             'description' => 'Leads a department or office.',
-            'permissions' => ['portal.access', 'organisation.view', 'appointments.view', 'people.view'],
+            'permissions' => ['portal.access', 'organisation.view', 'appointments.view', 'people.view', 'teams.view'],
         ],
         'county_coordinator' => [
             'name' => 'County Coordinator',
             'description' => 'Coordinates Union structures within an assigned county.',
             'permissions' => [
-                'portal.access', 'geography.view', 'organisation.view', 'appointments.view', 'people.view',
+                'portal.access', 'geography.view', 'organisation.view', 'appointments.view', 'people.view', 'teams.view',
             ],
         ],
         'payam_coordinator' => [
             'name' => 'Payam Coordinator',
             'description' => 'Coordinates Union structures within an assigned payam.',
-            'permissions' => ['portal.access', 'geography.view', 'organisation.view', 'appointments.view', 'people.view', 'members.view'],
+            'permissions' => ['portal.access', 'geography.view', 'organisation.view', 'appointments.view', 'people.view', 'teams.view', 'members.view'],
         ],
         'membership_officer' => [
             'name' => 'Membership Officer',
-            'description' => 'Reviews membership applications (module planned).',
-            'permissions' => ['portal.access', 'people.view', 'members.view'],
+            'description' => 'Reviews, approves and rejects membership applications.',
+            'permissions' => ['portal.access', 'people.view', 'members.view', 'members.review'],
         ],
         'census_supervisor' => [
             'name' => 'Census Supervisor',
-            'description' => 'Supervises youth census collection (module planned).',
-            'permissions' => ['portal.access', 'geography.view'],
+            'description' => 'Runs census campaigns and reviews collected records.',
+            'permissions' => ['portal.access', 'geography.view', 'census.view', 'census.collect', 'census.review', 'census.manage'],
         ],
         'census_enumerator' => [
             'name' => 'Census Enumerator',
-            'description' => 'Collects youth census records (module planned).',
-            'permissions' => ['portal.access'],
+            'description' => 'Collects youth census records in an assigned area.',
+            'permissions' => ['portal.access', 'census.collect'],
         ],
         'communications_officer' => [
             'name' => 'Communications Officer',
@@ -114,8 +131,8 @@ return [
         ],
         'election_officer' => [
             'name' => 'Election Officer',
-            'description' => 'Administers internal elections (module planned).',
-            'permissions' => ['portal.access'],
+            'description' => 'Sets up and runs internal elections.',
+            'permissions' => ['portal.access', 'elections.view', 'elections.manage'],
         ],
         'program_officer' => [
             'name' => 'Program Officer',
@@ -168,5 +185,38 @@ return [
         'disk' => env('PORTAL_DOCUMENTS_DISK', 'local'),
         'max_kb' => 10240,
         'mimes' => ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'],
+    ],
+
+    // Answer options for census records (keys are stored, labels are shown)
+    'census' => [
+        'min_age' => 15,
+        'max_age' => 35,
+        'sex' => ['male' => 'Male', 'female' => 'Female'],
+        'education_levels' => [
+            'none' => 'No formal education',
+            'primary' => 'Primary',
+            'secondary' => 'Secondary',
+            'vocational' => 'Vocational / technical',
+            'diploma' => 'Diploma',
+            'degree' => 'University degree',
+            'postgraduate' => 'Postgraduate',
+        ],
+        'employment_statuses' => [
+            'student' => 'Student',
+            'employed' => 'Employed',
+            'self_employed' => 'Self-employed',
+            'farming' => 'Farming / cattle keeping',
+            'unemployed' => 'Unemployed, looking for work',
+            'not_working' => 'Not working, not looking',
+            'volunteer' => 'Volunteer',
+        ],
+        'disability' => ['none' => 'No disability', 'yes' => 'Has a disability', 'not_stated' => 'Prefers not to say'],
+        'displacement_statuses' => [
+            'none' => 'Not displaced',
+            'idp' => 'Internally displaced (IDP)',
+            'refugee' => 'Refugee',
+            'returnee' => 'Returnee',
+            'not_stated' => 'Prefers not to say',
+        ],
     ],
 ];

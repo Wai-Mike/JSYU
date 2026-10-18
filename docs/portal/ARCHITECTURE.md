@@ -94,16 +94,36 @@ config/portal.php               permissions, roles, levels, unit types, document
 | **2** Contacts & stakeholders | 1 | Extend `people` (no second contact table): organisation/title/category/status, external orgs table, contact groups, import with duplicate detection, permission-gated export (`contacts.export` separate from view) | Duplicates between members and officials. Mitigated by the single `people` table + `user_id` link |
 | **3** Tasks | 1 (people, units) | One `tasks` module (polymorphic `related_to`) reused by meetings/projects; statuses incl. *Submitted for review* ≠ *Completed*; reassignment history; notifications via queue | Scope creep into per-module task systems |
 | **4** Membership | 1, 2 | `membership_applications` with status history; officer review queue; eligibility rules from approved regulations | Rules not yet approved by the Union |
-| **5** Youth census | 1, 4 | Campaigns, enumerator assignments by area, review workflow, duplicate checks, aggregate reports; offline only after online acceptance | Sensitive data; legal basis & retention must be approved first |
+| **5** Youth census ✅ (online) | 1, 4 | Campaigns, enumerator assignments by area, review workflow, duplicate checks, aggregate reports; offline only after online acceptance | Sensitive data; legal basis & retention must be approved first |
 | **6** Bulk email | 2, 4 | Campaigns → per-recipient rows → chunked queued jobs, idempotent dispatch, suppression/unsubscribe, webhooks | Provider limits; consent |
 | **7** Announcements & ads | 6 (optional notify) | Extend `posts` with category/audience/publish window/expiry; reuse the approval flow | — |
 | **8** Meetings & operations | 3 | Meetings, minutes, resolutions register; action items create tasks; correspondence/document register | — |
 | **9** Programs & projects | 3 | The eight program categories; projects with milestones → tasks | — |
-| **10** Elections (admin only) | 4 | Config, nominations, voter-roll versions/freeze, results certification (separate permission), disputes. **No ballot casting.** | Needs approved election rules |
+| **10** Elections ✅ (core) | 4 | **Decision 2026-10-18: members vote online** (this replaces the earlier admin-only plan). Built: ballot setup, secret online voting by approved members, sealed results, separate certification. Still to do: nominations, voter-roll freeze, disputes | Needs approved election rules; see "Census & elections" below |
 | **11** Reporting | all | Role/area-scoped dashboards, exports honouring `scopeQuery` | Census figures ≠ total youth population |
 | **12** Hardening | all | Security review, load/indexing, accessibility, backups, queue workers | — |
 
 **Recommended next step:** fix the stored XSS (finding 1) and clean up the stale tests, then start Phase 2. Contacts build directly on `people` and are needed by tasks, membership and communications.
+
+## Census & elections (2026-10-18)
+
+**Census.** Campaigns go draft → open → closed. Enumerators (`census.collect`) enter records only while a campaign is open, only for areas inside both the campaign and their own assignment. Each record is identity, education, employment and skills, plus disability and displacement. Supervisors (`census.review`) approve records or return them for correction; nobody reviews their own entries. A likely duplicate (same name in the campaign with a matching date of birth, phone, or area and sex) must be confirmed before saving. Reports count approved records only, inside the viewer's `census.view` area.
+
+Disability and displacement need `census.sensitive`, which is state-wide only and held by no role except Super Administrator by default. Enumerators enter those answers but cannot read them back. The audit log stores record ids, never names.
+
+**Elections.** Elections go draft → open → closed → published. The ballot (positions, seats, candidates) is fixed once voting opens. Eligible voters are approved members with a login whose home area is inside the election's area. Ballot secrecy:
+
+- `election_voters` records who voted, with a unique key that blocks double voting even under concurrent requests;
+- `election_votes` stores the choices with no user id, no timestamps and random UUIDs, inserted in shuffled order.
+
+Results are hidden from officers until voting closes, and from members until someone with `elections.certify` publishes them. That is a separate permission from `elections.manage`.
+
+**Known limits:**
+
+- The electorate isn't frozen. Eligibility is checked when a member votes, and turnout uses the current electorate.
+- Someone with direct database access plus query logs could still correlate the two tables.
+- There are no nominations, disputes or offline census collection yet.
+- Census reports load approved records into memory. That is fine for tens of thousands of records; move it to SQL aggregation before going beyond that.
 
 ## 5. Phase 1 results
 

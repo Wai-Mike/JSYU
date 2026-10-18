@@ -12,7 +12,7 @@ export default function Modal({ open, onClose, title, description, children, foo
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 z-50 bg-slate-900/50" />
                 <Dialog.Content
-                    className={`fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col  bg-white  focus:outline-none ${
+                    className={`font-admin fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col  bg-white  focus:outline-none ${
                         wide ? 'max-w-2xl' : 'max-w-lg'
                     }`}
                 >

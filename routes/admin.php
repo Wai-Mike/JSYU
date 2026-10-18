@@ -5,7 +5,12 @@ use App\Http\Controllers\Admin\AuditLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\Organisation\AppointmentController;
 use App\Http\Controllers\Admin\Organisation\AppointmentDocumentController;
+use App\Http\Controllers\Admin\Census\CensusCampaignController;
+use App\Http\Controllers\Admin\Census\CensusRecordController;
+use App\Http\Controllers\Admin\Elections\ElectionController;
+use App\Http\Controllers\Admin\Members\MemberController;
 use App\Http\Controllers\Admin\Organisation\GeographicAreaController;
+use App\Http\Controllers\Admin\Organisation\ManagementTeamController;
 use App\Http\Controllers\Admin\Organisation\OrganisationUnitController;
 use App\Http\Controllers\Admin\Organisation\PersonController;
 use App\Http\Controllers\Admin\Organisation\PositionController;
@@ -53,10 +58,56 @@ Route::domain(config('app.admin_domain'))->group(function () {
             Route::get('/appointments/{appointment}/documents/{document}', [AppointmentDocumentController::class, 'download'])->name('appointments.documents.download');
             Route::delete('/appointments/{appointment}/documents/{document}', [AppointmentDocumentController::class, 'destroy'])->name('appointments.documents.destroy');
 
+            Route::get('/teams', [ManagementTeamController::class, 'index'])->name('teams.index');
+            Route::get('/teams/create', [ManagementTeamController::class, 'create'])->name('teams.create');
+            Route::post('/teams', [ManagementTeamController::class, 'store'])->name('teams.store');
+            Route::get('/teams/{team}', [ManagementTeamController::class, 'show'])->name('teams.show');
+            Route::get('/teams/{team}/edit', [ManagementTeamController::class, 'edit'])->name('teams.edit');
+            Route::put('/teams/{team}', [ManagementTeamController::class, 'update'])->name('teams.update');
+            Route::delete('/teams/{team}', [ManagementTeamController::class, 'destroy'])->name('teams.destroy');
+
             Route::get('/people', [PersonController::class, 'index'])->name('people.index');
             Route::get('/people/search', [PersonController::class, 'search'])->name('people.search');
             Route::post('/people', [PersonController::class, 'store'])->name('people.store');
             Route::put('/people/{person}', [PersonController::class, 'update'])->name('people.update');
+        });
+
+        // Members: profiles and membership review
+        Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+        Route::get('/members/{member}', [MemberController::class, 'show'])->name('members.show');
+        Route::get('/members/{member}/photo', [MemberController::class, 'photo'])->name('members.photo');
+        Route::post('/members/{member}/approve', [MemberController::class, 'approve'])->name('members.approve');
+        Route::post('/members/{member}/reject', [MemberController::class, 'reject'])->name('members.reject');
+
+        // Youth census
+        Route::prefix('census')->name('census.')->group(function () {
+            Route::get('/', [CensusCampaignController::class, 'index'])->name('index');
+            Route::post('/', [CensusCampaignController::class, 'store'])->name('store');
+            Route::get('/records/{record}', [CensusRecordController::class, 'show'])->name('records.show');
+            Route::get('/records/{record}/edit', [CensusRecordController::class, 'edit'])->name('records.edit');
+            Route::put('/records/{record}', [CensusRecordController::class, 'update'])->name('records.update');
+            Route::post('/records/{record}/approve', [CensusRecordController::class, 'approve'])->name('records.approve');
+            Route::post('/records/{record}/reject', [CensusRecordController::class, 'reject'])->name('records.reject');
+            Route::get('/{campaign}', [CensusCampaignController::class, 'show'])->name('show');
+            Route::put('/{campaign}', [CensusCampaignController::class, 'update'])->name('update');
+            Route::post('/{campaign}/open', [CensusCampaignController::class, 'open'])->name('open');
+            Route::post('/{campaign}/close', [CensusCampaignController::class, 'close'])->name('close');
+            Route::get('/{campaign}/records/create', [CensusRecordController::class, 'create'])->name('records.create');
+            Route::post('/{campaign}/records', [CensusRecordController::class, 'store'])->name('records.store');
+        });
+
+        // Elections
+        Route::prefix('elections')->name('elections.')->group(function () {
+            Route::get('/', [ElectionController::class, 'index'])->name('index');
+            Route::get('/create', [ElectionController::class, 'create'])->name('create');
+            Route::post('/', [ElectionController::class, 'store'])->name('store');
+            Route::get('/{election}', [ElectionController::class, 'show'])->name('show');
+            Route::get('/{election}/edit', [ElectionController::class, 'edit'])->name('edit');
+            Route::put('/{election}', [ElectionController::class, 'update'])->name('update');
+            Route::delete('/{election}', [ElectionController::class, 'destroy'])->name('destroy');
+            Route::post('/{election}/open', [ElectionController::class, 'open'])->name('open');
+            Route::post('/{election}/close', [ElectionController::class, 'close'])->name('close');
+            Route::post('/{election}/publish', [ElectionController::class, 'publish'])->name('publish');
         });
 
         // Users, roles and audit

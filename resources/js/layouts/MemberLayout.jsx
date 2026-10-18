@@ -1,6 +1,11 @@
-import { router, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut } from 'lucide-react';
 import { sectionImages } from '../constants/sectionImages';
+
+const memberLinks = [
+    { name: 'Dashboard', route: 'member.dashboard', match: 'member.dashboard' },
+    { name: 'Elections', route: 'member.elections.index', match: 'member.elections.*' },
+];
 
 const siteLinks = [
     { name: 'News', route: 'blog.index' },
@@ -28,6 +33,17 @@ export default function MemberLayout({ children }) {
                     </a>
 
                     <nav className="ml-6 hidden items-center gap-5 md:flex">
+                        {/* Member pages are Inertia pages; the site links leave the portal */}
+                        {memberLinks.map((link) => (
+                            <Link
+                                key={link.route}
+                                href={route(link.route)}
+                                className={`text-sm font-medium ${route().current(link.match) ? 'text-white' : 'text-white/70 hover:text-white'}`}
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                        <span className="h-4 w-px bg-white/20" />
                         {siteLinks.map((link) => (
                             <a key={link.route} href={route(link.route)} className="text-sm font-medium text-white/70 hover:text-white">
                                 {link.name}

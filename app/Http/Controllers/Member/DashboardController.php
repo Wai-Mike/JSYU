@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\MemberProfile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -23,6 +24,9 @@ class DashboardController extends Controller
             ],
             'membershipComplete' => (bool) $profile?->isMembershipComplete(),
             'profile' => $profile ? [
+                'status' => $profile->status,
+                // Shown so a rejected member knows what to change before resubmitting
+                'reviewNote' => $profile->status === MemberProfile::STATUS_REJECTED ? $profile->review_note : null,
                 'homeArea' => $profile->homeArea?->name,
                 'sections' => $profile->completeness(),
             ] : null,

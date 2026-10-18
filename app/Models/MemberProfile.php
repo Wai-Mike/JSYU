@@ -18,12 +18,26 @@ class MemberProfile extends Model
 
     public const VISIBILITY_MEMBERS = 'members';
 
+    // Membership officers can always see an application they review, whatever its visibility
     public const VISIBILITIES = [
-        self::VISIBILITY_PRIVATE => 'Only me',
+        self::VISIBILITY_PRIVATE => 'Only me (and the officers reviewing my membership)',
         self::VISIBILITY_OFFICIALS => 'Me and authorised JSYU officials',
         self::VISIBILITY_MEMBERS => 'Also other signed-in members',
     ];
 
+    public const STATUS_PENDING = 'pending';
+
+    public const STATUS_APPROVED = 'approved';
+
+    public const STATUS_REJECTED = 'rejected';
+
+    public const STATUSES = [
+        self::STATUS_PENDING => 'Pending review',
+        self::STATUS_APPROVED => 'Approved',
+        self::STATUS_REJECTED => 'Rejected',
+    ];
+
+    // Review fields (status, reviewed_by, …) are set by officers only, never mass-assigned
     protected $fillable = [
         'first_name', 'middle_name', 'last_name', 'date_of_birth', 'alternative_phone',
         'home_area_id', 'current_country_code', 'current_location', 'bio', 'visibility',
@@ -31,14 +45,21 @@ class MemberProfile extends Model
 
     protected $hidden = ['photo_disk', 'photo_path'];
 
+    protected $attributes = ['status' => self::STATUS_PENDING];
+
     protected function casts(): array
     {
-        return ['date_of_birth' => 'date'];
+        return ['date_of_birth' => 'date', 'reviewed_at' => 'datetime'];
     }
 
     public function person(): BelongsTo
     {
         return $this->belongsTo(Person::class);
+    }
+
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
     }
 
     public function homeArea(): BelongsTo

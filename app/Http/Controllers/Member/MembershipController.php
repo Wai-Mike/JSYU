@@ -60,7 +60,14 @@ class MembershipController extends Controller
 
             $user->forceFill(['name' => $name, 'gender' => $request->gender, 'date_of_birth' => $request->date_of_birth])->save();
             $profile->person->update(['full_name' => $name, 'phone' => $request->phone, 'gender' => $request->gender]);
-            $profile->update($request->safe()->only(MembershipDetailsRequest::PROFILE_FIELDS));
+            $profile->fill($request->safe()->only(MembershipDetailsRequest::PROFILE_FIELDS));
+
+            // Updating a rejected application sends it back for review
+            if ($profile->status === MemberProfile::STATUS_REJECTED) {
+                $profile->status = MemberProfile::STATUS_PENDING;
+            }
+
+            $profile->save();
         });
 
         if ($request->hasFile('photo')) {

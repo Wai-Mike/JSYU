@@ -2,6 +2,7 @@ import { Link, router, usePage } from '@inertiajs/react';
 import {
     BadgeCheck,
     Building2,
+    ClipboardList,
     Contact,
     ExternalLink,
     FileText,
@@ -14,7 +15,10 @@ import {
     PanelLeftOpen,
     Search,
     ShieldCheck,
+    UserCheck,
     Users,
+    UsersRound,
+    Vote,
     X,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -22,7 +26,7 @@ import Breadcrumbs from '../components/admin/Breadcrumbs';
 import { usePermissions } from '../components/admin/hooks';
 import { sectionImages } from '../constants/sectionImages';
 
-// Only built modules are listed. Each item needs its permission to show; the server enforces it again.
+// Only built modules are listed. Each item needs its permission (or one of several) to show; the server enforces it again.
 const navigationSections = [
     {
         label: null,
@@ -46,6 +50,13 @@ const navigationSections = [
                 permission: 'appointments.view',
             },
             {
+                name: 'Management Teams',
+                route: 'admin.organisation.teams.index',
+                match: 'admin.organisation.teams.*',
+                icon: UsersRound,
+                permission: 'teams.view',
+            },
+            {
                 name: 'People',
                 route: 'admin.organisation.people.index',
                 match: 'admin.organisation.people.*',
@@ -58,6 +69,32 @@ const navigationSections = [
                 match: 'admin.organisation.geography.*',
                 icon: Map,
                 permission: 'geography.view',
+            },
+        ],
+    },
+    {
+        label: 'Youth Management',
+        items: [
+            {
+                name: 'Members',
+                route: 'admin.members.index',
+                match: 'admin.members.*',
+                icon: UserCheck,
+                permission: ['members.view', 'members.review'],
+            },
+            {
+                name: 'Youth Census',
+                route: 'admin.census.index',
+                match: 'admin.census.*',
+                icon: ClipboardList,
+                permission: ['census.view', 'census.collect', 'census.review', 'census.manage'],
+            },
+            {
+                name: 'Elections',
+                route: 'admin.elections.index',
+                match: 'admin.elections.*',
+                icon: Vote,
+                permission: ['elections.view', 'elections.manage'],
             },
         ],
     },
@@ -97,6 +134,18 @@ const breadcrumbMap = [
     { match: 'admin.audit.*', items: [{ label: 'Administration' }, { label: 'Audit Logs' }] },
     { match: 'admin.organisation.units.index', items: [{ label: 'Organisation' }, { label: 'Structure' }] },
     { match: 'admin.organisation.appointments.index', items: [{ label: 'Organisation' }, { label: 'Leadership & Officials' }] },
+    {
+        match: 'admin.organisation.teams.create',
+        items: [{ label: 'Organisation' }, { label: 'Management Teams', href: 'admin.organisation.teams.index' }, { label: 'New team' }],
+    },
+    { match: 'admin.organisation.teams.index', items: [{ label: 'Organisation' }, { label: 'Management Teams' }] },
+    { match: 'admin.census.index', items: [{ label: 'Youth Management' }, { label: 'Youth Census' }] },
+    { match: 'admin.elections.index', items: [{ label: 'Youth Management' }, { label: 'Elections' }] },
+    {
+        match: 'admin.elections.create',
+        items: [{ label: 'Youth Management' }, { label: 'Elections', href: 'admin.elections.index' }, { label: 'New election' }],
+    },
+    { match: 'admin.members.index', items: [{ label: 'Youth Management' }, { label: 'Members' }] },
     { match: 'admin.organisation.people.*', items: [{ label: 'Organisation' }, { label: 'People' }] },
     { match: 'admin.organisation.geography.*', items: [{ label: 'Organisation' }, { label: 'Geography' }] },
 ];
@@ -123,7 +172,7 @@ function userInitials(name) {
 function Sidebar({ collapsed, onToggleCollapse, onNavigate, isDesktop }) {
     const can = usePermissions();
     const sections = navigationSections
-        .map((section) => ({ ...section, items: section.items.filter((item) => can(item.permission)) }))
+        .map((section) => ({ ...section, items: section.items.filter((item) => [].concat(item.permission).some(can)) }))
         .filter((section) => section.items.length > 0);
 
     return (
@@ -131,26 +180,27 @@ function Sidebar({ collapsed, onToggleCollapse, onNavigate, isDesktop }) {
             <Link
                 href={route('admin.dashboard')}
                 onClick={onNavigate}
-                className={`flex items-center gap-3 border-b border-white/10 ${collapsed ? 'justify-center px-3 py-4' : 'px-4 py-4'}`}
+                className={`flex h-14 items-center gap-2.5 border-b border-white/10 ${collapsed ? 'justify-center px-3' : 'px-4'}`}
             >
-                <img src={sectionImages.logo} alt="JSYU" className="h-10 w-10 shrink-0 object-contain" />
+                <img src={sectionImages.logo} alt="JSYU" className="h-8 w-8 shrink-0 object-contain" />
                 {!collapsed && (
-                    <div className="min-w-0">
-                        <p className="text-base font-bold tracking-tight">JSYU Admin</p>
-                        <p className="truncate text-xs leading-tight text-white/55">Jonglei State Youth Union</p>
+                    <div className="min-w-0 leading-tight">
+                        <p className="text-sm font-semibold tracking-tight">JSYU Portal</p>
+                        <p className="truncate text-[11px] text-white/50">Jonglei State Youth Union</p>
                     </div>
                 )}
             </Link>
 
-            <nav className={`flex-1 space-y-4 overflow-y-auto py-3 ${collapsed ? 'px-2' : 'px-3'}`}>
+            <nav className={`flex-1 space-y-5 overflow-y-auto py-4 ${collapsed ? 'px-2' : 'px-3'}`}>
                 {sections.map((section) => (
                     <div key={section.label ?? 'main'}>
-                        {section.label && !collapsed && (
-                            <p className="mb-1.5 px-3 text-xs font-semibold tracking-[0.12em] text-white/40 uppercase">
-                                {section.label}
-                            </p>
-                        )}
-                        <div className="space-y-0.5">
+                        {section.label &&
+                            (collapsed ? (
+                                <div className="mx-2 mb-2 border-t border-white/10" />
+                            ) : (
+                                <p className="mb-1 px-2.5 text-[11px] font-semibold tracking-[0.08em] text-white/40 uppercase">{section.label}</p>
+                            ))}
+                        <div className="space-y-px">
                             {section.items.map((item) => {
                                 const Icon = item.icon;
                                 const active = route().current(item.match);
@@ -161,14 +211,12 @@ function Sidebar({ collapsed, onToggleCollapse, onNavigate, isDesktop }) {
                                         href={route(item.route)}
                                         onClick={onNavigate}
                                         title={collapsed ? item.name : undefined}
-                                        className={`relative flex items-center gap-3 text-[15px] font-medium transition-colors ${
-                                            collapsed ? 'justify-center px-2 py-2' : 'px-3 py-2'
-                                        } ${active ? 'bg-white/12 text-white' : 'text-white/70 hover:bg-white/8 hover:text-white'}`}
+                                        className={`relative flex items-center gap-2.5 text-[13.5px] leading-5 transition-colors ${
+                                            collapsed ? 'justify-center px-2 py-2' : 'px-2.5 py-1.5'
+                                        } ${active ? 'bg-white/12 font-semibold text-white' : 'font-medium text-white/70 hover:bg-white/8 hover:text-white'}`}
                                     >
-                                        {active && (
-                                            <span className="bg-jsyu-accent absolute top-1/2 left-0 h-5 w-0.5 -translate-y-1/2" />
-                                        )}
-                                        <Icon className="h-5 w-5 shrink-0" />
+                                        {active && <span className="bg-jsyu-accent absolute top-1/2 left-0 h-4 w-0.5 -translate-y-1/2" />}
+                                        <Icon className={`h-[18px] w-[18px] shrink-0 ${active ? 'text-jsyu-accent' : ''}`} />
                                         {!collapsed && <span className="truncate">{item.name}</span>}
                                     </Link>
                                 );
@@ -180,11 +228,11 @@ function Sidebar({ collapsed, onToggleCollapse, onNavigate, isDesktop }) {
                 <a
                     href={route('home')}
                     title={collapsed ? 'View website' : undefined}
-                    className={`flex items-center gap-3 text-[15px] font-medium text-white/70 transition-colors hover:bg-white/8 hover:text-white ${
-                        collapsed ? 'justify-center px-2 py-2' : 'px-3 py-2'
+                    className={`flex items-center gap-2.5 border-t border-white/10 pt-4 text-[13.5px] leading-5 font-medium text-white/60 transition-colors hover:text-white ${
+                        collapsed ? 'justify-center px-2' : 'px-2.5'
                     }`}
                 >
-                    <ExternalLink className="h-5 w-5 shrink-0" />
+                    <ExternalLink className="h-[18px] w-[18px] shrink-0" />
                     {!collapsed && <span>View website</span>}
                 </a>
             </nav>
@@ -194,16 +242,16 @@ function Sidebar({ collapsed, onToggleCollapse, onNavigate, isDesktop }) {
                     <button
                         type="button"
                         onClick={onToggleCollapse}
-                        className={`flex w-full items-center gap-2.5 px-3 py-2 text-[15px] font-medium text-white/60 transition-colors hover:bg-white/8 hover:text-white ${
+                        className={`flex w-full items-center gap-2.5 px-2.5 py-1.5 text-[13px] font-medium text-white/50 transition-colors hover:bg-white/8 hover:text-white ${
                             collapsed ? 'justify-center' : ''
                         }`}
                         aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
                     >
                         {collapsed ? (
-                            <PanelLeftOpen className="h-5 w-5" />
+                            <PanelLeftOpen className="h-[18px] w-[18px]" />
                         ) : (
                             <>
-                                <PanelLeftClose className="h-5 w-5" />
+                                <PanelLeftClose className="h-[18px] w-[18px]" />
                                 <span>Collapse</span>
                             </>
                         )}
@@ -346,11 +394,11 @@ export default function AdminLayout({ children, breadcrumbs: breadcrumbsProp }) 
         return () => document.removeEventListener('keydown', onKeyDown);
     }, [sidebarOpen]);
 
-    const sidebarWidth = collapsed ? 'lg:w-[4.5rem]' : 'lg:w-[12.8rem]';
-    const contentPad = collapsed ? 'lg:pl-[4.5rem]' : 'lg:pl-[12.8rem]';
+    const sidebarWidth = collapsed ? 'lg:w-[4rem]' : 'lg:w-[15rem]';
+    const contentPad = collapsed ? 'lg:pl-[4rem]' : 'lg:pl-[15rem]';
 
     return (
-        <div className="bg-admin-canvas min-h-screen">
+        <div className="bg-admin-canvas font-admin min-h-screen">
             <aside className={`fixed inset-y-0 left-0 z-30 hidden transition-[width] duration-200 ${sidebarWidth} lg:block`}>
                 <Sidebar collapsed={collapsed} onToggleCollapse={() => setCollapsed((c) => !c)} isDesktop />
             </aside>
@@ -358,7 +406,7 @@ export default function AdminLayout({ children, breadcrumbs: breadcrumbsProp }) 
             {sidebarOpen && (
                 <div className="fixed inset-0 z-40 lg:hidden">
                     <div className="absolute inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
-                    <aside className="relative h-full w-[12.8rem] max-w-[80%]">
+                    <aside className="relative h-full w-[15rem] max-w-[80%]">
                         <button
                             type="button"
                             onClick={() => setSidebarOpen(false)}
